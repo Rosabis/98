@@ -11,13 +11,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  # The .vcxproj uses `..\bin\$(SolutionName)\$(PlatformName)\$(Configuration)\` as OutDir.
-  # MSBuild leaves $(SolutionName) empty when a project is built directly (not via a
-  # solution), so we pin it here to keep the output path deterministic.
-  SOLUTION_NAME: np21vs2019
-  PROJECT: win9x/np21vs2019.vcxproj
-
 jobs:
   build-win32:
     name: ${{ matrix.configuration }}|Win32
@@ -33,14 +26,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # The np21w tree may sit at the repo root or in a subdirectory; detect it
+      # once here so every later step can use $env:PROJECT / $env:SRC / $env:VERIFY.
+      - name: Resolve project layout
+        run: |
+          $candidates = @(
+            'win9x/np21vs2019.vcxproj',
+            'np21w-src-rev106/win9x/np21vs2019.vcxproj'
+          )
+          $proj = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $proj) {
+            throw "np21vs2019.vcxproj not found in any of: $($candidates -join ', ')"
+          }
+          $src = Split-Path -Parent (Split-Path -Parent $proj)
+          if ([string]::IsNullOrEmpty($src)) { $src = '.' }
+          $verify = Join-Path $src '_verify_project.py'
+          "PROJECT=$proj"      | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "SRC=$src"           | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "VERIFY=$verify"     | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "SOLUTION_NAME=np21vs2019" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Write-Output "project   : $proj"
+          Write-Output "src root  : $src"
+          Write-Output "verify    : $verify"
+
       # Static self-check: catches dangling ClCompile/ClInclude references and
       # malformed .vcxproj/.filters XML before spending minutes on a real build.
+      # A missing helper script is only a warning - it must never block the build.
       - name: Verify project integrity
         run: |
+          if (-not (Test-Path $env:VERIFY)) {
+            Write-Warning "$env:VERIFY not present in this checkout - skipping project verification"
+            exit 0
+          }
           $py = (Get-Command python -ErrorAction SilentlyContinue).Source
           if (-not $py) { $py = (Get-Command py -ErrorAction SilentlyContinue).Source }
-          if (-not $py) { Write-Warning 'python not found, skipping project verification'; exit 0 }
-          & $py _verify_project.py
+          if (-not $py) { Write-Warning 'python not found - skipping project verification'; exit 0 }
+          & $py $env:VERIFY
 
       - name: Install NASM
         run: |
@@ -75,17 +96,30 @@ jobs:
           "MSBUILD=$msbuild" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           & $msbuild -version -nologo
 
-      # The x86 assembler objects come from win9x/x86/vs2010/x86.targets, which
-      # invokes plain `nasm.exe -f win32` from PATH -> NASM must be on PATH.
+      # The .vcxproj pins no PlatformToolset, so the first attempt uses whatever
+      # the installed Visual Studio defaults to (guaranteed to exist). windows-latest
+      # currently ships VS2026, where that is v145 - v143 is only tried as a fallback.
+      # The x86 objects come from win9x/x86/vs2010/x86.targets, which invokes plain
+      # `nasm.exe -f win32` from PATH -> NASM must be on PATH.
+      - name: Build (${{ matrix.configuration }}|Win32, default toolset)
+        id: build_default
+        continue-on-error: true
+        run: |
+          & $env:MSBUILD $env:PROJECT `
+            /p:Configuration=${{ matrix.configuration }} `
+            /p:Platform=Win32 `
+            /p:SolutionName=$env:SOLUTION_NAME `
+            /m /verbosity:minimal /nologo
+
       - name: Build (${{ matrix.configuration }}|Win32, v143)
         id: build143
+        if: steps.build_default.outcome == 'failure'
         continue-on-error: true
         run: |
           & $env:MSBUILD $env:PROJECT `
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=Win32 `
             /p:PlatformToolset=v143 `
-            /p:WindowsTargetPlatformVersion=10.0 `
             /p:SolutionName=$env:SOLUTION_NAME `
             /m /verbosity:minimal /nologo
 
@@ -99,27 +133,29 @@ jobs:
             /p:SolutionName=$env:SOLUTION_NAME `
             /m /verbosity:minimal /nologo
 
-      # Deterministic location first; fall back to a recursive search so a change
-      # of OutDir can never silently produce an empty artifact set.
+      # OutDir is `..\bin\$(SolutionName)\$(PlatformName)\$(Configuration)\` relative to
+      # the vcxproj directory, i.e. `<src root>\bin\...`. Deterministic location first,
+      # then a recursive fallback so a path change can never silently empty the artifact.
       - name: Collect artifacts
         if: always()
         run: |
           New-Item -ItemType Directory -Force -Path 'artifacts' | Out-Null
-          $expected = "bin\$env:SOLUTION_NAME\Win32\${{ matrix.configuration }}"
+          $expected = Join-Path $env:SRC "bin\$env:SOLUTION_NAME\Win32\${{ matrix.configuration }}"
           if (Test-Path $expected) {
             Copy-Item -Path (Join-Path $expected '*') -Destination 'artifacts' -Recurse -Force
           }
           else {
-            Write-Warning "expected output dir '$expected' not found, searching bin\ recursively"
-            if (Test-Path 'bin') {
-              Get-ChildItem -Path 'bin' -Recurse -File -ErrorAction SilentlyContinue |
-                Where-Object { $_.Name -like 'np2*.exe' -or $_.Name -like 'np2*.pdb' -or $_.Name -like 'np2*.map' } |
-                ForEach-Object {
-                  $dest = Join-Path 'artifacts' $_.Directory.Name
-                  New-Item -ItemType Directory -Force -Path $dest | Out-Null
-                  Copy-Item -Path $_.FullName -Destination $dest -Force
-                }
-            }
+            Write-Warning "expected output dir '$expected' not found, searching '$env:SRC' recursively"
+            Get-ChildItem -Path $env:SRC -Recurse -File -ErrorAction SilentlyContinue |
+              Where-Object {
+                $_.FullName -notmatch '\\\.git\\' -and (
+                  $_.Name -like 'np2*.exe' -or $_.Name -like 'np2*.pdb' -or $_.Name -like 'np2*.map')
+              } |
+              ForEach-Object {
+                $dest = Join-Path 'artifacts' $_.Directory.Name
+                New-Item -ItemType Directory -Force -Path $dest | Out-Null
+                Copy-Item -Path $_.FullName -Destination $dest -Force
+              }
           }
           Get-ChildItem -Recurse artifacts -ErrorAction SilentlyContinue |
             Select-Object -First 40 FullName, Length | Format-Table -AutoSize
@@ -150,12 +186,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Resolve project layout
+        run: |
+          $candidates = @(
+            'win9x/np21vs2019.vcxproj',
+            'np21w-src-rev106/win9x/np21vs2019.vcxproj'
+          )
+          $proj = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $proj) {
+            throw "np21vs2019.vcxproj not found in any of: $($candidates -join ', ')"
+          }
+          $src = Split-Path -Parent (Split-Path -Parent $proj)
+          if ([string]::IsNullOrEmpty($src)) { $src = '.' }
+          $verify = Join-Path $src '_verify_project.py'
+          "PROJECT=$proj"      | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "SRC=$src"           | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "VERIFY=$verify"     | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "SOLUTION_NAME=np21vs2019" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Write-Output "project   : $proj"
+          Write-Output "src root  : $src"
+          Write-Output "verify    : $verify"
+
       - name: Verify project integrity
         run: |
+          if (-not (Test-Path $env:VERIFY)) {
+            Write-Warning "$env:VERIFY not present in this checkout - skipping project verification"
+            exit 0
+          }
           $py = (Get-Command python -ErrorAction SilentlyContinue).Source
           if (-not $py) { $py = (Get-Command py -ErrorAction SilentlyContinue).Source }
-          if (-not $py) { Write-Warning 'python not found, skipping project verification'; exit 0 }
-          & $py _verify_project.py
+          if (-not $py) { Write-Warning 'python not found - skipping project verification'; exit 0 }
+          & $py $env:VERIFY
 
       - name: Install NASM and YASM
         run: |
@@ -193,9 +254,20 @@ jobs:
           "MSBUILD=$msbuild" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           & $msbuild -version -nologo
 
-      # The x64 assembler objects come from win9x/x64/vs2010/x64.targets, which
-      # invokes plain `yasm -Xvc -f x64` from PATH -> YASM must be on PATH.
+      # The x64 objects come from win9x/x64/vs2010/x64.targets, which invokes plain
+      # `yasm -Xvc -f x64` from PATH -> YASM must be on PATH.
+      - name: Build (${{ matrix.configuration }}|x64, default toolset)
+        id: build_default
+        continue-on-error: true
+        run: |
+          & $env:MSBUILD $env:PROJECT `
+            /p:Configuration=${{ matrix.configuration }} `
+            /p:Platform=x64 `
+            /p:SolutionName=$env:SOLUTION_NAME `
+            /m /verbosity:minimal /nologo
+
       - name: Build (${{ matrix.configuration }}|x64, v143)
+        if: steps.build_default.outcome == 'failure'
         run: |
           & $env:MSBUILD $env:PROJECT `
             /p:Configuration=${{ matrix.configuration }} `
@@ -208,21 +280,22 @@ jobs:
         if: always()
         run: |
           New-Item -ItemType Directory -Force -Path 'artifacts' | Out-Null
-          $expected = "bin\$env:SOLUTION_NAME\x64\${{ matrix.configuration }}"
+          $expected = Join-Path $env:SRC "bin\$env:SOLUTION_NAME\x64\${{ matrix.configuration }}"
           if (Test-Path $expected) {
             Copy-Item -Path (Join-Path $expected '*') -Destination 'artifacts' -Recurse -Force
           }
           else {
-            Write-Warning "expected output dir '$expected' not found, searching bin\ recursively"
-            if (Test-Path 'bin') {
-              Get-ChildItem -Path 'bin' -Recurse -File -ErrorAction SilentlyContinue |
-                Where-Object { $_.Name -like 'np2*.exe' -or $_.Name -like 'np2*.pdb' -or $_.Name -like 'np2*.map' } |
-                ForEach-Object {
-                  $dest = Join-Path 'artifacts' $_.Directory.Name
-                  New-Item -ItemType Directory -Force -Path $dest | Out-Null
-                  Copy-Item -Path $_.FullName -Destination $dest -Force
-                }
-            }
+            Write-Warning "expected output dir '$expected' not found, searching '$env:SRC' recursively"
+            Get-ChildItem -Path $env:SRC -Recurse -File -ErrorAction SilentlyContinue |
+              Where-Object {
+                $_.FullName -notmatch '\\\.git\\' -and (
+                  $_.Name -like 'np2*.exe' -or $_.Name -like 'np2*.pdb' -or $_.Name -like 'np2*.map')
+              } |
+              ForEach-Object {
+                $dest = Join-Path 'artifacts' $_.Directory.Name
+                New-Item -ItemType Directory -Force -Path $dest | Out-Null
+                Copy-Item -Path $_.FullName -Destination $dest -Force
+              }
           }
           Get-ChildItem -Recurse artifacts -ErrorAction SilentlyContinue |
             Select-Object -First 40 FullName, Length | Format-Table -AutoSize
