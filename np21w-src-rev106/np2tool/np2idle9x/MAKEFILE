@@ -1,0 +1,77 @@
+# NP2IDLE - Windows 98 DDK / MASM and Visual C++ 6.0 build
+#
+# Targets:
+#   vxd    - NP2IDLE.VXD       (Win98 DDK/MASM environment)
+#   ctl    - NP2ICTRL.EXE       (VC6 command prompt)
+#   tray   - NP2ITRAY.EXE      (VC6 command prompt)
+#   setup  - SETUP.EXE  (VC6 command prompt)
+#   apps   - all Win32 applications
+#
+
+NAME=NP2IDLE
+CTLSRC=NP2IDLECTL
+TRAYSRC=NP2IDLETRAY
+SETUPSRC=NP2IDLESETUP
+CTL=NP2ICTRL
+TRAY=NP2ITRAY
+SETUP=SETUP
+
+AFLAGS=-coff -c -Cx -DMASM6 -DBLD_COFF -DIS_32
+LFLAGS=-vxd -def:$(NAME).DEF -map:$(NAME).MAP -out:$(NAME).VXD
+
+CFLAGS=/nologo /W3 /O1 /MT /DWINVER=0x0400 /D_WIN32_WINNT=0x0400
+
+all: vxd apps
+
+vxd: $(NAME).VXD
+
+$(NAME).OBJ: $(NAME).ASM
+	ml $(AFLAGS) -Fo$(NAME).OBJ $(NAME).ASM
+
+$(NAME).VXD: $(NAME).OBJ $(NAME).DEF
+	link $(LFLAGS) $(NAME).OBJ
+
+ctl: $(CTL).EXE
+
+$(CTL).OBJ: $(CTLSRC).C $(NAME).H
+	cl $(CFLAGS) /c /Fo$(CTL).OBJ $(CTLSRC).C
+
+$(CTL).EXE: $(CTL).OBJ
+	link /nologo /subsystem:console,4.0 /machine:I386 /out:$(CTL).EXE $(CTL).OBJ kernel32.lib
+
+tray: $(TRAY).EXE
+
+$(TRAY).OBJ: $(TRAYSRC).C $(NAME).H RESOURCE.H VERSION.H
+	cl $(CFLAGS) /c /Fo$(TRAY).OBJ $(TRAYSRC).C
+
+$(TRAY).RES: $(TRAYSRC).RC RESOURCE.H VERSION.H np2idle.ico
+	rc /fo$(TRAY).RES $(TRAYSRC).RC
+
+$(TRAY).EXE: $(TRAY).OBJ $(TRAY).RES
+	link /nologo /subsystem:windows,4.0 /machine:I386 /out:$(TRAY).EXE $(TRAY).OBJ $(TRAY).RES kernel32.lib user32.lib shell32.lib winmm.lib advapi32.lib
+
+setup: $(SETUP).EXE
+
+$(SETUP).OBJ: $(SETUPSRC).C $(NAME).H RESOURCE.H VERSION.H
+	cl $(CFLAGS) /c /Fo$(SETUP).OBJ $(SETUPSRC).C
+
+$(SETUP).RES: $(SETUPSRC).RC RESOURCE.H VERSION.H np2idle.ico
+	rc /fo$(SETUP).RES $(SETUPSRC).RC
+
+$(SETUP).EXE: $(SETUP).OBJ $(SETUP).RES
+	link /nologo /subsystem:windows,4.0 /machine:I386 /out:$(SETUP).EXE $(SETUP).OBJ $(SETUP).RES kernel32.lib user32.lib advapi32.lib
+
+apps: ctl tray setup
+
+clean:
+	-del $(NAME).OBJ
+	-del $(NAME).VXD
+	-del $(NAME).MAP
+	-del $(CTL).OBJ
+	-del $(CTL).EXE
+	-del $(TRAY).OBJ
+	-del $(TRAY).RES
+	-del $(TRAY).EXE
+	-del $(SETUP).OBJ
+	-del $(SETUP).RES
+	-del $(SETUP).EXE
