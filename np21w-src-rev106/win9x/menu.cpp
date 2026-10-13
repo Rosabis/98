@@ -395,12 +395,10 @@ void xmenu_initialize(HMENU hMenu)
 #endif	//	defined(SUPPORT_PC9821)
 	}
 
-	if (np2oscfg.I286SAVE)
-	{
-		// Expose the debugger on the main menu bar's "Other" submenu as well,
-		// so it is discoverable without opening the system menu (Alt+Space).
-		(void)menu_addmenubyid(hMenu, IDM_ALLOWDRAGDROP, IDR_SYSDEBUG);
-	}
+	// Expose the debugger on the main menu bar's "Other" submenu unconditionally
+	// (do not gate on I286SAVE) so it is always discoverable without opening the
+	// system menu (Alt+Space). The system menu entry below stays I286SAVE-gated.
+	(void)menu_addmenubyid(hMenu, IDM_ALLOWDRAGDROP, IDR_SYSDEBUG);
 }
 
 /**
