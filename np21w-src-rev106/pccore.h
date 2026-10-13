@@ -110,7 +110,7 @@ enum {
  */
 struct tagNP2Config
 {
-	// �G�~�����[�g���ɂ悭�Q�Ƃ����z
+	// ?G?~?????[?g??????Q??????z
 	UINT8	uPD72020;
 	UINT8	DISPSYNC;
 	UINT8	RASTER;
@@ -137,15 +137,15 @@ struct tagNP2Config
 	UINT8	timerfix;
 	
 #if defined(SUPPORT_ASYNC_CPU)
-	UINT8	asynccpu; // �񓯊�CPU���[�h�L��
-	UINT8	asynclvl; // �񓯊�CPU���[�h�������x���i0:����Ŏ�`100:�A�O���b�V�u�j
+	UINT8	asynccpu; // ???CPU???[?h?L??
+	UINT8	asynclvl; // ???CPU???[?h???????x???i0:??????`100:?A?O???b?V?u?j
 #endif
-	UINT8	consttsc; // RDTSC��Async�N���b�N�ύX�ɂ�炸���Ԋu�ɂ���
+	UINT8	consttsc; // RDTSC??Async?N???b?N??X???�y????u?????
 #if defined(SUPPORT_IDEIO)
-	UINT8	idebaddr; // IDE BIOS �A�h���X�i�f�t�H���g�FD8h(D8000h)�j
+	UINT8	idebaddr; // IDE BIOS ?A?h???X?i?f?t?H???g?FD8h(D8000h)?j
 #endif
 	
-	// ���Z�b�g���Ƃ�����܂�Q�Ƃ���Ȃ��z
+	// ???Z?b?g???????????Q????????z
 	OEMCHAR	model[8];
 	UINT	baseclock;
 	UINT	multiple;
@@ -254,9 +254,9 @@ struct tagNP2Config
 	OEMCHAR	idecd[4][MAX_PATH];										// ver0.85w
 	UINT8	idebios;												// ver0.86w rev20
 	UINT8	autoidebios;												// ver0.86w rev36
-	UINT32	iderwait; // IDE�ǂݎ��̊��荞�ݒx������(clock)�B  np21w ver0.86 rev19
-	UINT32	idewwait; // IDE�������݂̊��荞�ݒx������(clock)�B  np21w ver0.86 rev18
-	UINT32	idemwait; // IDE BIOS������ꍇ�̊��荞�ݒx���ŏ��l  np21w ver0.86 rev26 �p�~
+	UINT32	iderwait; // IDE???????????x??????(clock)?B  np21w ver0.86 rev19
+	UINT32	idewwait; // IDE??????????????x??????(clock)?B  np21w ver0.86 rev18
+	UINT32	idemwait; // IDE BIOS??????????????x??????l  np21w ver0.86 rev26 ?p?~
 	UINT8	savecdfile;	
 	UINT8	useasynccd;
 	UINT8	allowcdtraycmd;	
@@ -306,16 +306,16 @@ struct tagNP2Config
 	UINT8	usemodex;
 #endif
 #if defined(SUPPORT_GPIB)
-	UINT8	usegpib; // GPIB�g�p
+	UINT8	usegpib; // GPIB?g?p
 	UINT8	gpibirq; // GPIB IRQ
 	UINT8	gpibmode; // GPIB Master/Slave
 	UINT8	gpibaddr; // GPIB Address
 	UINT8	gpibexio; // GPIB custom I/O port base
 #endif
 #if defined(SUPPORT_PCI)
-	UINT8	usepci; // PCI Bus�g�p
-	UINT8	pci_bios32; // BIOS32�g�p
-	UINT8	pci_pcmc; // PCMC�I��
+	UINT8	usepci; // PCI Bus?g?p
+	UINT8	pci_bios32; // BIOS32?g?p
+	UINT8	pci_pcmc; // PCMC?I??
 #endif
 	
 	UINT8	winntfix;
@@ -327,53 +327,53 @@ struct tagNP2Config
 	
 	UINT8	biosioemu;
 
-	char	cpu_vendor[16]; // �x���_�[�i12byte�j
-	UINT32	cpu_family; // �t�@�~��
-	UINT32	cpu_model; // ���f��
-	UINT32	cpu_stepping; // �X�e�b�s���O
-	UINT32	cpu_feature; // �@�\�t���O
-	UINT32	cpu_feature_ex; // �g���@�\�t���O
-	char	cpu_brandstring[64]; // �u�����h���i48byte�j
-	OEMCHAR	cpu_vendor_o[16]; // �x���_�[�i12byte�jOEMCHAR
-	OEMCHAR	cpu_brandstring_o[64]; // �u�����h���i48byte�jOEMCHAR
-	UINT32	cpu_brandid; // �u�����hID
-	UINT32  cpu_feature_ecx; // ECX�@�\�t���O
-	UINT32  cpu_feature_ex_ecx; // ECX�g���@�\�t���O
-	UINT32  cpu_eflags_mask; // EFLAGS�}�X�N
+	char	cpu_vendor[16]; // ?x???_?[?i12byte?j
+	UINT32	cpu_family; // ?t?@?~??
+	UINT32	cpu_model; // ???f??
+	UINT32	cpu_stepping; // ?X?e?b?s???O
+	UINT32	cpu_feature; // ?@?\?t???O
+	UINT32	cpu_feature_ex; // ?g???@?\?t???O
+	char	cpu_brandstring[64]; // ?u?????h???i48byte?j
+	OEMCHAR	cpu_vendor_o[16]; // ?x???_?[?i12byte?jOEMCHAR
+	OEMCHAR	cpu_brandstring_o[64]; // ?u?????h???i48byte?jOEMCHAR
+	UINT32	cpu_brandid; // ?u?????hID
+	UINT32  cpu_feature_ecx; // ECX?@?\?t???O
+	UINT32  cpu_feature_ex_ecx; // ECX?g???@?\?t???O
+	UINT32  cpu_eflags_mask; // EFLAGS?}?X?N
 	
-	UINT8	fpu_type; // FPU��ށi0=Berkeley SoftFloat, 1=DOSBox FPU, 2=DOSBox FPU+INT64�j
+	UINT8	fpu_type; // FPU???i0=Berkeley SoftFloat, 1=DOSBox FPU, 2=DOSBox FPU+INT64?j
 	
 #if defined(SUPPORT_FAST_MEMORYCHECK)
-	UINT8	memcheckspeed; // �������`�F�b�N���x
+	UINT8	memcheckspeed; // ???????`?F?b?N???x
 #endif
 	
-	UINT8	useram_d; // EPSON�łȂ��Ă�D0000h-DFFFFh��RAM�Ɂi������IDE BIOS D8000h-DBFFFh�͑ʖځj
-	UINT8	usepegcplane; // PEGC �v���[�����[�h�T�|�[�g
+	UINT8	useram_d; // EPSON???????D0000h-DFFFFh??RAM??i??????IDE BIOS D8000h-DBFFFh????j
+	UINT8	usepegcplane; // PEGC ?v???[?????[?h?T?|?[?g
 	
-	UINT8	usecdecc; // CD-ROM EDC/ECC �G�~�����[�V�����T�|�[�g
-	UINT8	cddtskip; // CD-ROM �I�[�f�B�I�Đ����Ƀf�[�^�g���b�N���X�L�b�v
+	UINT8	usecdecc; // CD-ROM EDC/ECC ?G?~?????[?V?????T?|?[?g
+	UINT8	cddtskip; // CD-ROM ?I?[?f?B?I???????f?[?^?g???b?N???X?L?b?v
 
 #if defined(SUPPORT_GAMEPORT)
-	UINT8	gameport; // SB16��118�����̃Q�[���|�[�g���g�p����
-	UINT8	analogjoy; // �Q�[���|�[�g���A�i���O�W���C�X�e�B�b�N�ɂ���
+	UINT8	gameport; // SB16??118??????Q?[???|?[?g???g?p????
+	UINT8	analogjoy; // ?Q?[???|?[?g???A?i???O?W???C?X?e?B?b?N?????
 #endif
-	UINT8	allowMOVCS; // mov cs,xx���߂̎��s��������i8086�j
-	UINT8	usetexthook; // Text Hook��L���ɂ���i�C�O�����j
-	UINT8	rascsi92; // 92�݊���RaSCSI�`��(*.HDN)��ǂ�
-	UINT8	nbeepofs; // BEEP�̏o�̓I�t�Z�b�g������
+	UINT8	allowMOVCS; // mov cs,xx???????s?????????i8086?j
+	UINT8	usetexthook; // Text Hook??L???????i?C?O?????j
+	UINT8	rascsi92; // 92?????RaSCSI?`??(*.HDN)????
+	UINT8	nbeepofs; // BEEP??o??I?t?Z?b?g??????
 
-	SINT64	cal_vofs; // ���z�J�����_�����I�t�Z�b�g(�b)
+	SINT64	cal_vofs; // ???z?J?????_?????I?t?Z?b?g(?b)
 
 #if defined(SUPPORT_NP2SCSI)
-	UINT8	usenp2stor; // np2 SCSI���g�p����
+	UINT8	usenp2stor; // np2 SCSI???g?p????
 #endif
 
 	UINT32	emuspeed; // emulation speed(%)
 
 	OEMCHAR	fontface[256];
 
-	UINT8	slowmous; // 4�r�b�g�؂�̂Ă̒ᑬ�}�E�X���g��
-	UINT8	gdcwovrg; // 98�W���O���t�B�b�N�ŉ�ʕ�80��������F�߂�
+	UINT8	slowmous; // 4?r?b?g????????}?E?X???g??
+	UINT8	gdcwovrg; // 98?W???O???t?B?b?N?????80????????F???
 };
 typedef struct tagNP2Config  NP2CFG;		/*!< The define of config */
 
@@ -389,7 +389,7 @@ typedef struct {
 #else
 	UINT8	extmem;
 #endif
-	UINT8	dipsw[3];		// ���Z�b�g����DIPSW
+	UINT8	dipsw[3];		// ???Z?b?g????DIPSW
 	UINT8	rom;
 
 	SOUNDID sound;

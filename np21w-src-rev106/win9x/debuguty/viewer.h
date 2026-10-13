@@ -1,6 +1,6 @@
 /**
  * @file	viewer.h
- * @brief	DebugUty ï¿½pï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½Nï¿½ï¿½ï¿½Xï¿½ÌéŒ¾ï¿½ï¿½ï¿½ï¿½ÑƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½Cï¿½Xï¿½Ì’ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
+ * @brief	DebugUty ?¿½p?¿½r?¿½?¿½?¿½[?¿½?¿½ ?¿½N?¿½?¿½?¿½X?¿½ÌéŒ¾?¿½?¿½?¿½?¿½ÑƒC?¿½?¿½?¿½^?¿½[?¿½t?¿½F?¿½C?¿½X?¿½Ì’ï¿½`?¿½?¿½?¿½?¿½?¿½Ü‚ï¿½
  */
 
 #pragma once
@@ -9,11 +9,11 @@
 
 class CDebugUtyItem;
 
-//! ï¿½rï¿½ï¿½ï¿½[ï¿½Å‘å”
+//! ?¿½r?¿½?¿½?¿½[?¿½Å‘å”
 #define NP2VIEW_MAX		8
 
 /**
- * @brief ï¿½rï¿½ï¿½ï¿½[ ï¿½Nï¿½ï¿½ï¿½X
+ * @brief ?¿½r?¿½?¿½?¿½[ ?¿½N?¿½?¿½?¿½X
  */
 class CDebugUtyView : public CWndProc
 {
@@ -37,7 +37,7 @@ public:
 	UINT GetItemID() const;
 	bool IsItemLocked() const;
 
-	//! ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼ (viewstat)
+	//! ã‚¹ãƒ?ãƒ¼ã‚¿ã‚¹ãƒã?¼ (viewstat)
 	void OpenStatusBar();
 	void CloseStatusBar();
 	void UpdateStatusBar();
@@ -55,14 +55,14 @@ protected:
 	virtual void PostNcDestroy();
 
 private:
-	bool m_bActive;				//!< ï¿½Aï¿½Nï¿½eï¿½Bï¿½u ï¿½tï¿½ï¿½ï¿½O
-	UINT m_nVPos;				//!< ï¿½Ê’u
-	UINT m_nVLines;				//!< ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½
-	UINT m_nVPage;				//!< 1ï¿½yï¿½[ï¿½Wï¿½Ì•\ï¿½ï¿½ï¿½ï¿½
-	UINT m_nVMultiple;			//!< ï¿½{ï¿½ï¿½
-	CDebugUtyItem* m_lpItem;	//!< ï¿½\ï¿½ï¿½ï¿½Aï¿½Cï¿½eï¿½ï¿½
-	HWND m_hWndStatus;		//!< ï¿½Xï¿½eï¿½bï¿½[ï¿½^ï¿½[ (viewstat)
-	static DWORD sm_dwLastTick;	//!< ï¿½ÅŒï¿½ï¿½Tick
+	bool m_bActive;				//!< ?¿½A?¿½N?¿½e?¿½B?¿½u ?¿½t?¿½?¿½?¿½O
+	UINT m_nVPos;				//!< ?¿½Ê’u
+	UINT m_nVLines;				//!< ?¿½?¿½?¿½C?¿½?¿½?¿½?¿½
+	UINT m_nVPage;				//!< 1?¿½y?¿½[?¿½W?¿½Ì•\?¿½?¿½?¿½?¿½
+	UINT m_nVMultiple;			//!< ?¿½{?¿½?¿½
+	CDebugUtyItem* m_lpItem;	//!< ?¿½\?¿½?¿½?¿½A?¿½C?¿½e?¿½?¿½
+	HWND m_hWndStatus;		//!< ?¿½X?¿½e?¿½b?¿½[?¿½^?¿½[ (viewstat)
+	static DWORD sm_dwLastTick;	//!< ?¿½ÅŒï¿½?¿½Tick
 	void SetMode(UINT nID);
 	void SetSegmentItem(HMENU hMenu, int nId, LPCTSTR lpSegment, UINT nSegment);
 	void UpdateView();
@@ -70,8 +70,8 @@ private:
 };
 
 /**
- * ï¿½ï¿½ï¿½İ‚ÌˆÊ’uï¿½ï¿½Ô‚ï¿½
- * @return ï¿½Ê’u
+ * ?¿½?¿½?¿½İ‚ÌˆÊ’u?¿½?¿½Ô‚ï¿½
+ * @return ?¿½Ê’u
  */
 inline UINT32 CDebugUtyView::GetVScrollPos() const
 {

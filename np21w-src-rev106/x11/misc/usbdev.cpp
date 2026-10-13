@@ -1,6 +1,6 @@
 /**
  * @file	usbdev.cpp
- * @brief	USB アクセス クラスの動作の定義を行います
+ * @brief	USB アクセス クラスの動作�?�定義を行いま�?
  */
 
 #include "compiler.h"
@@ -50,7 +50,7 @@ CUsbDev::CUsbDev()
 }
 
 /**
- * デストラクタ
+ * �?ストラクタ
  */
 CUsbDev::~CUsbDev()
 {
@@ -66,9 +66,9 @@ CUsbDev::~CUsbDev()
  * USB オープン
  * @param[in] vid VID
  * @param[in] pid PID
- * @param[in] nIndex インデックス
+ * @param[in] nIndex イン�?�?クス
  * @retval true 成功
- * @retval false 失敗
+ * @retval false 失�?
  */
 bool CUsbDev::Open(unsigned int vid, unsigned int pid, unsigned int nIndex)
 {
@@ -196,10 +196,10 @@ void CUsbDev::Close()
 
 /**
  * コントロール
- * @param[in] nType タイプ
- * @param[in] nRequest リクエスト
+ * @param[in] nType タイ�?
+ * @param[in] nRequest リクエス�?
  * @param[in] nValue 値
- * @param[in] nIndex インデックス
+ * @param[in] nIndex イン�?�?クス
  * @param[out] lpBuffer バッファ
  * @param[in] cbBuffer バッファ長
  * @return サイズ
@@ -225,7 +225,7 @@ int CUsbDev::CtrlXfer(int nType, int nRequest, int nValue, int nIndex, void* lpB
 }
 
 /**
- * データ送信
+ * �?ータ送信
  * @param[in] lpBuffer バッファ
  * @param[in] cbBuffer バッファ長
  * @return サイズ
@@ -251,7 +251,7 @@ int CUsbDev::WriteBulk(const void* lpBuffer, int cbBuffer)
 }
 
 /**
- * データ受信
+ * �?ータ受信
  * @param[out] lpBuffer バッファ
  * @param[in] cbBuffer バッファ長
  * @return サイズ

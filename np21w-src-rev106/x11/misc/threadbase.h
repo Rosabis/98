@@ -1,6 +1,6 @@
 /**
  * @file	threadbase.h
- * @brief	スレッド基底クラスの宣言およびインターフェイスの定義をします
+ * @brief	スレ�?ド基底クラスの宣言およびインターフェイスの定義をしま�?
  */
 
 #pragma once
@@ -9,7 +9,7 @@
 #include <unistd.h>
 
 /**
- * @brief スレッド基底クラス
+ * @brief スレ�?ド基底クラス
  */
 class CThreadBase
 {
@@ -23,19 +23,19 @@ public:
 	static void Delay(unsigned int usec);
 
 protected:
-	virtual bool Task()=0;		//!< スレッド タスク
+	virtual bool Task()=0;		//!< スレ�?�? タスク
 
 private:
-	pthread_t m_thread;			//!< スレッド フラグ
-	bool m_bCreated;			//!< スレッド作成フラグ
-	bool m_bDone;				//!< 終了フラグ
-	size_t m_stack_size;		//!< スタック サイズ
+	pthread_t m_thread;			//!< スレ�?�? フラグ
+	bool m_bCreated;			//!< スレ�?ド作�?�フラグ
+	bool m_bDone;				//!< 終�?フラグ
+	size_t m_stack_size;		//!< スタ�?ク サイズ
 	static void* StartRoutine(void* arg);
 };
 
 /**
- * スタック サイズの設定
- * @param[in] stack_size スタック サイズ
+ * スタ�?ク サイズの設�?
+ * @param[in] stack_size スタ�?ク サイズ
  */
 inline void CThreadBase::SetStackSize(size_t stack_size)
 {
@@ -43,8 +43,8 @@ inline void CThreadBase::SetStackSize(size_t stack_size)
 }
 
 /**
- * スリープ
- * @param[in] usec マイクロ秒
+ * スリー�?
+ * @param[in] usec マイクロ�?
  */
 inline void CThreadBase::Delay(unsigned int usec)
 {

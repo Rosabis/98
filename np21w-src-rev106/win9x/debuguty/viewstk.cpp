@@ -1,6 +1,6 @@
 /**
  * @file	viewstk.cpp
- * @brief	スタック ビュークラスの実装 (np2debug より移植)
+ * @brief	スタ�?ク ビュークラスの実�? (np2debug より移�?)
  */
 
 #include "compiler.h"
@@ -23,15 +23,15 @@ CDebugUtyStk::CDebugUtyStk(CDebugUtyView* lpView)
 }
 
 /**
- * デストラクタ
+ * �?ストラクタ
  */
 CDebugUtyStk::~CDebugUtyStk()
 {
 }
 
 /**
- * 初期化
- * @param[in] lpItem 引き継ぐアイテム
+ * 初期�?
+ * @param[in] lpItem 引き継ぐアイ�?ム
  */
 void CDebugUtyStk::Initialize(const CDebugUtyItem* lpItem)
 {
@@ -41,7 +41,7 @@ void CDebugUtyStk::Initialize(const CDebugUtyItem* lpItem)
 /**
  * 更新
  * @retval true 更新あり
- * @retval false 更新なし
+ * @retval false 更新な�?
  */
 bool CDebugUtyStk::Update()
 {
@@ -54,9 +54,9 @@ bool CDebugUtyStk::Update()
 }
 
 /**
- * ロック
+ * ロ�?ク
  * @retval true 成功
- * @retval false 失敗
+ * @retval false 失�?
  */
 bool CDebugUtyStk::Lock()
 {
@@ -69,7 +69,7 @@ bool CDebugUtyStk::Lock()
 }
 
 /**
- * アンロック
+ * アンロ�?ク
  */
 void CDebugUtyStk::Unlock()
 {
@@ -77,9 +77,9 @@ void CDebugUtyStk::Unlock()
 }
 
 /**
- * ロック中?
- * @retval true ロック中
- * @retval false ロックされていない
+ * ロ�?ク中?
+ * @retval true ロ�?ク中
+ * @retval false ロ�?クされて�?な�?
  */
 bool CDebugUtyStk::IsLocked()
 {
@@ -87,8 +87,8 @@ bool CDebugUtyStk::IsLocked()
 }
 
 /**
- * 現在カーソルがある物理アドレスを返す
- * @return 物理アドレス
+ * 現在カーソルがある物�?アドレスを返す
+ * @return 物�?アドレス
  */
 UINT32 CDebugUtyStk::GetAddress() const
 {
@@ -97,7 +97,7 @@ UINT32 CDebugUtyStk::GetAddress() const
 
 /**
  * 現在のセグメントを返す
- * @return セグメント
+ * @return セグメン�?
  */
 UINT CDebugUtyStk::GetSegment() const
 {
@@ -105,11 +105,11 @@ UINT CDebugUtyStk::GetSegment() const
 }
 
 /**
- * WM_COMMAND メッセージの処理
+ * WM_COMMAND メ�?セージの処�?
  * @param[in] wParam パラメータ
  * @param[in] lParam パラメータ
- * @retval TRUE 処理した
- * @retval FALSE 処理していない
+ * @retval TRUE 処�?した
+ * @retval FALSE 処�?して�?な�?
  */
 BOOL CDebugUtyStk::OnCommand(WPARAM wParam, LPARAM lParam)
 {
@@ -127,7 +127,7 @@ BOOL CDebugUtyStk::OnCommand(WPARAM wParam, LPARAM lParam)
 }
 
 /**
- * スタック位置を設定する
+ * スタ�?ク位置を設定す�?
  */
 void CDebugUtyStk::SetStack()
 {
@@ -139,7 +139,7 @@ void CDebugUtyStk::SetStack()
 
 /**
  * 描画
- * @param[in] hDC デバイス コンテキスト
+ * @param[in] hDC �?バイス コン�?キス�?
  * @param[in] rect 領域
  */
 void CDebugUtyStk::OnPaint(HDC hDC, const RECT& rect)

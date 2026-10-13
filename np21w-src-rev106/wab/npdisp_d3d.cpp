@@ -3968,7 +3968,7 @@ static UINT32 npdisp_d3d_renderPrimitive(UINT32 lpDataAddr)
 		TRACEOUTD3D(("NPDISP11 D3D_RP_REJECT stage=instruction op=%u stride=%u count=%u", opcode, stride, count));
 		return NPDISP_DDHAL_DRIVER_NOTHANDLED;
 	}
-	// ZVISIBLE queryは描画せず、未実装時は可視として処理する。
+	// ZVISIBLE queryは描画せず、未実�?時�?�可視として処�?する�?
 	if (context->renderStates[NPDISP_D3DRENDERSTATE_ZVISIBLE]) {
 		data.dwStatus &= ~NPDISP_D3DSTATUS_ZNOTVISIBLE;
 		data.ddrval = 0;

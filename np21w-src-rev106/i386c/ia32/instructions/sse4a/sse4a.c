@@ -23,7 +23,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// AMD64 Architecture Programmer’s Manual Volume 4 の説明を見て実装
+// AMD64 Architecture Programmer’s Manual Volume 4 の説明を見て実�?
 	
 #include "compiler.h"
 
@@ -151,7 +151,7 @@ void SSE4a_MOVNTSD(void)
 	data1 = (float*)(&(FPU_STAT.xmm_reg[idx]));
 	if ((op) >= 0xc0)
 	{
-		// XXX: ここはどう扱う?
+		// XXX: ここはど�?扱�??
 		EXCEPTION(UD_EXCEPTION, 0);
 		//data2 = (float*)(&(FPU_STAT.xmm_reg[sub]));
 		//for(i=0;i<4;i++){
@@ -184,7 +184,7 @@ void SSE4a_MOVNTSS(void)
 	data1 = (float*)(&(FPU_STAT.xmm_reg[idx]));
 	if ((op) >= 0xc0)
 	{
-		// XXX: ここはどう扱う?
+		// XXX: ここはど�?扱�??
 		EXCEPTION(UD_EXCEPTION, 0);
 		//data2 = (float*)(&(FPU_STAT.xmm_reg[sub]));
 		//for(i=0;i<4;i++){

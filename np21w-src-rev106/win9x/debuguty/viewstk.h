@@ -1,6 +1,6 @@
 /**
  * @file	viewstk.h
- * @brief	スタック ビュークラスの宣言ヘッダー (np2debug より移植)
+ * @brief	スタ�?ク ビュークラスの宣言ヘッダー (np2debug より移�?)
  */
 
 #pragma once
@@ -10,7 +10,7 @@
 #include "viewmem.h"
 
 /**
- * @brief スタック ビュークラス
+ * @brief スタ�?ク ビュークラス
  */
 class CDebugUtyStk : public CDebugUtyItem
 {
@@ -29,8 +29,8 @@ public:
 	virtual void OnPaint(HDC hDC, const RECT& rect);
 
 private:
-	UINT m_nSegment;							//!< セグメント
-	UINT m_nOffset;								//!< オフセット
+	UINT m_nSegment;							//!< セグメン�?
+	UINT m_nOffset;								//!< オフセ�?�?
 	DebugUtyViewMemory m_mem;					//!< メモリ
 	std::vector<unsigned char> m_buffer;		//!< バッファ
 	void SetStack();

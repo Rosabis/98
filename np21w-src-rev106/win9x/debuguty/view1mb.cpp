@@ -1,6 +1,6 @@
 /**
  * @file	view1mb.cpp
- * @brief	ï¿½ï¿½ï¿½Cï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½Ì“ï¿½ï¿½ï¿½Ì’ï¿½`ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½
+ * @brief	?¿½?¿½?¿½C?¿½?¿½ ?¿½?¿½?¿½?¿½?¿½?¿½?¿½\?¿½?¿½?¿½N?¿½?¿½?¿½X?¿½Ì“ï¿½?¿½?¿½Ì’ï¿½`?¿½?¿½?¿½s?¿½?¿½?¿½Ü‚ï¿½
  */
 
 #include "compiler.h"
@@ -12,8 +12,8 @@
 #include "cpucore.h"
 
 /**
- * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
- * @param[in] lpView ï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½X
+ * ?¿½R?¿½?¿½?¿½X?¿½g?¿½?¿½?¿½N?¿½^
+ * @param[in] lpView ?¿½r?¿½?¿½?¿½[?¿½?¿½ ?¿½C?¿½?¿½?¿½X?¿½^?¿½?¿½?¿½X
  */
 CDebugUty1MB::CDebugUty1MB(CDebugUtyView* lpView)
 	: CDebugUtyItem(lpView, IDM_VIEWMODE1MB)
@@ -21,15 +21,15 @@ CDebugUty1MB::CDebugUty1MB(CDebugUtyView* lpView)
 }
 
 /**
- * ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
+ * ?¿½f?¿½X?¿½g?¿½?¿½?¿½N?¿½^
  */
 CDebugUty1MB::~CDebugUty1MB()
 {
 }
 
 /**
- * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
- * @param[in] lpItem ï¿½î€ï¿½Æ‚È‚ï¿½Aï¿½Cï¿½eï¿½ï¿½
+ * ?¿½?¿½?¿½?¿½?¿½?¿½
+ * @param[in] lpItem ?¿½î€?¿½Æ‚È‚ï¿½A?¿½C?¿½e?¿½?¿½
  */
 void CDebugUty1MB::Initialize(const CDebugUtyItem* lpItem)
 {
@@ -37,9 +37,9 @@ void CDebugUty1MB::Initialize(const CDebugUtyItem* lpItem)
 }
 
 /**
- * ï¿½Xï¿½V
- * @retval true ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
- * @retval false ï¿½Xï¿½Vï¿½È‚ï¿½
+ * ?¿½X?¿½V
+ * @retval true ?¿½X?¿½V?¿½?¿½?¿½?¿½
+ * @retval false ?¿½X?¿½V?¿½È‚ï¿½
  */
 bool CDebugUty1MB::Update()
 {
@@ -52,9 +52,9 @@ bool CDebugUty1MB::Update()
 }
 
 /**
- * ï¿½ï¿½ï¿½bï¿½N
- * @retval true ï¿½ï¿½ï¿½ï¿½
- * @retval false ï¿½ï¿½ï¿½s
+ * ?¿½?¿½?¿½b?¿½N
+ * @retval true ?¿½?¿½?¿½?¿½
+ * @retval false ?¿½?¿½?¿½s
  */
 bool CDebugUty1MB::Lock()
 {
@@ -66,7 +66,7 @@ bool CDebugUty1MB::Lock()
 }
 
 /**
- * ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½bï¿½N
+ * ?¿½A?¿½?¿½?¿½?¿½?¿½b?¿½N
  */
 void CDebugUty1MB::Unlock()
 {
@@ -74,9 +74,9 @@ void CDebugUty1MB::Unlock()
 }
 
 /**
- * ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½?
- * @retval true ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
- * @retval false ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Å‚È‚ï¿½
+ * ?¿½?¿½?¿½b?¿½N?¿½?¿½?
+ * @retval true ?¿½?¿½?¿½b?¿½N?¿½?¿½?¿½Å‚ï¿½?¿½?¿½
+ * @retval false ?¿½?¿½?¿½b?¿½N?¿½?¿½?¿½Å‚È‚ï¿½
  */
 bool CDebugUty1MB::IsLocked()
 {
@@ -84,8 +84,8 @@ bool CDebugUty1MB::IsLocked()
 }
 
 /**
- * ç¾åœ¨ã‚«ãƒ¼ã‚½ãƒ«ãŒã‚ã‚‹ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’è¿”ã™
- * @return ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * ç¾åœ¨ã‚«ãƒ¼ã‚½ãƒ«ãŒã‚ã‚‹ç‰©ç?ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’è¿”ã™
+ * @return ç‰©ç?ã‚¢ãƒ‰ãƒ¬ã‚¹
  */
 UINT32 CDebugUty1MB::GetAddress() const
 {
@@ -94,7 +94,7 @@ UINT32 CDebugUty1MB::GetAddress() const
 
 /**
  * ç¾åœ¨ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã‚’è¿”ã™
- * @return ã‚»ã‚°ãƒ¡ãƒ³ãƒˆ
+ * @return ã‚»ã‚°ãƒ¡ãƒ³ãƒ?
  */
 UINT CDebugUty1MB::GetSegment() const
 {
@@ -102,8 +102,8 @@ UINT CDebugUty1MB::GetSegment() const
 }
 
 /**
- * ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã¸ç§»å‹•ã™ã‚‹
- * @param[in] addr ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * ç‰©ç?ã‚¢ãƒ‰ãƒ¬ã‚¹ã¸ç§»å‹•ã™ã‚?
+ * @param[in] addr ç‰©ç?ã‚¢ãƒ‰ãƒ¬ã‚¹
  */
 void CDebugUty1MB::SetAddress(UINT32 addr)
 {
@@ -111,8 +111,8 @@ void CDebugUty1MB::SetAddress(UINT32 addr)
 }
 
 /**
- * ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã‹ã‚‰èª­ã¿å‡ºã™
- * @param[in] nAddress ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * ç‰©ç?ã‚¢ãƒ‰ãƒ¬ã‚¹ã‹ã‚‰èª­ã¿å‡ºã?
+ * @param[in] nAddress ç‰©ç?ã‚¢ãƒ‰ãƒ¬ã‚¹
  * @param[in] lpBuffer ãƒãƒƒãƒ•ã‚¡
  * @param[in] cbBuffer ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
  */
@@ -122,11 +122,11 @@ void CDebugUty1MB::ReadMemory(UINT32 nAddress, LPVOID lpBuffer, UINT32 cbBuffer)
 }
 
 /**
- * ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½Ú‚ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉAï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Nï¿½É‚ï¿½ï¿½ï¿½ÄŒÄ‚Ñoï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
- * @param[in] wParam ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^
- * @param[in] lParam ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^
- * @retval TRUE ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
- * @retval FALSE ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ?¿½?¿½?¿½[?¿½U?¿½[?¿½?¿½?¿½?¿½?¿½j?¿½?¿½?¿½[?¿½Ìï¿½?¿½Ú‚ï¿½I?¿½?¿½?¿½?¿½?¿½?¿½?¿½Æ‚ï¿½?¿½ÉA?¿½t?¿½?¿½?¿½[?¿½?¿½?¿½?¿½?¿½[?¿½N?¿½É‚ï¿½?¿½?¿½ÄŒÄ‚Ño?¿½?¿½?¿½?¿½Ü‚ï¿½
+ * @param[in] wParam ?¿½p?¿½?¿½?¿½?¿½?¿½^
+ * @param[in] lParam ?¿½p?¿½?¿½?¿½?¿½?¿½^
+ * @retval TRUE ?¿½A?¿½v?¿½?¿½?¿½P?¿½[?¿½V?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½Ì??¿½?¿½b?¿½Z?¿½[?¿½W?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½
+ * @retval FALSE ?¿½A?¿½v?¿½?¿½?¿½P?¿½[?¿½V?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½Ì??¿½?¿½b?¿½Z?¿½[?¿½W?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½È‚ï¿½?¿½?¿½?¿½?¿½
  */
 BOOL CDebugUty1MB::OnCommand(WPARAM wParam, LPARAM lParam)
 {
@@ -160,8 +160,8 @@ BOOL CDebugUty1MB::OnCommand(WPARAM wParam, LPARAM lParam)
 }
 
 /**
- * ï¿½Zï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ÏX
- * @param[in] nSegment ï¿½Zï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½g
+ * ?¿½Z?¿½O?¿½?¿½?¿½?¿½?¿½g?¿½ÏX
+ * @param[in] nSegment ?¿½Z?¿½O?¿½?¿½?¿½?¿½?¿½g
  */
 void CDebugUty1MB::SetSegment(UINT nSegment)
 {
@@ -169,9 +169,9 @@ void CDebugUty1MB::SetSegment(UINT nSegment)
 }
 
 /**
- * ï¿½`ï¿½ï¿½
- * @param[in] hDC ï¿½fï¿½oï¿½Cï¿½X ï¿½Rï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½g
- * @param[in] rect ï¿½Ìˆï¿½
+ * ?¿½`?¿½?¿½
+ * @param[in] hDC ?¿½f?¿½o?¿½C?¿½X ?¿½R?¿½?¿½?¿½e?¿½L?¿½X?¿½g
+ * @param[in] rect ?¿½Ìˆï¿½
  */
 void CDebugUty1MB::OnPaint(HDC hDC, const RECT& rect)
 {

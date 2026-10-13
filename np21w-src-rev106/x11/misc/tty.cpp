@@ -1,6 +1,6 @@
 /**
  * @file	tty.cpp
- * @brief	シリアル通信クラスの動作の定義を行います
+ * @brief	シリアル通信クラスの動作�?�定義を行いま�?
  */
 
 #include "compiler.h"
@@ -104,7 +104,7 @@ CTty::CTty()
 }
 
 /**
- * デストラクタ
+ * �?ストラクタ
  */
 CTty::~CTty()
 {
@@ -113,11 +113,11 @@ CTty::~CTty()
 
 /**
  * オープンする
- * @param[in] bsdPath デバイス
- * @param[in] speed ボーレート
+ * @param[in] bsdPath �?バイス
+ * @param[in] speed ボ�?�レー�?
  * @param[in] param パラメタ
  * @retval true 成功
- * @retval false 失敗
+ * @retval false 失�?
  */
 bool CTty::Open(const char* bsdPath, unsigned int speed, const char* param)
 {
@@ -305,9 +305,9 @@ close:
 }
 
 /**
- * データ受信
- * @param[in] data_ptr 受信データのポインタ
- * @param[in] data_size 受信データのサイズ
+ * �?ータ受信
+ * @param[in] data_ptr 受信�?ータのポインタ
+ * @param[in] data_size 受信�?ータのサイズ
  * @return 送信サイズ
  */
 ssize_t CTty::Read(void* data_ptr, ssize_t data_size)
@@ -322,9 +322,9 @@ ssize_t CTty::Read(void* data_ptr, ssize_t data_size)
 }
 
 /**
- * データ送信
- * @param[in] data_ptr 送信データのポインタ
- * @param[in] data_size 送信データのサイズ
+ * �?ータ送信
+ * @param[in] data_ptr 送信�?ータのポインタ
+ * @param[in] data_size 送信�?ータのサイズ
  * @return 送信サイズ
  */
 ssize_t CTty::Write(const void* data_ptr, ssize_t data_size)
@@ -339,11 +339,11 @@ ssize_t CTty::Write(const void* data_ptr, ssize_t data_size)
 }
 
 /**
- * パラメータ設定
+ * パラメータ設�?
  * @param[in] param パラメタ
  * @param[out] cflag_ptr フラグ
  * @retval true 成功
- * @retval false 失敗
+ * @retval false 失�?
  */
 bool CTty::SetParam(const char* param, tcflag_t* cflag_ptr)
 {

@@ -1165,7 +1165,7 @@ sdlaudio_callback(void *userdata, unsigned char *stream, int len)
 	struct sndbuf *sndbuf;
 
 #if !defined(USE_SDLMIXER) && SDL_VERSION_ATLEAST(2, 0, 0)
-	/* SDL2 から SDL 側で stream を無音で初期化しなくなった */
+	/* SDL2 から SDL 側で stream を無音で初期化しなくなっ�? */
 	memset(stream, sound_silence, len);
 #endif
 

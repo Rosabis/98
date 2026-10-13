@@ -1,6 +1,6 @@
 /**
  * @file	viewmenu.cpp
- * @brief	DebugUty ビューメニュー処理の実装 (np2debug より移植)
+ * @brief	DebugUty ビューメニュー処�?の実�? (np2debug より移�?)
  */
 
 #include "compiler.h"
@@ -13,7 +13,7 @@
 #define	MFCHECK(a)	((a) ? MF_CHECKED : MF_UNCHECKED)
 
 /**
- * モードのラジオチェック
+ * モード�?�ラジオチェ�?ク
  * @param[in] lpView ビュー
  */
 void viewmenu_mode(CDebugUtyView* lpView)
@@ -29,7 +29,7 @@ void viewmenu_mode(CDebugUtyView* lpView)
 }
 
 /**
- * ロックのチェック
+ * ロ�?クのチェ�?ク
  * @param[in] lpView ビュー
  */
 void viewmenu_lock(CDebugUtyView* lpView)
@@ -43,9 +43,9 @@ void viewmenu_lock(CDebugUtyView* lpView)
 }
 
 /**
- * デバッグメニューの有効 / 無効
+ * �?バッグメニューの有効 / 無効
  * @param[in] lpView ビュー
- * @param[in] bRunning 実行中か
+ * @param[in] bRunning 実行中�?
  */
 void viewmenu_debug_toggle(CDebugUtyView* lpView, BOOL bRunning)
 {

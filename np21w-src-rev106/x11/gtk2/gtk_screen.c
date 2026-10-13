@@ -52,7 +52,7 @@ typedef struct {
 
 	PAL16MASK	pal16mask;
 
-	RECT_T		scrn;		/* drawarea 内の描画領域位置 */
+	RECT_T		scrn;		/* drawarea �?の描画領域位置 */
 	RECT_T		rect;		/* drawarea に描画するサイズ */
 
 	/* toolkit depend */
@@ -87,7 +87,7 @@ GtkWidget *drawarea;
 #define	BYTES_PER_PIXEL	3
 
 /*
- * drawarea のアスペクト比を 4:3 (640x480) にする。
+ * drawarea のアスペクト比を 4:3 (640x480) にする�?
  */
 static void
 adapt_aspect(int width, int height, int scrnwidth, int scrnheight)

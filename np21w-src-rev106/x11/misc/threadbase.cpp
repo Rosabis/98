@@ -1,6 +1,6 @@
 /**
  * @file	threadbase.cpp
- * @brief	スレッド基底クラスの動作の定義を行います
+ * @brief	スレ�?ド基底クラスの動作�?�定義を行いま�?
  */
 
 #include "compiler.h"
@@ -17,7 +17,7 @@ CThreadBase::CThreadBase()
 }
 
 /**
- * デストラクタ
+ * �?ストラクタ
  */
 CThreadBase::~CThreadBase()
 {
@@ -25,7 +25,7 @@ CThreadBase::~CThreadBase()
 }
 
 /**
- * スレッド開始
+ * スレ�?ド開�?
  * @retval true 成功
  */
 bool CThreadBase::Start()
@@ -35,7 +35,7 @@ bool CThreadBase::Start()
 		return false;
 	}
 
-	/* スタック サイズ調整 */
+	/* スタ�?ク サイズ調整 */
 	pthread_attr_t tattr;
 	::pthread_attr_init(&tattr);
 	if (m_stack_size != 0)
@@ -54,7 +54,7 @@ bool CThreadBase::Start()
 }
 
 /**
- * スレッド終了
+ * スレ�?ド終�?
  * @retval true 成功
  */
 void CThreadBase::Stop()
@@ -68,7 +68,7 @@ void CThreadBase::Stop()
 }
 
 /**
- * スレッド処理
+ * スレ�?ド�?��?
  * @param[in] arg this ポインタ
  * @retval 0 常に0
  */

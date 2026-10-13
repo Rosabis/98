@@ -101,7 +101,7 @@ exception(int num, int error_code)
 	}
 
 	switch (num) {
-	case UD_EXCEPTION:	/* (F) �����I�y�R�[�h */
+	case UD_EXCEPTION:	/* (F) ?????I?y?R?[?h */
 		//ia32_warning("warning: undefined op!");
 		//{ // TEST!!
 		//	UINT32 op[5];
@@ -112,34 +112,34 @@ exception(int num, int error_code)
 		//	GET_PCBYTE(op[3]);
 		//	GET_PCBYTE(op[4]);
 		//}
-	case DE_EXCEPTION:	/* (F) ���Z�G���[ */
-	case DB_EXCEPTION:	/* (F/T) �f�o�b�O */
-	case BR_EXCEPTION:	/* (F) BOUND �͈̔͊O */
-	case NM_EXCEPTION:	/* (F) �f�o�C�X�g�p�s�� (FPU ������) */
-	case MF_EXCEPTION:	/* (F) ���������_�G���[ */
+	case DE_EXCEPTION:	/* (F) ???Z?G???[ */
+	case DB_EXCEPTION:	/* (F/T) ?f?o?b?O */
+	case BR_EXCEPTION:	/* (F) BOUND ????O */
+	case NM_EXCEPTION:	/* (F) ?f?o?C?X?g?p?s?? (FPU ??????) */
+	case MF_EXCEPTION:	/* (F) ?????????_?G???[ */
 		CPU_EIP = CPU_PREV_EIP;
 		if (CPU_STATSAVE.cpu_stat.backout_sp)
 			CPU_ESP = CPU_PREV_ESP;
 		/*FALLTHROUGH*/
-	case NMI_EXCEPTION:	/* (I) NMI ���荞�� */
-	case BP_EXCEPTION:	/* (T) �u���[�N�|�C���g */
-	case OF_EXCEPTION:	/* (T) �I�[�o�[�t���[ */
+	case NMI_EXCEPTION:	/* (I) NMI ?????? */
+	case BP_EXCEPTION:	/* (T) ?u???[?N?|?C???g */
+	case OF_EXCEPTION:	/* (T) ?I?[?o?[?t???[ */
 		errorp = 0;
 		break;
 
-	case DF_EXCEPTION:	/* (A) �_�u���t�H���g (errcode: 0) */
+	case DF_EXCEPTION:	/* (A) ?_?u???t?H???g (errcode: 0) */
 		errorp = 1;
 		error_code = 0;
 		break;
 
-	case AC_EXCEPTION:	/* (F) �A���C�������g�`�F�b�N (errcode: 0) */
+	case AC_EXCEPTION:	/* (F) ?A???C???????g?`?F?b?N (errcode: 0) */
 		error_code = 0;
 		/*FALLTHROUGH*/
-	case TS_EXCEPTION:	/* (F) ���� TSS (errcode) */
-	case NP_EXCEPTION:	/* (F) �Z�O�����g�s�� (errcode) */
-	case SS_EXCEPTION:	/* (F) �X�^�b�N�Z�O�����g�t�H���g (errcode) */
-	case GP_EXCEPTION:	/* (F) ��ʕی��O (errcode) */
-	case PF_EXCEPTION:	/* (F) �y�[�W�t�H���g (errcode) */
+	case TS_EXCEPTION:	/* (F) ???? TSS (errcode) */
+	case NP_EXCEPTION:	/* (F) ?Z?O?????g?s?? (errcode) */
+	case SS_EXCEPTION:	/* (F) ?X?^?b?N?Z?O?????g?t?H???g (errcode) */
+	case GP_EXCEPTION:	/* (F) ??????O (errcode) */
+	case PF_EXCEPTION:	/* (F) ?y?[?W?t?H???g (errcode) */
 		CPU_EIP = CPU_PREV_EIP;
 		if (CPU_STATSAVE.cpu_stat.backout_sp)
 			CPU_ESP = CPU_PREV_ESP;
@@ -168,22 +168,22 @@ exception(int num, int error_code)
 }
 
 /*
- * �R�[���E�Q�[�g�E�f�B�X�N���v�^
+ * ?R?[???E?Q?[?g?E?f?B?X?N???v?^
  *
  *  31                                16 15 14 13 12       8 7   5 4       0
  * +------------------------------------+--+-----+----------+-----+---------+
- * |         �I�t�Z�b�g 31..16          | P| DPL | 0 D 1 0 0|0 0 0|�J�E���g | 4
+ * |         ?I?t?Z?b?g 31..16          | P| DPL | 0 D 1 0 0|0 0 0|?J?E???g | 4
  * +------------------------------------+--+-----+----------+-----+---------+
  *  31                                16 15                                0
  * +------------------------------------+-----------------------------------+
- * |        �Z�O�����g�E�Z���N�^        |          �I�t�Z�b�g 15..0         | 0
+ * |        ?Z?O?????g?E?Z???N?^        |          ?I?t?Z?b?g 15..0         | 0
  * +------------------------------------+-----------------------------------+
  */
 
 /*
- * ���荞�݃f�B�X�N���v�^
+ * ??????f?B?X?N???v?^
  *--
- * �^�X�N�E�Q�[�g
+ * ?^?X?N?E?Q?[?g
  *
  *  31                                16 15 14 13 12       8 7             0
  * +------------------------------------+--+-----+----------+---------------+
@@ -191,36 +191,36 @@ exception(int num, int error_code)
  * +------------------------------------+--+-----+----------+---------------+
  *  31                                16 15                                0
  * +------------------------------------+-----------------------------------+
- * |      TSS �Z�O�����g�E�Z���N�^      |              Reserved             | 0
+ * |      TSS ?Z?O?????g?E?Z???N?^      |              Reserved             | 0
  * +------------------------------------+-----------------------------------+
  *--
- * ���荞�݁E�Q�[�g
+ * ??????E?Q?[?g
  *
  *  31                                16 15 14 13 12       8 7   5 4       0
  * +------------------------------------+--+-----+----------+-----+---------+
- * |         �I�t�Z�b�g 31..16          | P| DPL | 0 D 1 1 0|0 0 0|Reserved | 4
+ * |         ?I?t?Z?b?g 31..16          | P| DPL | 0 D 1 1 0|0 0 0|Reserved | 4
  * +------------------------------------+--+-----+----------+-----+---------+
  *  31                                16 15                                0
  * +------------------------------------+-----------------------------------+
- * |        �Z�O�����g�E�Z���N�^        |          �I�t�Z�b�g 15..0         | 0
+ * |        ?Z?O?????g?E?Z???N?^        |          ?I?t?Z?b?g 15..0         | 0
  * +------------------------------------+-----------------------------------+
  *--
- * �g���b�v�E�Q�[�g
+ * ?g???b?v?E?Q?[?g
  *
  *  31                                16 15 14 13 12       8 7   5 4       0
  * +------------------------------------+--+-----+----------+-----+---------+
- * |         �I�t�Z�b�g 31..16          | P| DPL | 0 D 1 1 1|0 0 0|Reserved | 4
+ * |         ?I?t?Z?b?g 31..16          | P| DPL | 0 D 1 1 1|0 0 0|Reserved | 4
  * +------------------------------------+--+-----+----------+-----+---------+
  *  31                                16 15                                0
  * +------------------------------------+-----------------------------------+
- * |        �Z�O�����g�E�Z���N�^        |          �I�t�Z�b�g 15..0         | 0
+ * |        ?Z?O?????g?E?Z???N?^        |          ?I?t?Z?b?g 15..0         | 0
  * +------------------------------------+-----------------------------------+
  *--
- * DPL        : �f�B�X�N���v�^�������x��
- * �I�t�Z�b�g : �v���V�[�W���E�G���g���E�|�C���g�܂ł̃I�t�Z�b�g
- * P          : �Z�O�����g���݃t���O
- * �Z���N�^   : �f�B�X�e�B�l�[�V�����E�R�[�h�E�Z�O�����g�̃Z�O�����g�E�Z���N�^
- * D          : �Q�[�g�̃T�C�Y�D0 = 16 bit, 1 = 32 bit
+ * DPL        : ?f?B?X?N???v?^???????x??
+ * ?I?t?Z?b?g : ?v???V?[?W???E?G???g???E?|?C???g????I?t?Z?b?g
+ * P          : ?Z?O?????g????t???O
+ * ?Z???N?^   : ?f?B?X?e?B?l?[?V?????E?R?[?h?E?Z?O?????g??Z?O?????g?E?Z???N?^
+ * D          : ?Q?[?g??T?C?Y?D0 = 16 bit, 1 = 32 bit
  */
 
 static void CPUCALL interrupt_task_gate(const descriptor_t *gsdp, int intrtype, int errorp, int error_code);
@@ -320,7 +320,7 @@ interrupt(int num, int intrtype, int errorp, int error_code)
 			break;
 		}
 
-		/* 5.10.1.1. ��O�^���荞�݃n���h���E�v���V�[�W���̕ی� */
+		/* 5.10.1.1. ??O?^??????n???h???E?v???V?[?W?????? */
 		if ((intrtype == INTR_TYPE_SOFTINTR) && (gsd.dpl < CPU_STAT_CPL)) {
 			VERBOSE(("interrupt: intrtype(softint) && DPL(%d) < CPL(%d)", gsd.dpl, CPU_STAT_CPL));
 			EXCEPTION(GP_EXCEPTION, exc_errcode);
@@ -637,11 +637,11 @@ interrupt_intr_or_trap(const descriptor_t *gsdp, int intrtype, int errorp, int e
 		}
 		/*
 		 * 17.1
-		 * �R�[���Q�[�g�A���荞�݃Q�[�g�A�܂��̓g���b�v�Q�[�g��ʂ���
-		 * �v���O�����̐���𑼂̃R�[�h�E�Z�O�����g�Ɉڍs����Ƃ��́A
-		 * �ڍs���Ɏg�p�����I�y�����h�E�T�C�Y�͎g�p�����Q�[�g��
-		 * �^�C�v�i16 �r�b�g�܂���32 �r�b�g�j�ɂ���Č��܂�i�ڍs��
-		 * �߂�D �t���O�A�v���t�B�b�N�X�̂�����ɂ����Ȃ��j�B
+		 * ?R?[???Q?[?g?A??????Q?[?g?A?????g???b?v?Q?[?g??????
+		 * ?v???O???????????R?[?h?E?Z?O?????g???s????????A
+		 * ??s????g?p?????I?y?????h?E?T?C?Y??g?p?????Q?[?g??
+		 * ?^?C?v?i16 ?r?b?g?????32 ?r?b?g?j??????????i??s??
+		 * ???D ?t???O?A?v???t?B?b?N?X???????????????j?B
 		 */
 		SS_PUSH_CHECK1(sp, stacksize, is32bit);
 

@@ -1,6 +1,6 @@
 /**
  * @file	viewasm.cpp
- * @brief	ï¿½Aï¿½Zï¿½ï¿½ï¿½uï¿½ï¿½ ï¿½ï¿½ï¿½Xï¿½gï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½Ì“ï¿½ï¿½ï¿½Ì’ï¿½`ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½
+ * @brief	?¿½A?¿½Z?¿½?¿½?¿½u?¿½?¿½ ?¿½?¿½?¿½X?¿½g?¿½\?¿½?¿½?¿½N?¿½?¿½?¿½X?¿½Ì“ï¿½?¿½?¿½Ì’ï¿½`?¿½?¿½?¿½s?¿½?¿½?¿½Ü‚ï¿½
  */
 
 #include "compiler.h"
@@ -13,8 +13,8 @@
 #include "cpucore.h"
 
 /**
- * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
- * @param[in] lpView ï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½X
+ * ?¿½R?¿½?¿½?¿½X?¿½g?¿½?¿½?¿½N?¿½^
+ * @param[in] lpView ?¿½r?¿½?¿½?¿½[?¿½?¿½ ?¿½C?¿½?¿½?¿½X?¿½^?¿½?¿½?¿½X
  */
 CDebugUtyAsm::CDebugUtyAsm(CDebugUtyView* lpView)
 	: CDebugUtyItem(lpView, IDM_VIEWMODEASM)
@@ -24,15 +24,15 @@ CDebugUtyAsm::CDebugUtyAsm(CDebugUtyView* lpView)
 }
 
 /**
- * ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
+ * ?¿½f?¿½X?¿½g?¿½?¿½?¿½N?¿½^
  */
 CDebugUtyAsm::~CDebugUtyAsm()
 {
 }
 
 /**
- * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
- * @param[in] lpItem ï¿½î€ï¿½Æ‚È‚ï¿½Aï¿½Cï¿½eï¿½ï¿½
+ * ?¿½?¿½?¿½?¿½?¿½?¿½
+ * @param[in] lpItem ?¿½î€?¿½Æ‚È‚ï¿½A?¿½C?¿½e?¿½?¿½
  */
 void CDebugUtyAsm::Initialize(const CDebugUtyItem* lpItem)
 {
@@ -42,9 +42,9 @@ void CDebugUtyAsm::Initialize(const CDebugUtyItem* lpItem)
 }
 
 /**
- * ï¿½Xï¿½V
- * @retval true ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
- * @retval false ï¿½Xï¿½Vï¿½È‚ï¿½
+ * ?¿½X?¿½V
+ * @retval true ?¿½X?¿½V?¿½?¿½?¿½?¿½
+ * @retval false ?¿½X?¿½V?¿½È‚ï¿½
  */
 bool CDebugUtyAsm::Update()
 {
@@ -62,9 +62,9 @@ bool CDebugUtyAsm::Update()
 }
 
 /**
- * ï¿½ï¿½ï¿½bï¿½N
- * @retval true ï¿½ï¿½ï¿½ï¿½
- * @retval false ï¿½ï¿½ï¿½s
+ * ?¿½?¿½?¿½b?¿½N
+ * @retval true ?¿½?¿½?¿½?¿½
+ * @retval false ?¿½?¿½?¿½s
  */
 bool CDebugUtyAsm::Lock()
 {
@@ -77,7 +77,7 @@ bool CDebugUtyAsm::Lock()
 }
 
 /**
- * ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½bï¿½N
+ * ?¿½A?¿½?¿½?¿½?¿½?¿½b?¿½N
  */
 void CDebugUtyAsm::Unlock()
 {
@@ -86,9 +86,9 @@ void CDebugUtyAsm::Unlock()
 }
 
 /**
- * ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½?
- * @retval true ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
- * @retval false ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Å‚È‚ï¿½
+ * ?¿½?¿½?¿½b?¿½N?¿½?¿½?
+ * @retval true ?¿½?¿½?¿½b?¿½N?¿½?¿½?¿½Å‚ï¿½?¿½?¿½
+ * @retval false ?¿½?¿½?¿½b?¿½N?¿½?¿½?¿½Å‚È‚ï¿½
  */
 bool CDebugUtyAsm::IsLocked()
 {
@@ -112,8 +112,8 @@ UINT CDebugUtyAsm::GetSegment() const
 }
 
 /**
- * ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã¸ç§»å‹•ã™ã‚‹
- * @param[in] addr ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * ç‰©ç?ã‚¢ãƒ‰ãƒ¬ã‚¹ã¸ç§»å‹•ã™ã‚?
+ * @param[in] addr ç‰©ç?ã‚¢ãƒ‰ãƒ¬ã‚¹
  */
 void CDebugUtyAsm::SetAddress(UINT32 addr)
 {
@@ -124,8 +124,8 @@ void CDebugUtyAsm::SetAddress(UINT32 addr)
 }
 
 /**
- * ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã‹ã‚‰èª­ã¿å‡ºã™
- * @param[in] nAddress ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * ç‰©ç?ã‚¢ãƒ‰ãƒ¬ã‚¹ã‹ã‚‰èª­ã¿å‡ºã?
+ * @param[in] nAddress ç‰©ç?ã‚¢ãƒ‰ãƒ¬ã‚¹
  * @param[in] lpBuffer ãƒãƒƒãƒ•ã‚¡
  * @param[in] cbBuffer ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
  */
@@ -135,9 +135,9 @@ void CDebugUtyAsm::ReadMemory(UINT32 nAddress, LPVOID lpBuffer, UINT32 cbBuffer)
 }
 
 /**
- * ï¿½`ï¿½ï¿½
- * @param[in] hDC ï¿½fï¿½oï¿½Cï¿½X ï¿½Rï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½g
- * @param[in] rect ï¿½Ìˆï¿½
+ * ?¿½`?¿½?¿½
+ * @param[in] hDC ?¿½f?¿½o?¿½C?¿½X ?¿½R?¿½?¿½?¿½e?¿½L?¿½X?¿½g
+ * @param[in] rect ?¿½Ìˆï¿½
  */
 void CDebugUtyAsm::OnPaint(HDC hDC, const RECT& rect)
 {
@@ -203,10 +203,10 @@ void CDebugUtyAsm::OnPaint(HDC hDC, const RECT& rect)
 }
 
 /**
- * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
- * @param[in] nOffset ï¿½Iï¿½tï¿½Zï¿½bï¿½g
- * @param[out] lpBuffer ï¿½oï¿½bï¿½tï¿½@
- * @param[in] cbBuffer ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½
+ * ?¿½?¿½?¿½?¿½?¿½?¿½?¿½æ“¾
+ * @param[in] nOffset ?¿½I?¿½t?¿½Z?¿½b?¿½g
+ * @param[out] lpBuffer ?¿½o?¿½b?¿½t?¿½@
+ * @param[in] cbBuffer ?¿½o?¿½b?¿½t?¿½@?¿½?¿½
  */
 void CDebugUtyAsm::ReadMemory(UINT nOffset, unsigned char* lpBuffer, UINT cbBuffer) const
 {

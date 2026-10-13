@@ -1,6 +1,6 @@
 /**
  * @file	viewcmn.cpp
- * @brief	DebugUty ビュー共通処理の実装 (np2debug より移植)
+ * @brief	DebugUty ビュー共通�?��?の実�? (np2debug より移�?)
  */
 
 #include "compiler.h"
@@ -106,7 +106,7 @@ void viewcmn_toggle_breakpoint(UINT32 addr)
 	np2break_t flag = *np2break_lookup_real(addr);
 	if (flag & NP2BP_EXECUTE)
 	{
-		// 実行ブレークポイントは読み書きも兼ねる
+		// 実行ブレークポイント�?�読み書きも兼ね�?
 		np2break_toggle_real(addr, NP2BP_READ | NP2BP_WRITE);
 	}
 	else

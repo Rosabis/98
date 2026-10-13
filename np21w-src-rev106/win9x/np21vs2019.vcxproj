@@ -191,7 +191,7 @@
       <DelayLoadDLLs>d3d9.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
     <NASM>
-      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </NASM>
     <ResourceCompile>
       <PreprocessorDefinitions>_UNICODE;UNICODE;SUPPORT_PC9821;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -221,10 +221,10 @@
       <DelayLoadDLLs>d3d9.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
     <NASM>
-      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </NASM>
     <YASM>
-      <AdditionalOptions>-I.\x64\ -I..\i386c\x64\ -I..\io\x64\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x64\ -I..\i386c\x64\ -I..\io\x64\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </YASM>
     <ResourceCompile>
       <PreprocessorDefinitions>_WIN64;_UNICODE;UNICODE;SUPPORT_PC9821;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -261,7 +261,7 @@
       <FunctionOrder>funcorder.txt</FunctionOrder>
     </Link>
     <NASM>
-      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </NASM>
     <ResourceCompile>
       <PreprocessorDefinitions>_UNICODE;UNICODE;SUPPORT_PC9821;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -298,7 +298,7 @@
       <LargeAddressAware>true</LargeAddressAware>
     </Link>
     <NASM>
-      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </NASM>
     <ResourceCompile>
       <PreprocessorDefinitions>_UNICODE;UNICODE;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_LARGE_MEMORY;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_WAB_NPDISP;SUPPORT_NPDISP_W2K;SUPPORT_CL_GD5430;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;SUPPORT_PCI;SUPPORT_SCRN_DIRECT3D;SUPPORT_FAST_MEMORYCHECK;SUPPORT_PEGC;SUPPORT_SMPU98;SUPPORT_WACOM_TABLET;SUPPORT_RS232C_FIFO;SUPPORT_NAMED_PIPE;SUPPORT_IA32_HAXM;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;USE_FASTPAGING;USE_VME;BIOS_IO_EMULATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -337,10 +337,10 @@
       <LargeAddressAware>true</LargeAddressAware>
     </Link>
     <NASM>
-      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </NASM>
     <YASM>
-      <AdditionalOptions>-I.\x64\ -I..\i386c\x64\ -I..\io\x64\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x64\ -I..\i386c\x64\ -I..\io\x64\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </YASM>
     <ResourceCompile>
       <PreprocessorDefinitions>_WIN64;_UNICODE;UNICODE;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_CL_GD5430;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -378,10 +378,10 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
     </Link>
     <NASM>
-      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </NASM>
     <YASM>
-      <AdditionalOptions>-I.\x64\ -I..\i386c\x64\ -I..\io\x64\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x64\ -I..\i386c\x64\ -I..\io\x64\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </YASM>
     <ResourceCompile>
       <PreprocessorDefinitions>_WIN64;_UNICODE;UNICODE;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_LARGE_MEMORY;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_WAB_NPDISP;SUPPORT_NPDISP_W2K;SUPPORT_CL_GD5430;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;SUPPORT_PCI;SUPPORT_SCRN_DIRECT3D;SUPPORT_FAST_MEMORYCHECK;SUPPORT_PEGC;SUPPORT_SMPU98;SUPPORT_WACOM_TABLET;SUPPORT_RS232C_FIFO;SUPPORT_NAMED_PIPE;SUPPORT_IA32_HAXM;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;USE_FASTPAGING;USE_VME;BIOS_IO_EMULATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -420,10 +420,10 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
     </Link>
     <NASM>
-      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x86\ -I..\i386c\x86\ -I..\io\x86\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </NASM>
     <YASM>
-      <AdditionalOptions>-I.\x64\ -I..\i386c\x64\ -I..\io\x64\ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I.\x64\ -I..\i386c\x64\ -I..\io\x64\ /source-charset:.932 /execution-charset:.932 %(AdditionalOptions)</AdditionalOptions>
     </YASM>
     <ResourceCompile>
       <PreprocessorDefinitions>_WIN64;_UNICODE;UNICODE;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_LARGE_MEMORY;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_WAB_NPDISP;SUPPORT_NPDISP_W2K;SUPPORT_CL_GD5430;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;SUPPORT_PCI;SUPPORT_SCRN_DIRECT3D;SUPPORT_FAST_MEMORYCHECK;SUPPORT_PEGC;SUPPORT_SMPU98;SUPPORT_WACOM_TABLET;SUPPORT_RS232C_FIFO;SUPPORT_NAMED_PIPE;SUPPORT_IA32_WHPX;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;USE_FASTPAGING;USE_VME;BIOS_IO_EMULATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>

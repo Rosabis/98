@@ -62,7 +62,7 @@ typedef struct {
 void dosio_init(void);
 void dosio_term(void);
 
-/* ファイル操作 */
+/* ファイル操�? */
 FILEH file_open(const OEMCHAR *path);
 FILEH file_open_rw(const OEMCHAR *path);
 FILEH file_open_rb(const OEMCHAR *path);
@@ -86,7 +86,7 @@ short file_rename(const OEMCHAR *oldpath, const OEMCHAR *newpath);
 short file_dircreate(const OEMCHAR *path);
 short file_dirdelete(const OEMCHAR *path);
 
-/* カレントファイル操作 */
+/* カレントファイル操�? */
 void file_setcd(const OEMCHAR *exepath);
 char *file_getcd(const OEMCHAR *sjis);
 FILEH file_open_c(const OEMCHAR *sjis);

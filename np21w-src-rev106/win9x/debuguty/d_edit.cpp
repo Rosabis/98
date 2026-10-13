@@ -1,6 +1,6 @@
 /**
  * @file	d_edit.cpp
- * @brief	メモリ編集 / 検索ダイアログの実装 (np2debug より移植)
+ * @brief	メモリ編�? / 検索ダイアログの実�? (np2debug より移�?)
  */
 
 #include "compiler.h"
@@ -26,9 +26,9 @@ static const DWORD s_editCodepages[] =
 static EDITDATA s_editData = { { 0 }, { 0 }, 0, IDC_EDIT_TYPE_HEX };
 static EDITDATA s_findData = { { 0 }, { 0 }, 0, IDC_EDIT_TYPE_HEX };
 
-/// 16 進文字列をバイト列に変換する
+/// 16 進�?字�?�をバイト�?�に変換する
 /// -----------------------------
-//! 空白は読み飛ばし、16 進桁 2 つで 1 バイト。奇数桁目は無視される。
+//! 空白は読み飛�?�し�?16 進�? 2 つで 1 バイト。�?数桁目は無視される�?
 //! @return 変換されたバイト数
 static int dedit_hexbuf(UINT8* lpBuffer, int nBufferSize, LPCTSTR lpszString)
 {
@@ -73,13 +73,13 @@ static int dedit_hexbuf(UINT8* lpBuffer, int nBufferSize, LPCTSTR lpszString)
 	return nLen;
 }
 
-/// ダイアログの文字列をバイト列に変換する
+/// ダイアログの�?字�?�をバイト�?�に変換する
 static void dedit_str_to_bytes(EDITDATA* lpData, HWND hWnd, int nItem)
 {
 	GetDlgItemText(hWnd, nItem, lpData->str, MAX_EDIT_STR);
 	if (lpData->codepage)
 	{
-		// 終端の null は除く
+		// 終端の null は除�?
 		lpData->bytes_len = WideCharToMultiByte(lpData->codepage, 0, lpData->str, -1,
 			(LPSTR)lpData->bytes, MAX_EDIT_STR * 3, NULL, NULL) - 1;
 	}
@@ -89,7 +89,7 @@ static void dedit_str_to_bytes(EDITDATA* lpData, HWND hWnd, int nItem)
 	}
 }
 
-/// ラジオボタンの選択をデータ型に反映する
+/// ラジオボタンの選択を�?ータ型に反映する
 static void dedit_get_type(EDITDATA* lpData, HWND hWnd)
 {
 	for (int i = 0; i < NELEMENTS(s_editTypes); i++)
@@ -111,7 +111,7 @@ static INT_PTR CALLBACK dedit_base_proc(EDITDATA* lpData, HWND hWnd, UINT msg, W
 			SendDlgItemMessage(hWnd, lpData->type, BM_SETCHECK, BST_CHECKED, 0);
 			SetDlgItemText(hWnd, IDC_EDIT_STR, lpData->str);
 			SendDlgItemMessage(hWnd, IDC_EDIT_STR, EM_SETSEL, 0, -1);
-			// WM_COMMAND を発生させて以前の文字列を消してしまうので最後に設定
+			// WM_COMMAND を発生させて以前�?��?字�?�を消してしま�?ので最後に設�?
 			SendMessage(hWnd, WM_NEXTDLGCTL, (WPARAM)GetDlgItem(hWnd, IDC_EDIT_STR), TRUE);
 			break;
 

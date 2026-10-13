@@ -1,6 +1,6 @@
 /**
  * @file	tty.h
- * @brief	シリアル通信クラスの宣言およびインターフェイスの定義をします
+ * @brief	シリアル通信クラスの宣言およびインターフェイスの定義をしま�?
  */
 
 #pragma once
@@ -22,13 +22,13 @@ public:
 	bool IsOpened() const;
 
 private:
-	int m_fd;		//!< ファイル ディスクリプタ
+	int m_fd;		//!< ファイル �?ィスクリプタ
 	static bool SetParam(const char* param, tcflag_t* cflag_ptr);
 };
 
 /**
- * オープン済?
- * @retval true オープン済
+ * オープン�??
+ * @retval true オープン�?
  * @retval false 未オープン
  */
 inline bool CTty::IsOpened() const

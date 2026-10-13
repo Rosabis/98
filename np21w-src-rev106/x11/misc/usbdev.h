@@ -1,6 +1,6 @@
 /**
  * @file	usbdev.h
- * @brief	USB アクセス クラスの宣言およびインターフェイスの定義をします
+ * @brief	USB アクセス クラスの宣言およびインターフェイスの定義をしま�?
  */
 
 #pragma once
@@ -35,8 +35,8 @@ private:
 };
 
 /**
- * オープン済?
- * @retval true オープン済
+ * オープン�??
+ * @retval true オープン�?
  * @retval false 未オープン
  */
 inline bool CUsbDev::IsOpened() const

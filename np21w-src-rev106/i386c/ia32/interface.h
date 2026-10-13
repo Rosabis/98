@@ -59,9 +59,9 @@
 #define	CPU_SETEXTSIZE(size)		ia32_setextsize((UINT32)(size) << 20)
 #define CPU_SETEMM(frame, addr)		ia32_setemm(frame, addr)
 
- // USE_LEGACY_MEMORY_ACCESSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Í‹ï¿½ï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½
+ // USE_LEGACY_MEMORY_ACCESS?¿½?¿½?¿½?¿½?¿½?¿½ê??¿½Í‹ï¿½?¿½?¿½?¿½[?¿½`?¿½?¿½?¿½?¿½?¿½g?¿½p?¿½?¿½?¿½?¿½
 #if defined(USE_LEGACY_MEMORY_ACCESS)
-// ï¿½ï¿½ï¿½ï¿½
+// ?¿½?¿½?¿½?¿½
 #define	cpu_memorywrite(a,v)	memp_write8(a,v)
 #define	cpu_memorywrite_b(a,v)	memp_write8(a,v)
 #define	cpu_memorywrite_w(a,v)	memp_write16(a,v)
@@ -95,7 +95,7 @@
 #endif
 
 #else
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ?¿½?¿½?¿½?¿½?¿½?¿½
 #define	cpu_memorywrite(a,v)	memp_write8_fast(a,v)
 #define	cpu_memorywrite_b(a,v)	memp_write8_fast(a,v)
 #define	cpu_memorywrite_w(a,v)	memp_write16_fast(a,v)

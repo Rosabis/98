@@ -8,7 +8,7 @@
 #include	"unasmfpu.tbl"
 #include	"cpucore.h"
 
-/* np2debug: i286x/i286c には存在しないマクロのフォールバック */
+/* np2debug: i286x/i286c には存在しな�?マクロのフォールバック */
 #ifndef CPU_REGS_SREG
 #define	CPU_REGS_SREG(n)	(CPU_DS)
 #endif
@@ -77,7 +77,7 @@ static char *set_hex(char *str, UINT32 value, UINT bit) {
 
 // ----
 
-// np2debug: 16ビット実アドレス計算のベースレジスタ値
+// np2debug: 16ビット実アドレス計算�?�ベ�?�スレジスタ値
 static UINT32 lea_var(UINT8 op)	{
 
 	switch(op)	{
@@ -205,7 +205,7 @@ const UINT8	*term;
 	ctl >>= 22;
 	p = r->operand;
 
-	// np2debug: メモリオペランド情報の初期化
+	// np2debug: メモリオペランド情報の初期�?
 	r->meminf[MI_WRITE].type = type;
 	r->meminf[MI_READ].type = ctl;
 	r->meminf[MI_READ].off = r->meminf[MI_WRITE].off = 0;
@@ -560,7 +560,7 @@ opeana_str:
 			break;
 
 		case OP1_FEA:
-			if (ope >= 0xc0) {				// �L�蓾�Ȃ�����
+			if (ope >= 0xc0) {				// ?��L?��蓾?��Ȃ�?��?��?��?��
 				p = set_reg(p, regtype + (ope & 7));
 				break;
 			}

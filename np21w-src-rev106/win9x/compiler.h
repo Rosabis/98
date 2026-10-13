@@ -164,8 +164,8 @@ typedef	signed __int64		SINT64;
 #define	IA32_REBOOT_ON_PANIC
 #define	SUPPORT_CRT31KHZ
 #define	SUPPORT_PC9801_119
-// ãƒ‡ãƒãƒƒã‚°ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ï¼ˆãƒ–ãƒ¬ãƒ¼ã‚¯ãƒã‚¤ãƒ³ãƒˆãƒ»ã‚·ãƒ³ã‚°ãƒ«ã‚¹ãƒ†ãƒƒãƒ—ãƒ»ã‚¹ãƒ†ãƒƒãƒ—ã‚ªãƒ¼ãƒãƒ¼ï¼‰
-// å®Ÿè£…ã¯ break.cpp / i386c/ia32/interface.c / pccore.c ã‚’å‚ç…§
+// ƒfƒoƒbƒOƒ†[ƒeƒBƒŠƒeƒBiƒuƒŒ[ƒNƒ|ƒCƒ“ƒgEƒVƒ“ƒOƒ‹ƒXƒeƒbƒvEƒXƒeƒbƒvƒI[ƒo[j
+// À‘•‚Í break.cpp / i386c/ia32/interface.c / pccore.c ‚ğQÆ
 #define	SUPPORT_NP2BREAK
 #endif
 #define	SUPPORT_CRT15KHZ
@@ -204,12 +204,12 @@ typedef	signed __int64		SINT64;
 
 #define	SUPPORT_TEXTCNV
 
-// ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½Gï¿½~ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
+// ?v?????^?G?~?????[?V????
 #define SUPPORT_PRINT_PR201
 #define SUPPORT_PRINT_ESCP
 
 #if (_MSC_VER + 0) <= 1600
-// VS2017 ï¿½ï¿½ï¿½Ã‚ï¿½ï¿½ê‡
+// VS2017 ???????
 #define SUPPORT_WIN2000HOST
 #endif
 

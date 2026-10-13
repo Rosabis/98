@@ -116,7 +116,7 @@ ia32reset(void)
 	if (!np2hax.emumode)
 	{
 		np2haxstat.update_regs = np2haxstat.update_fpu = 0;
-		// HAXMï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ÉƒRï¿½sï¿½[
+		// HAXM?¿½?¿½?¿½W?¿½X?¿½^?¿½?¿½?¿½L?¿½?¿½?¿½W?¿½X?¿½^?¿½ÉƒR?¿½s?¿½[
 		ia32hax_copyregHAXtoNP2();
 	}
 #endif
@@ -127,11 +127,11 @@ ia32reset(void)
 	if (!np2whpx.emumode)
 	{
 		np2whpxstat.update_regs = np2whpxstat.update_fpu = 0;
-		// WHPXï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ÉƒRï¿½sï¿½[
+		// WHPX?¿½?¿½?¿½W?¿½X?¿½^?¿½?¿½?¿½L?¿½?¿½?¿½W?¿½X?¿½^?¿½ÉƒR?¿½s?¿½[
 		ia32whpx_copyregWHPXtoNP2();
 	}
 #endif
-	// MMIOï¿½}ï¿½bï¿½vï¿½ï¿½ï¿½Zï¿½bï¿½g
+	// MMIO?¿½}?¿½b?¿½v?¿½?¿½?¿½Z?¿½b?¿½g
 	memp_mmio_map_reset();
 }
 
@@ -147,7 +147,7 @@ ia32shut(void)
 	if (!np2hax.emumode)
 	{
 		np2haxstat.update_regs = np2haxstat.update_fpu = 0;
-		// HAXMï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ÉƒRï¿½sï¿½[
+		// HAXM?¿½?¿½?¿½W?¿½X?¿½^?¿½?¿½?¿½L?¿½?¿½?¿½W?¿½X?¿½^?¿½ÉƒR?¿½s?¿½[
 		ia32hax_copyregHAXtoNP2();
 	}
 #endif
@@ -158,7 +158,7 @@ ia32shut(void)
 	if (!np2whpx.emumode)
 	{
 		np2whpxstat.update_regs = np2whpxstat.update_fpu = 0;
-		// WHPXï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ÉƒRï¿½sï¿½[
+		// WHPX?¿½?¿½?¿½W?¿½X?¿½^?¿½?¿½?¿½L?¿½?¿½?¿½W?¿½X?¿½^?¿½ÉƒR?¿½s?¿½[
 		ia32whpx_copyregWHPXtoNP2();
 	}
 #endif

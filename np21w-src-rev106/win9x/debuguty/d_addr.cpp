@@ -1,6 +1,6 @@
 /**
  * @file	d_addr.cpp
- * @brief	アドレス入力ダイアログの実装 (np2debug より移植)
+ * @brief	アドレス入力ダイアログの実�? (np2debug より移�?)
  */
 
 #include "compiler.h"
@@ -12,7 +12,7 @@
 #include "..\misc\WndProc.h"
 #include "d_addr.h"
 
-/// 16/32 ビットレジスタ名
+/// 16/32 ビットレジスタ�?
 /// --------------------
 static const LPCTSTR s_regNames[] =
 {
@@ -81,7 +81,7 @@ enum
 static bool daddr_blockchange = false;
 static UINT32 daddr_seg, daddr_off;
 
-/// seg:off → real アドレスを表示に反映する
+/// seg:off �? real アドレスを表示に反映する
 static void daddr_calc(HWND hWnd)
 {
 	TCHAR work[32];
@@ -139,7 +139,7 @@ static INT_PTR CALLBACK daddr_proc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 					daddr_blockchange = true;
 					GetDlgItemText(hWnd, LOWORD(wParam), work, 6);
 					len = lstrlen(work);
-					// セグメントが埋まったらオフセットへ進む
+					// セグメントが埋まったらオフセ�?トへ進む
 					if ((len == 4) && (LOWORD(wParam) == IDC_ADDR_SEG))
 					{
 						SendMessage(hWnd, WM_NEXTDLGCTL, (WPARAM)GetDlgItem(hWnd, IDC_ADDR_OFF), TRUE);

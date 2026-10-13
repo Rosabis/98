@@ -1,6 +1,6 @@
 /**
  *	@file	ini.cpp
- *	@brief	�ݒ�t�@�C�� �A�N�Z�X�̓���̒�`���s���܂�
+ *	@brief	???t?@?C?? ?A?N?Z?X???????`???s?????
  */
 
 #include "compiler.h"
@@ -16,9 +16,9 @@
 // ---- user type
 
 /**
- * 16�r�b�g�z���ǂݍ���
- * @param[in] lpString ������
- * @param[out] ini �ݒ�e�[�u��
+ * 16?r?b?g?z????????
+ * @param[in] lpString ??????
+ * @param[out] ini ???e?[?u??
  */
 static void inirdargs16(LPCTSTR lpString, const PFTBL* ini)
 {
@@ -50,9 +50,9 @@ static void inirdargs16(LPCTSTR lpString, const PFTBL* ini)
 }
 
 /**
- * 3�o�C�g��ǂݍ���
- * @param[in] lpString ������
- * @param[out] ini �ݒ�e�[�u��
+ * 3?o?C?g???????
+ * @param[in] lpString ??????
+ * @param[out] ini ???e?[?u??
  */
 static void inirdbyte3(LPCTSTR lpString, const PFTBL* ini)
 {
@@ -71,9 +71,9 @@ static void inirdbyte3(LPCTSTR lpString, const PFTBL* ini)
 }
 
 /**
- * �L�[�{�[�h�ݒ��ǂݍ���
- * @param[in] lpString ������
- * @param[out] ini �ݒ�e�[�u��
+ * ?L?[?{?[?h?????????
+ * @param[in] lpString ??????
+ * @param[out] ini ???e?[?u??
  */
 static void inirdkb(LPCTSTR lpString, const PFTBL* ini)
 {
@@ -96,10 +96,10 @@ static void inirdkb(LPCTSTR lpString, const PFTBL* ini)
 
 #if !defined(_UNICODE)
 /**
- * �r�b�g��ݒ�
- * @param[in,out] lpBuffer �o�b�t�@
- * @param[in] nPos �ʒu
- * @param[in] set �Z�b�g or �N���A
+ * ?r?b?g????
+ * @param[in,out] lpBuffer ?o?b?t?@
+ * @param[in] nPos ??u
+ * @param[in] set ?Z?b?g or ?N???A
  */
 static void bitmapset(void* lpBuffer, UINT nPos, BOOL set)
 {
@@ -116,10 +116,10 @@ static void bitmapset(void* lpBuffer, UINT nPos, BOOL set)
 }
 
 /**
- * �r�b�g�𓾂�
- * @param[in] lpBuffer �o�b�t�@
- * @param[in] nPos �ʒu
- * @return �r�b�g
+ * ?r?b?g???
+ * @param[in] lpBuffer ?o?b?t?@
+ * @param[in] nPos ??u
+ * @return ?r?b?g
  */
 static BOOL bitmapget(const void* lpBuffer, UINT nPos)
 {
@@ -129,10 +129,10 @@ static BOOL bitmapget(const void* lpBuffer, UINT nPos)
 }
 
 /**
- * �o�C�i�����A���V���A���C�Y
- * @param[out] lpBin �o�C�i��
- * @param[in] cbBin �o�C�i���̃T�C�Y
- * @param[in] lpString ������o�b�t�@
+ * ?o?C?i?????A???V???A???C?Y
+ * @param[out] lpBin ?o?C?i??
+ * @param[in] cbBin ?o?C?i????T?C?Y
+ * @param[in] lpString ??????o?b?t?@
  */
 static void binset(void* lpBin, UINT cbBin, LPCTSTR lpString)
 {
@@ -156,11 +156,11 @@ static void binset(void* lpBin, UINT cbBin, LPCTSTR lpString)
 }
 
 /**
- * �o�C�i�����V���A���C�Y
- * @param[out] lpString ������o�b�t�@
- * @param[in] cchString ������o�b�t�@��
- * @param[in] lpBin �o�C�i��
- * @param[in] cbBin �o�C�i���̃T�C�Y
+ * ?o?C?i?????V???A???C?Y
+ * @param[out] lpString ??????o?b?t?@
+ * @param[in] cchString ??????o?b?t?@??
+ * @param[in] lpBin ?o?C?i??
+ * @param[in] cbBin ?o?C?i????T?C?Y
  */
 static void binget(LPTSTR lpString, int cchString, const void* lpBin, UINT cbBin)
 {
@@ -180,11 +180,11 @@ static void binget(LPTSTR lpString, int cchString, const void* lpBin, UINT cbBin
 }
 
 /**
- * �ݒ�ǂݏo��
- * @param[in] lpPath �p�X
- * @param[in] lpTitle �^�C�g��
- * @param[in] lpTable �ݒ�e�[�u��
- * @param[in] nCount �ݒ�e�[�u�� �A�C�e����
+ * ?????o??
+ * @param[in] lpPath ?p?X
+ * @param[in] lpTitle ?^?C?g??
+ * @param[in] lpTable ???e?[?u??
+ * @param[in] nCount ???e?[?u?? ?A?C?e????
  */
 void ini_read(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount)
 {
@@ -275,11 +275,11 @@ void ini_read(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount
 }
 
 /**
- * �ݒ菑������
- * @param[in] lpPath �p�X
- * @param[in] lpTitle �^�C�g��
- * @param[in] lpTable �ݒ�e�[�u��
- * @param[in] nCount �ݒ�e�[�u�� �A�C�e����
+ * ?????????
+ * @param[in] lpPath ?p?X
+ * @param[in] lpTitle ?^?C?g??
+ * @param[in] lpTable ???e?[?u??
+ * @param[in] nCount ???e?[?u?? ?A?C?e????
  */
 void ini_write(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount)
 {
@@ -364,9 +364,9 @@ void ini_write(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCoun
 // ---- Use profile.c
 
 /**
- * �R�[���o�b�N
- * @param[in] item �A�C�e��
- * @param[in] lpString ������
+ * ?R?[???o?b?N
+ * @param[in] item ?A?C?e??
+ * @param[in] lpString ??????
  */
 static void UserReadItem(const PFTBL* item, LPCTSTR lpString)
 {
@@ -387,11 +387,11 @@ static void UserReadItem(const PFTBL* item, LPCTSTR lpString)
 }
 
 /**
- * �ݒ�ǂݎ��
- * @param[in] lpPath �p�X
- * @param[in] lpTitle �^�C�g��
- * @param[in] lpTable �ݒ�e�[�u��
- * @param[in] nCount �ݒ�e�[�u�� �A�C�e����
+ * ???????
+ * @param[in] lpPath ?p?X
+ * @param[in] lpTitle ?^?C?g??
+ * @param[in] lpTable ???e?[?u??
+ * @param[in] nCount ???e?[?u?? ?A?C?e????
  */
 void ini_read(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount)
 {
@@ -399,11 +399,11 @@ void ini_read(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount
 }
 
 /**
- * �ݒ菑������
- * @param[in] lpPath �p�X
- * @param[in] lpTitle �^�C�g��
- * @param[in] lpTable �ݒ�e�[�u��
- * @param[in] nCount �ݒ�e�[�u�� �A�C�e����
+ * ?????????
+ * @param[in] lpPath ?p?X
+ * @param[in] lpTitle ?^?C?g??
+ * @param[in] lpTable ???e?[?u??
+ * @param[in] nCount ???e?[?u?? ?A?C?e????
  */
 void ini_write(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount)
 {
@@ -416,13 +416,13 @@ void ini_write(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCoun
 // ----
 
 #if !defined(SUPPORT_PC9821)
-static const TCHAR s_szIniTitle[] = TEXT("NekoProjectII");		//!< �A�v����
+static const TCHAR s_szIniTitle[] = TEXT("NekoProjectII");		//!< ?A?v????
 #else
-static const TCHAR s_szIniTitle[] = TEXT("NekoProject21");		//!< �A�v����
+static const TCHAR s_szIniTitle[] = TEXT("NekoProject21");		//!< ?A?v????
 #endif
 
 /**
- * �ǉ��ݒ�
+ * ??????
  */
 enum
 {
@@ -438,7 +438,7 @@ enum
 };
 
 /**
- * OS �ݒ� �e�[�u��
+ * OS ??? ?e?[?u??
  */
 static const PFTBL s_IniItems[] =
 {
@@ -486,7 +486,7 @@ static const PFTBL s_IniItems[] =
 #endif
 	PFVAL("ITF_WORK", PFTYPE_BOOL,		&np2cfg.ITF_WORK),
 	
-	PFVAL("USE_BIOS", PFTYPE_BOOL,		&np2cfg.usebios),  // ���@BIOS�g�p
+	PFVAL("USE_BIOS", PFTYPE_BOOL,		&np2cfg.usebios),  // ???@BIOS?g?p
 	
 	PFVAL("SVFDFILE", PFTYPE_BOOL,		&np2cfg.savefddfile),
 	PFSTR("FDD1FILE", PFTYPE_STR,		np2cfg.fddfile[0]),
@@ -509,8 +509,8 @@ static const PFTBL s_IniItems[] =
 	PFVAL("IDE2TYPE", PFTYPE_UINT8,		&np2cfg.idetype[1]),
 	PFVAL("IDE3TYPE", PFTYPE_UINT8,		&np2cfg.idetype[2]),
 	PFVAL("IDE4TYPE", PFTYPE_UINT8,		&np2cfg.idetype[3]),
-	PFVAL("IDE_BIOS", PFTYPE_BOOL,		&np2cfg.idebios),  // ���@IDE BIOS�g�p
-	PFVAL("AIDEBIOS", PFTYPE_BOOL,		&np2cfg.autoidebios),  // ���@IDE BIOS�g�p�������ݒ肷��
+	PFVAL("IDE_BIOS", PFTYPE_BOOL,		&np2cfg.idebios),  // ???@IDE BIOS?g?p
+	PFVAL("AIDEBIOS", PFTYPE_BOOL,		&np2cfg.autoidebios),  // ???@IDE BIOS?g?p???????????
 	PFVAL("IDERWAIT", PFTYPE_UINT32,	&np2cfg.iderwait),
 	PFVAL("IDEWWAIT", PFTYPE_UINT32,	&np2cfg.idewwait),
 	PFVAL("IDEMWAIT", PFTYPE_UINT32,	&np2cfg.idemwait),
@@ -679,11 +679,11 @@ static const PFTBL s_IniItems[] =
 	
 	PFVAL("WINNTFIX", PFTYPE_BOOL,		&np2cfg.winntfix),
 	
-	PFVAL("SYSIOMSK", PFTYPE_HEX16,		&np2cfg.sysiomsk), // �V�X�e��IO�}�X�N
+	PFVAL("SYSIOMSK", PFTYPE_HEX16,		&np2cfg.sysiomsk), // ?V?X?e??IO?}?X?N
 	
-	PFMAX("MEMCHKMX", PFTYPE_UINT8,		&np2cfg.memchkmx,		0), // �������`�F�b�N����ő�T�C�Y�i�ŏ���15MB�E0�͐��������E�������`�F�b�N�������̂��������ǌ�������J�E���g�����͂��Ă��������l�����j
-	PFMAX("SBEEPLEN", PFTYPE_UINT8,		&np2cfg.sbeeplen,		0), // �s�|���̒����i0�Ńf�t�H���g�E4��NP2�W���j
-	PFVAL("SBEEPADJ", PFTYPE_BOOL,		&np2cfg.sbeepadj), // �s�|���̒�����������
+	PFMAX("MEMCHKMX", PFTYPE_UINT8,		&np2cfg.memchkmx,		0), // ???????`?F?b?N??????T?C?Y?i?????15MB?E0??????????E???????`?F?b?N????????????????????????J?E???g?????????????????l?????j
+	PFMAX("SBEEPLEN", PFTYPE_UINT8,		&np2cfg.sbeeplen,		0), // ?s?|????????i0??f?t?H???g?E4??NP2?W???j
+	PFVAL("SBEEPADJ", PFTYPE_BOOL,		&np2cfg.sbeepadj), // ?s?|???????????????
 
 	PFVAL("BIOSIOEM", PFTYPE_BOOL,		&np2cfg.biosioemu), // np21w ver0.86 rev46 BIOS I/O emulation
 	
@@ -699,25 +699,25 @@ static const PFTBL s_IniItems[] =
 	PFVAL("cpu_fxcx", PFTYPE_HEX32,		&np2cfg.cpu_feature_ex_ecx),
 	PFVAL("cpu_eflg", PFTYPE_HEX32,		&np2cfg.cpu_eflags_mask),
 
-	PFVAL("FPU_TYPE", PFTYPE_UINT8,		&np2cfg.fpu_type), // FPU���
+	PFVAL("FPU_TYPE", PFTYPE_UINT8,		&np2cfg.fpu_type), // FPU???
 	
 #if defined(SUPPORT_FAST_MEMORYCHECK)
 	PFVAL("memckspd", PFTYPE_UINT8,		&np2cfg.memcheckspeed),
 #endif
 	
-	PFVAL("USERAM_D", PFTYPE_BOOL,		&np2cfg.useram_d), // EPSON�łȂ��Ă�D0000h-DFFFFh��RAM�Ɂi������IDE BIOS D8000h-DBFFFh�͑ʖځj
-	PFVAL("USEPEGCP", PFTYPE_BOOL,		&np2cfg.usepegcplane), // PEGC �v���[�����[�h�T�|�[�g
+	PFVAL("USERAM_D", PFTYPE_BOOL,		&np2cfg.useram_d), // EPSON???????D0000h-DFFFFh??RAM??i??????IDE BIOS D8000h-DBFFFh????j
+	PFVAL("USEPEGCP", PFTYPE_BOOL,		&np2cfg.usepegcplane), // PEGC ?v???[?????[?h?T?|?[?g
 	
-	PFVAL("USECDECC", PFTYPE_BOOL,		&np2cfg.usecdecc), // CD-ROM EDC/ECC �G�~�����[�V�����T�|�[�g
-	PFVAL("CDDTSKIP", PFTYPE_BOOL,		&np2cfg.cddtskip), // CD-ROM �I�[�f�B�I�Đ����Ƀf�[�^�g���b�N���X�L�b�v
+	PFVAL("USECDECC", PFTYPE_BOOL,		&np2cfg.usecdecc), // CD-ROM EDC/ECC ?G?~?????[?V?????T?|?[?g
+	PFVAL("CDDTSKIP", PFTYPE_BOOL,		&np2cfg.cddtskip), // CD-ROM ?I?[?f?B?I???????f?[?^?g???b?N???X?L?b?v
 	
 #if defined(SUPPORT_ASYNC_CPU)
-	PFVAL("ASYNCCPU", PFTYPE_BOOL,		&np2cfg.asynccpu), // �񓯊�CPU���[�h�L��
-	PFVAL("ASYNCLVL", PFTYPE_UINT8,		&np2cfg.asynclvl), // �񓯊�CPU���[�h�������x���i0:����Ŏ�`100:�A�O���b�V�u�j
+	PFVAL("ASYNCCPU", PFTYPE_BOOL,		&np2cfg.asynccpu), // ???CPU???[?h?L??
+	PFVAL("ASYNCLVL", PFTYPE_UINT8,		&np2cfg.asynclvl), // ???CPU???[?h???????x???i0:??????`100:?A?O???b?V?u?j
 #endif
-	PFVAL("CONSTTSC", PFTYPE_BOOL,		&np2cfg.consttsc), // RDTSC���N���b�N�ύX�ɂ�炸���Ԋu�ɂ���
+	PFVAL("CONSTTSC", PFTYPE_BOOL,		&np2cfg.consttsc), // RDTSC???N???b?N??X???�y????u?????
 #if defined(SUPPORT_IDEIO)
-	PFVAL("IDEBADDR", PFRO_HEX8,		&np2cfg.idebaddr), // IDE BIOS �A�h���X�i�f�t�H���g�FD8h(D8000h)�j
+	PFVAL("IDEBADDR", PFRO_HEX8,		&np2cfg.idebaddr), // IDE BIOS ?A?h???X?i?f?t?H???g?FD8h(D8000h)?j
 #endif
 #if defined(SUPPORT_GAMEPORT)
 	PFVAL("GAMEPORT", PFTYPE_BOOL,		&np2cfg.gameport),
@@ -734,10 +734,10 @@ static const PFTBL s_IniItems[] =
 	PFVAL("CPUSPEED", PFTYPE_UINT32,	&np2cfg.emuspeed),
 	PFSTR("fontface", PFRO_STR,			np2cfg.fontface),
 	PFVAL("SLOWMOUS", PFTYPE_BOOL,		&np2cfg.slowmous),
-	PFVAL("GDCWOVRG", PFTYPE_BOOL,		&np2cfg.gdcwovrg), // 98�W���O���t�B�b�N�ŉ�ʕ�80��������F�߂�
+	PFVAL("GDCWOVRG", PFTYPE_BOOL,		&np2cfg.gdcwovrg), // 98?W???O???t?B?b?N?????80????????F???
 	
 
-	// OS�ˑ��H
+	// OS????H
 	PFVAL("keyboard", PFRO_KB,			&np2oscfg.KEYBOARD),
 	PFVAL("usenlock", PFTYPE_BOOL,		&np2oscfg.USENUMLOCK),
 	PFVAL("F12_COPY", PFTYPE_UINT8,		&np2oscfg.F12COPY),
@@ -885,11 +885,11 @@ static const PFTBL s_IniItems[] =
 	PFVAL("fscrn_cy", PFRO_SINT32,		&np2oscfg.fscrn_cy),
 	PFVAL("fscrnbpp", PFRO_UINT8,		&np2oscfg.fscrnbpp),
 	PFVAL("fscrnmod", PFTYPE_HEX8,		&np2oscfg.fscrnmod),
-	PFVAL("fsrescfg", PFTYPE_BOOL,		&np2oscfg.fsrescfg), // �𑜓x���ɐݒ�ۑ�����
+	PFVAL("fsrescfg", PFTYPE_BOOL,		&np2oscfg.fsrescfg), // ??x????????????
 
 #if defined(SUPPORT_SCRN_DIRECT3D)
-	PFVAL("D3D_IMODE", PFTYPE_UINT8,	&np2oscfg.d3d_imode), // Direct3D �g��k����ԃ��[�h
-	PFVAL("D3D_EXCLU", PFTYPE_BOOL,		&np2oscfg.d3d_exclusive), // Direct3D �r�����[�h�g�p
+	PFVAL("D3D_IMODE", PFTYPE_UINT8,	&np2oscfg.d3d_imode), // Direct3D ?g??k???????[?h
+	PFVAL("D3D_EXCLU", PFTYPE_BOOL,		&np2oscfg.d3d_exclusive), // Direct3D ?r?????[?h?g?p
 #endif
 
 	PFVAL("snddev_t", PFTYPE_UINT8,		&np2oscfg.cSoundDeviceType),
@@ -899,64 +899,64 @@ static const PFTBL s_IniItems[] =
 	PFSTR("VSTiFile", PFRO_STR,			np2oscfg.szVSTiFile),
 #endif	// defined(SUPPORT_VSTi)
 	
-	PFVAL("EMUDDRAW", PFTYPE_BOOL,		&np2oscfg.emuddraw), // �ŋ߂�EMULATIONONLY�ɂ��������������肷��i���Ƀs�N�Z�����삷��ꍇ�Ƃ��j
-	PFVAL("DRAWTYPE", PFTYPE_UINT8,		&np2oscfg.drawtype), // ��ʃ����_�� (0: DirectDraw, 1: reserved(DirecrDraw), 2: Direct3D)
+	PFVAL("EMUDDRAW", PFTYPE_BOOL,		&np2oscfg.emuddraw), // ????EMULATIONONLY???????????????????i????s?N?Z?????????????j
+	PFVAL("DRAWTYPE", PFTYPE_UINT8,		&np2oscfg.drawtype), // ???????_?? (0: DirectDraw, 1: reserved(DirecrDraw), 2: Direct3D)
 	
-	PFVAL("DRAGDROP", PFTYPE_BOOL,		&np2oscfg.dragdrop), // �h���b�O�A���h�h���b�v�T�|�[�g
-	PFVAL("MAKELHDD", PFRO_BOOL,		&np2oscfg.makelhdd), // ����HDD�C���[�W�쐬�T�|�[�g
-	PFVAL("SYSKHOOK", PFTYPE_BOOL,		&np2oscfg.syskhook), // �V�X�e���L�[�t�b�N�T�|�[�g
-	PFVAL("RAWMOUSE", PFTYPE_BOOL,		&np2oscfg.rawmouse), // ���ڃ}�E�X�f�[�^�ǂݎ��
-	PFVAL("MOUSEMUL", PFTYPE_SINT16,	&np2oscfg.mousemul), // �}�E�X�X�s�[�h�{���i���q�j
-	PFVAL("MOUSEDIV", PFTYPE_SINT16,	&np2oscfg.mousediv), // �}�E�X�X�s�[�h�{���i����j
+	PFVAL("DRAGDROP", PFTYPE_BOOL,		&np2oscfg.dragdrop), // ?h???b?O?A???h?h???b?v?T?|?[?g
+	PFVAL("MAKELHDD", PFRO_BOOL,		&np2oscfg.makelhdd), // ????HDD?C???[?W???T?|?[?g
+	PFVAL("SYSKHOOK", PFTYPE_BOOL,		&np2oscfg.syskhook), // ?V?X?e???L?[?t?b?N?T?|?[?g
+	PFVAL("RAWMOUSE", PFTYPE_BOOL,		&np2oscfg.rawmouse), // ????}?E?X?f?[?^?????
+	PFVAL("MOUSEMUL", PFTYPE_SINT16,	&np2oscfg.mousemul), // ?}?E?X?X?s?[?h?{???i???q?j
+	PFVAL("MOUSEDIV", PFTYPE_SINT16,	&np2oscfg.mousediv), // ?}?E?X?X?s?[?h?{???i????j
 	
-	PFVAL("SCRNMODE", PFTYPE_UINT8,		&np2oscfg.scrnmode), // �t���X�N���[���ݒ�
-	PFVAL("SAVESCRN", PFTYPE_BOOL,		&np2oscfg.savescrn), // �t���X�N���[���ݒ��ۑ��E��������
+	PFVAL("SCRNMODE", PFTYPE_UINT8,		&np2oscfg.scrnmode), // ?t???X?N???[?????
+	PFVAL("SAVESCRN", PFTYPE_BOOL,		&np2oscfg.savescrn), // ?t???X?N???[?????????E????????
 	
-	PFVAL("SVSCRMUL", PFTYPE_BOOL,		&np2oscfg.svscrmul), // ��ʕ\���{����ۑ����邩
-	PFVAL("SCRN_MUL", PFTYPE_UINT8,		&np2oscfg.scrn_mul), // ��ʕ\���{���i8�����{�j
+	PFVAL("SVSCRMUL", PFTYPE_BOOL,		&np2oscfg.svscrmul), // ???\???{??????????
+	PFVAL("SCRN_MUL", PFTYPE_UINT8,		&np2oscfg.scrn_mul), // ???\???{???i8?????{?j
 	
-	PFVAL("MOUSE_NC", PFTYPE_BOOL,		&np2oscfg.mouse_nc), // �}�E�X�L���v�`�������R���g���[��
-	PFVAL("CPUSTABF", PFTYPE_UINT16,	&np2oscfg.cpustabf), // �N���b�N�����K�p���E���ԁi�t���[���j
-	PFVAL("READONLY", PFRO_BOOL,		&np2oscfg.readonly), // �ύX��ݒ�t�@�C���ɏ������܂Ȃ�
-	PFVAL("TICKMODE", PFRO_UINT8,		&np2oscfg.tickmode), // Tick�J�E���^�̃��[�h�������I�ɐݒ肷��
-	PFVAL("WHEELACT", PFTYPE_UINT8,		&np2oscfg.wheelact), // �}�E�X�z�C�[���ɂ�铮���ݒ肷��(0=����, 1=����, 2=�}�E�X���x�ݒ�, 3=Arrow Key, 4=Roll Up Down)
-	PFVAL("WHEELAC2", PFTYPE_UINT8,		&np2oscfg.wheelac2), // Ctrl or Shift + �}�E�X�z�C�[���ɂ�铮���ݒ肷��(0=����, 1=����, 2=�}�E�X���x�ݒ�, 3=Arrow Key, 4=Roll Up Down)
-	//PFVAL("USE_MVOL", PFRO_BOOL,		&np2oscfg.usemastervolume), // �}�X�^�{�����[���ݒ���g�p����
-	PFVAL("USEMIDIV", PFRO_BOOL,		&np2oscfg.usemidivolume), // MIDI�^���{�����[���ݒ���g�p����
-	PFMAX("MVOL_MAX", PFRO_UINT8,		&np2oscfg.mastervolumemax, 255), // �}�X�^�{�����[���̍ő�l��ݒ肷��
+	PFVAL("MOUSE_NC", PFTYPE_BOOL,		&np2oscfg.mouse_nc), // ?}?E?X?L???v?`???????R???g???[??
+	PFVAL("CPUSTABF", PFTYPE_UINT16,	&np2oscfg.cpustabf), // ?N???b?N?????K?p???E????i?t???[???j
+	PFVAL("READONLY", PFRO_BOOL,		&np2oscfg.readonly), // ??X????t?@?C?????????????
+	PFVAL("TICKMODE", PFRO_UINT8,		&np2oscfg.tickmode), // Tick?J?E???^????[?h???????I??????
+	PFVAL("WHEELACT", PFTYPE_UINT8,		&np2oscfg.wheelact), // ?}?E?X?z?C?[?????????????(0=????, 1=????, 2=?}?E?X???x???, 3=Arrow Key, 4=Roll Up Down)
+	PFVAL("WHEELAC2", PFTYPE_UINT8,		&np2oscfg.wheelac2), // Ctrl or Shift + ?}?E?X?z?C?[?????????????(0=????, 1=????, 2=?}?E?X???x???, 3=Arrow Key, 4=Roll Up Down)
+	//PFVAL("USE_MVOL", PFRO_BOOL,		&np2oscfg.usemastervolume), // ?}?X?^?{?????[???????g?p????
+	PFVAL("USEMIDIV", PFRO_BOOL,		&np2oscfg.usemidivolume), // MIDI?^???{?????[???????g?p????
+	PFMAX("MVOL_MAX", PFRO_UINT8,		&np2oscfg.mastervolumemax, 255), // ?}?X?^?{?????[??????l??????
 	
-	PFVAL("TWNDHIST", PFRO_UINT8,		&np2oscfg.toolwndhistory), // �c�[���E�B���h�E��FD�t�@�C�������̋L����
+	PFVAL("TWNDHIST", PFRO_UINT8,		&np2oscfg.toolwndhistory), // ?c?[???E?B???h?E??FD?t?@?C????????L????
 	
 #if defined(SUPPORT_WACOM_TABLET)
-	PFVAL("PENTABFA", PFTYPE_BOOL,		&np2oscfg.pentabfa), // �y���^�u���b�g �A�X�y�N�g��Œ胂�[�h
+	PFVAL("PENTABFA", PFTYPE_BOOL,		&np2oscfg.pentabfa), // ?y???^?u???b?g ?A?X?y?N?g?????[?h
 #endif
 #if defined(SUPPORT_MULTITHREAD)
-	PFVAL("MTENABLE", PFTYPE_BOOL,		&np2oscfg.multithread), // �}���`�X���b�h���[�h
+	PFVAL("MTENABLE", PFTYPE_BOOL,		&np2oscfg.multithread), // ?}???`?X???b?h???[?h
 #endif
 
-	PFVAL("midiasns", PFRO_BOOL,		&np2oscfg.midiasns), // MIDI Active Sensing�𑗂�
-	PFVAL("midiaint", PFRO_SINT32,		&np2oscfg.midiaint), // MIDI Active Sensing�𑗂�Ԋu�i�~���b�j
+	PFVAL("midiasns", PFRO_BOOL,		&np2oscfg.midiasns), // MIDI Active Sensing???
+	PFVAL("midiaint", PFRO_SINT32,		&np2oscfg.midiaint), // MIDI Active Sensing????u?i?~???b?j
 
-	PFVAL("knjpaste", PFTYPE_UINT8,		&np2oscfg.knjpaste), // �N���b�v�{�[�h����e�L�X�g�\��t���̍ۂ̊����̈����i0=��������, 1=BASIC, 2=FEP�Ȃ�DOS�j
-	PFVAL("scrscfix", PFRO_UINT8,		&np2oscfg.scrscfix), // ��ʊg��]�����̕␳�i0=����, 1=�ʏ�]��, 2=NVDIA�����j
-	PFVAL("dirfdlst", PFRO_BOOL,		&np2oscfg.dirfdlst), // �����f�B���N�g���ɂ���FD�C���[�W�t�@�C���̃��X�g��\������
-	PFVAL("allports", PFRO_BOOL,		&np2oscfg.allports), // �ݒ�ŃV���A���E�p�������Ɋ֌W�Ȃ��C�ӂ̃|�[�g��I�ׂ�悤�ɂ���
+	PFVAL("knjpaste", PFTYPE_UINT8,		&np2oscfg.knjpaste), // ?N???b?v?{?[?h????e?L?X?g?\??t???????????????i0=????????, 1=BASIC, 2=FEP???DOS?j
+	PFVAL("scrscfix", PFRO_UINT8,		&np2oscfg.scrscfix), // ???g??]????????i0=????, 1=???]??, 2=NVDIA?????j
+	PFVAL("dirfdlst", PFRO_BOOL,		&np2oscfg.dirfdlst), // ?????f?B???N?g???????FD?C???[?W?t?@?C??????X?g??\??????
+	PFVAL("allports", PFRO_BOOL,		&np2oscfg.allports), // ????V???A???E?p?????????W????C???|?[?g??I?????????
 
-	PFSTR("prnfontM", PFRO_STR,			np2oscfg.prnfontM), // ����t�H���g���i�����́j
-	PFSTR("prnfontG", PFRO_STR,			np2oscfg.prnfontG), // ����t�H���g���i�S�V�b�N�́j
-	PFVAL("prncfgpp", PFTYPE_BOOL,		&np2oscfg.prncfgpp), // ����̓x�ɗp���ݒ��\������
+	PFSTR("prnfontM", PFRO_STR,			np2oscfg.prnfontM), // ????t?H???g???i??????j
+	PFSTR("prnfontG", PFRO_STR,			np2oscfg.prnfontG), // ????t?H???g???i?S?V?b?N??j
+	PFVAL("prncfgpp", PFTYPE_BOOL,		&np2oscfg.prncfgpp), // ?????x??p??????\??????
 
-	PFLST("CPUMMENU", PFTYPE_ARGS16,	np2oscfg.cpumullst), // CPU�N���b�N�{�����X�g
-	PFLST("CPUSMENU", PFTYPE_ARGS16,	np2oscfg.cpuspdlst), // CPU�X�s�[�h���X�g
+	PFLST("CPUMMENU", PFTYPE_ARGS16,	np2oscfg.cpumullst), // CPU?N???b?N?{?????X?g
+	PFLST("CPUSMENU", PFTYPE_ARGS16,	np2oscfg.cpuspdlst), // CPU?X?s?[?h???X?g
 };
 
-//! .ini �g���q
+//! .ini ?g???q
 static const TCHAR s_szExt[] = TEXT(".ini");
 
 /**
- * �ݒ�t�@�C���̃p�X�𓾂�
- * @param[out] lpPath �p�X
- * @param[in] cchPath �p�X �o�b�t�@�̒���
+ * ???t?@?C????p?X???
+ * @param[out] lpPath ?p?X
+ * @param[in] cchPath ?p?X ?o?b?t?@?????
  */
 void initgetfile(LPTSTR lpPath, UINT cchPath)
 {
@@ -979,7 +979,7 @@ void initgetfile(LPTSTR lpPath, UINT cchPath)
 }
 
 /**
- * �ǂݍ���
+ * ??????
  */
 void initload(void)
 {
@@ -990,7 +990,7 @@ void initload(void)
 }
 
 /**
- * �����o��
+ * ?????o??
  */
 void initsave(void)
 {

@@ -554,7 +554,7 @@ midiwrite(COMMNG self, UINT8 data)
 #endif
 			midi->midictrl = MIDICTRL_READY;
 			return midi->mpos;
-		} else if (midi->mpos >= MIDI_BUFFER) {	// おーばーふろー
+		} else if (midi->mpos >= MIDI_BUFFER) {	// お�?�ばーふろ�?�
 			midi->midictrl = MIDICTRL_READY;
 		}
 		break;
@@ -562,7 +562,7 @@ midiwrite(COMMNG self, UINT8 data)
 	case MIDICTRL_TIMECODE:
 		if (midi->mpos >= 2) {
 			if ((data == 0x7e) || (data == 0x7f)) {
-				// exclusiveと同じでいい筈…
+				// exclusiveと同じで�?�?筈…
 				midi->midictrl = MIDICTRL_EXCLUSIVE;
 			} else {
 				midi->midictrl = MIDICTRL_READY;

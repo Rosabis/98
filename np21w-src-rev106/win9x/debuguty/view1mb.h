@@ -1,6 +1,6 @@
 /**
  * @file	view1mb.h
- * @brief	ï¿½ï¿½ï¿½Cï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½ÌéŒ¾ï¿½ï¿½ï¿½ï¿½ÑƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½Cï¿½Xï¿½Ì’ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
+ * @brief	?¿½?¿½?¿½C?¿½?¿½ ?¿½?¿½?¿½?¿½?¿½?¿½ ?¿½?¿½?¿½W?¿½X?¿½^?¿½\?¿½?¿½?¿½N?¿½?¿½?¿½X?¿½ÌéŒ¾?¿½?¿½?¿½?¿½ÑƒC?¿½?¿½?¿½^?¿½[?¿½t?¿½F?¿½C?¿½X?¿½Ì’ï¿½`?¿½?¿½?¿½?¿½?¿½Ü‚ï¿½
  */
 
 #pragma once
@@ -10,7 +10,7 @@
 #include "viewmem.h"
 
 /**
- * @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
+ * @brief ?¿½?¿½?¿½?¿½?¿½?¿½ ?¿½?¿½?¿½W?¿½X?¿½^?¿½\?¿½?¿½?¿½N?¿½?¿½?¿½X
  */
 class CDebugUty1MB : public CDebugUtyItem
 {
@@ -31,7 +31,7 @@ public:
 	virtual void OnPaint(HDC hDC, const RECT& rect);
 
 private:
-	DebugUtyViewMemory m_mem;					//!< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	std::vector<unsigned char> m_buffer;		//!< ï¿½oï¿½bï¿½tï¿½@
+	DebugUtyViewMemory m_mem;					//!< ?¿½?¿½?¿½?¿½?¿½?¿½
+	std::vector<unsigned char> m_buffer;		//!< ?¿½o?¿½b?¿½t?¿½@
 	void SetSegment(UINT nSegment);
 };

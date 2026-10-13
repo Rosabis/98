@@ -34,7 +34,7 @@ dosio_term(void)
 	/* nothing to do */
 }
 
-/* ファイル操作 */
+/* ファイル操�? */
 FILEH
 file_open(const OEMCHAR *path)
 {
@@ -291,7 +291,7 @@ file_dirdelete(const OEMCHAR *path)
 }
 
 
-/* カレントファイル操作 */
+/* カレントファイル操�? */
 void
 file_setcd(const OEMCHAR *exepath)
 {

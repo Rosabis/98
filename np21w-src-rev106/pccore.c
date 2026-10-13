@@ -180,7 +180,7 @@ const OEMCHAR np2version[] = OEMTEXT(NP2VER_CORE);
 #if defined(SUPPORT_SCSI)
 			{OEMTEXT(""), OEMTEXT(""), OEMTEXT(""), OEMTEXT("")},
 #endif
-			{{OEMTEXT(""), OEMTEXT(""), OEMTEXT("")}},
+			{OEMTEXT(""), OEMTEXT(""), OEMTEXT("")},
 			OEMTEXT(""), OEMTEXT(""), OEMTEXT(""),
 #if defined(SUPPORT_NET)
 				OEMTEXT(""), 0,
@@ -317,7 +317,7 @@ static void pccore_set(const NP2CFG *pConfig)
 	pccore.maxmultiple = pccore.multiple;
 	pccore.realclock = pccore.baseclock * multiple;
 
-	// HDD�̐ڑ� (I/O�̎g�p��Ԃ��ς��̂�..
+	// HDD???? (I/O??g?p??????????..
 	if (pConfig->dipsw[1] & 0x20)
 	{
 		pccore.hddif |= PCHDD_IDE;
@@ -334,7 +334,7 @@ static void pccore_set(const NP2CFG *pConfig)
 		sxsi_setdevtype(0x03, SXSIDEV_NC);
 	}
 
-	// �g��������
+	// ?g????????
 	extsize = 0;
 	if (!(pConfig->dipsw[2] & 0x80))
 	{
@@ -348,10 +348,10 @@ static void pccore_set(const NP2CFG *pConfig)
 	pccore.extmem = extsize;
 	CopyMemory(pccore.dipsw, pConfig->dipsw, 3);
 
-	// �T�E���h�{�[�h�̐ڑ�
+	// ?T?E???h?{?[?h????
 	pccore.sound = (SOUNDID)pConfig->SOUND_SW;
 
-	// ���̑�CBUS�̐ڑ�
+	// ?????CBUS????
 	pccore.device = 0;
 	if (pConfig->pc9861enable)
 	{
@@ -585,7 +585,7 @@ void pccore_term(void) {
 	
 	pic_deinitialize();
 
-	CPU_SETEXTSIZE(0); // ���������
+	CPU_SETEXTSIZE(0); // ?????????
 	CPU_DEINITIALIZE();
 	
 #if defined(SUPPORT_IA32_HAXM)
@@ -670,12 +670,12 @@ void pccore_reset(void) {
 	}
 #endif
 	ZeroMemory(mem, 0x110000);
-	FillMemory(mem + 0xC0000, 0xE8000 - 0xC0000, 0xff); // �Ȃ�
+	FillMemory(mem + 0xC0000, 0xE8000 - 0xC0000, 0xff); // ???
 	ZeroMemory(mem + VRAM1_B, 0x18000);
 	ZeroMemory(mem + VRAM1_E, 0x08000);
 	ZeroMemory(mem + FONT_ADRS, 0x08000);
 
-	//�������X�C�b�`
+	//???????X?C?b?`
 	for (i=0; i<8; i++)
 	{
 		mem[0xa3fe2 + i*4] = np2cfg.memsw[i];
@@ -759,7 +759,7 @@ void pccore_reset(void) {
 #else
 		strcpy(np2cfg.cpu_vendor, np2cfg.cpu_vendor_o);
 #endif
-		// ����������Ȃ����X�y�[�X�Ŗ��߂�
+		// ???????????????X?y?[?X??????
 		for(i=0;i<12;i++){
 			if(np2cfg.cpu_vendor[i] == '\0'){
 				np2cfg.cpu_vendor[i] = ' ';
@@ -774,13 +774,13 @@ void pccore_reset(void) {
 #else
 		strcpy(np2cfg.cpu_brandstring, np2cfg.cpu_brandstring_o);
 #endif
-		// �Ō��1�����X�y�[�X������
+		// ????1?????X?y?[?X??????
 		strcat(np2cfg.cpu_brandstring, " ");
 	}
 #endif
 	strcpy(i386cpuid.cpu_vendor, np2cfg.cpu_vendor);
 	if(np2cfg.cpu_family == 0 && np2cfg.cpu_model == 0 && np2cfg.cpu_stepping == 0 && np2cfg.cpu_feature == 0 && np2cfg.cpu_feature_ex == 0){
-		// �ݒ�Ɋ֌W�Ȃ��S���g����悤�ɂ���
+		// ?????W????S???g??????????
 		i386cpuid.cpu_family = CPU_FAMILY;
 		i386cpuid.cpu_model = CPU_MODEL;
 		i386cpuid.cpu_stepping = CPU_STEPPING;
@@ -803,7 +803,7 @@ void pccore_reset(void) {
 	}
 	strcpy(i386cpuid.cpu_brandstring, np2cfg.cpu_brandstring);
 
-	// BrandID�����ݒ�i�ߋ��o�[�W�����Ƃ̌݊��ێ��p�j
+	// BrandID???????i????o?[?W?????????????p?j
 	if(i386cpuid.cpu_brandid == CPU_BRAND_ID_AUTO){
 		if(strncmp(i386cpuid.cpu_brandstring, CPU_BRAND_STRING_PENTIUM_III, 27)==0){
 			CPU_EBX = 0x2;
@@ -816,10 +816,10 @@ void pccore_reset(void) {
 		}
 	}
 	
-	// mov cs,xx���t���O
+	// mov cs,xx????t???O
 	i386cpuid.allow_movCS = np2cfg.allowMOVCS;
 
-	// FPU��ނ�ݒ� �g���Ȃ��Ȃ�ʂ̃^�C�v�֕ύX����
+	// FPU?????? ?g??????????^?C?v???X????
 	i386cpuid.fpu_type = np2cfg.fpu_type;
 #if !defined(SUPPORT_FPU_SOFTFLOAT) && !defined(SUPPORT_FPU_SOFTFLOAT3)
 	if (i386cpuid.fpu_type == FPU_TYPE_SOFTFLOAT) {
@@ -874,9 +874,9 @@ void pccore_reset(void) {
 	}
 #endif
 
-	// HDD�Z�b�g
+	// HDD?Z?b?g
 	diskdrv_hddbind();
-	// SASI/IDE�ǂ����H
+	// SASI/IDE??????H
 #if defined(SUPPORT_SASI)
 	if (sxsi_issasi()) {
 		pccore.hddif &= ~PCHDD_IDE;
@@ -899,7 +899,7 @@ void pccore_reset(void) {
 	fddfile_reset2dmode();
 	bios0x18_16(0x20, 0xe1);
 
-	iocore_reset(&np2cfg);								// �T�E���h��pic���ĂԂ̂Łc
+	iocore_reset(&np2cfg);								// ?T?E???h??pic???????c
 	cbuscore_reset(&np2cfg);
 	fmboard_reset(&np2cfg, pccore.sound);
 
@@ -993,14 +993,14 @@ void pccore_reset(void) {
 #endif
 #endif
 
-	// �G�~�����[�V�������x�Z�b�g
+	// ?G?~?????[?V???????x?Z?b?g
 	if (np2cfg.emuspeed < 1) np2cfg.emuspeed = 1;
 	timing_setspeed(np2cfg.emuspeed * 128 / 100);
 
-	// �}�E�X���Z�b�g
+	// ?}?E?X???Z?b?g
 	mousemng_reset();
 
-	// �L�[�{�[�h���Z�b�g
+	// ?L?[?{?[?h???Z?b?g
 	keystat_initialize();
 }
 
@@ -1123,7 +1123,7 @@ static void drawscreen(void) {
 					}
 				}
 			}else{
-				// �����O���t�B�b�N
+				// ?????O???t?B?b?N
 				grphfn = makegrph;
 				bit = GDCSCRN_MAKE;
 				if (gdcs.disp) {
@@ -1198,7 +1198,7 @@ void screenvsync(NEVENTITEM item) {
 	}
 	nevent_set(NEVENT_FLAMES, gdc.vsyncclock, screendisp, NEVENT_RELATIVE);
 
-	// drawscreen�� pccore.vsyncclock���ύX�����\��������܂�
+	// drawscreen?? pccore.vsyncclock????X??????\??????????
 	if (np2cfg.DISPSYNC) {
 		drawscreen();
 	}
@@ -1246,30 +1246,30 @@ void pccore_asynccpu_updatesettings(int asyncLevel)
 	if (asyncLevel > 100) asyncLevel = 100;
 	pccore_asynccpustat.asyncTarget = asyncLevel;
 
-	// �グ�����̕p�x��ݒ�@���萫���l�����čŒ�1�͂���
+	// ?�O??????p?x????@???????l????????1??????
 	pccore_asynccpustat.threshold_down = (6 * asyncLevel + 1 * (100 - asyncLevel)) / 100;
 	pccore_asynccpustat.threshold_up = (1 * asyncLevel + 6 * (100 - asyncLevel)) / 100;
 	if (pccore_asynccpustat.threshold_down < 1) pccore_asynccpustat.threshold_down = 1;
 	if (pccore_asynccpustat.threshold_up < 1) pccore_asynccpustat.threshold_up = 1;
 
-	// ���݂̃N���b�N�{���ɑ΂��Ăǂꂾ���N���b�N�{�����グ�������邩�̃e�[�u��
-	upBaseValue = (8 * asyncLevel + 4 * (100 - asyncLevel)) / 100; // �x�[�X�l�̓N���b�N�{��40�ɑ΂��Ăǂꂾ���グ�邩�̒l�Ƃ���
-	downBaseValue = (10 * asyncLevel + 15 * (100 - asyncLevel)) / 100; // �x�[�X�l�̓N���b�N�{��40�ɑ΂��Ăǂꂾ�������邩�̒l�Ƃ���
+	// ?????N???b?N?{?????????????N???b?N?{?????�O??????????e?[?u??
+	upBaseValue = (8 * asyncLevel + 4 * (100 - asyncLevel)) / 100; // ?x?[?X?l??N???b?N?{??40???????????�O????l?????
+	downBaseValue = (10 * asyncLevel + 15 * (100 - asyncLevel)) / 100; // ?x?[?X?l??N???b?N?{??40??????????????????l?????
 	for (i = 1; i < ASYNCCPU_CLOCKTABLE_MAX; i++) {
-		pccore_asynccpustat.clockUpTbl[i] = (upBaseValue * i + 39) / 40; // �Œ�1�͂������̂Ő؂�グ
-		pccore_asynccpustat.clockDownTbl[i] = (downBaseValue * i + 39) / 40; // �Œ�1�͂������̂Ő؂�グ
+		pccore_asynccpustat.clockUpTbl[i] = (upBaseValue * i + 39) / 40; // ???1?????????????�O
+		pccore_asynccpustat.clockDownTbl[i] = (downBaseValue * i + 39) / 40; // ???1?????????????�O
 		if (pccore_asynccpustat.clockDownTbl[i] > i - 1) {
-			// �N���b�N�{��0�ȉ��͕s��
+			// ?N???b?N?{??0?????s??
 			pccore_asynccpustat.clockDownTbl[i] = i - 1;
 		}
 	}
-	// �N���b�N�{��0�͂��蓾�Ȃ����O�̂��ߒl�͏����Ă���
+	// ?N???b?N?{??0???????????O?????l??????????
 	pccore_asynccpustat.clockDownTbl[0] = 0;
 	pccore_asynccpustat.clockUpTbl[0] = 1;
 }
 static void pccore_asynccpu()
 {
-	// �񓯊�CPU����
+	// ???CPU????
 	static int latecount = 0;
 	static int latecount2 = 0;
 	static unsigned int hltflag = 0;
@@ -1311,7 +1311,7 @@ static void pccore_asynccpu()
 						UINT32 changeValue = pccore_asynccpustat.clockDownTbl[pccore.multiple < ASYNCCPU_CLOCKTABLE_MAX ? pccore.multiple : ASYNCCPU_CLOCKTABLE_MAX - 1];
 						if (timimg > 2 * shdrawskip)
 						{
-							// ���̂܂�
+							// ??????
 						}
 						else if (timimg > 15 * shdrawskip / 10)
 						{
@@ -1363,7 +1363,7 @@ static void pccore_asynccpu()
 							UINT32 changeValue = pccore_asynccpustat.clockUpTbl[pccore.multiple < ASYNCCPU_CLOCKTABLE_MAX ? pccore.multiple : ASYNCCPU_CLOCKTABLE_MAX - 1];
 							if (timimg < 5 * shdrawskip / 10)
 							{
-								// ���̂܂�
+								// ??????
 							}
 							else if (timimg < 7 * shdrawskip / 10)
 							{
@@ -1411,7 +1411,7 @@ static void pccore_asynccpu()
 
 void pccore_exec(BOOL draw) {
 
-	// �����Ń��[�J���ϐ����g����setjmp����̍œK���Ŕj�󂳂��\��������̂Œ���
+	// ????????[?J????????g????setjmp??????K????j?????\?????????????
 	static UINT32 baseclk = 0;
 	//UINT32 lastclock;
 	//UINT32 mflag = 0;
@@ -1423,13 +1423,13 @@ void pccore_exec(BOOL draw) {
 	pal_eventclear();
 	
 #if defined(SUPPORT_IA32_HAXM)
-	// HAXM�̏ꍇ�A��ɕ`��
+	// HAXM????A???`??
 	if (!np2cfg.DISPSYNC) {
 		drawscreen();
 	}
 #endif
 #if defined(SUPPORT_IA32_WHPX)
-	// WHPX�̏ꍇ�A��ɕ`��
+	// WHPX????A???`??
 	if (!np2cfg.DISPSYNC) {
 		drawscreen();
 	}
@@ -1470,26 +1470,26 @@ void pccore_exec(BOOL draw) {
 			np2wab_setRelayState(0); // XXX:
 #endif
 #if defined(SUPPORT_CL_GD5430)
-			np2clvga.gd54xxtype = np2clvga.defgd54xxtype; // Auto Select�p
+			np2clvga.gd54xxtype = np2clvga.defgd54xxtype; // Auto Select?p
 			pc98_cirrus_vga_initVRAMWindowAddr();
 			pc98_cirrus_vga_resetresolution();
 #endif
 #if defined(SUPPORT_IDEIO)
-			ideio_basereset(); // XXX: Win9x�̍ċN���ŕK�v
+			ideio_basereset(); // XXX: Win9x???N????K?v
 #endif
 #if defined(SUPPORT_HOSTDRV)
-			hostdrv_reset(); // XXX: Win9x�̍ċN���ŕK�v
+			hostdrv_reset(); // XXX: Win9x???N????K?v
 #endif
 #if defined(SUPPORT_HOSTDRV9X)
 			hostdrv9x_reset();
 #endif
 #if defined(SUPPORT_HOSTDRVNT)
-			hostdrvNT_reset(); // XXX: Win9x�̍ċN���ŕK�v
+			hostdrvNT_reset(); // XXX: Win9x???N????K?v
 #endif
 #if defined(SUPPORT_PCI)
-			pcidev_basereset(); // XXX: Win9x�̍ċN���ŕK�v
+			pcidev_basereset(); // XXX: Win9x???N????K?v
 #endif
-			// �}�E�X���Z�b�g
+			// ?}?E?X???Z?b?g
 			mousemng_reset();
 
 #if defined(SUPPORT_IA32_HAXM)

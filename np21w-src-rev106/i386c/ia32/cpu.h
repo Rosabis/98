@@ -216,13 +216,13 @@ typedef struct {
 } FPU_PTR;
 
 typedef struct {
-	UINT16		control; // ï¿½ï¿½ï¿½äƒŒï¿½Wï¿½Xï¿½^ï¿½[
-	UINT16		status; // ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½[
-	UINT16		op; // ï¿½Iï¿½yï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½[
-	UINT16		tag; // ï¿½^ï¿½Oï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½[
+	UINT16		control; // ?¿½?¿½?¿½äƒŒï¿½W?¿½X?¿½^?¿½[
+	UINT16		status; // ?¿½X?¿½e?¿½[?¿½^?¿½X?¿½?¿½?¿½W?¿½X?¿½^?¿½[
+	UINT16		op; // ?¿½I?¿½y?¿½R?¿½[?¿½h?¿½?¿½?¿½W?¿½X?¿½^?¿½[
+	UINT16		tag; // ?¿½^?¿½O?¿½?¿½?¿½[?¿½h?¿½?¿½?¿½W?¿½X?¿½^?¿½[
 
-	FPU_PTR		inst; // ï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½ßƒ|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½[
-	FPU_PTR		data; // ï¿½ï¿½ï¿½Xï¿½gï¿½fï¿½[ï¿½^ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½[
+	FPU_PTR		inst; // ?¿½?¿½?¿½X?¿½g?¿½?¿½?¿½ßƒ|?¿½C?¿½?¿½?¿½^?¿½?¿½?¿½W?¿½X?¿½^?¿½[
+	FPU_PTR		data; // ?¿½?¿½?¿½X?¿½g?¿½f?¿½[?¿½^?¿½|?¿½C?¿½?¿½?¿½^?¿½?¿½?¿½W?¿½X?¿½^?¿½[
 } FPU_REGS_S;
 
 #if 0
@@ -321,13 +321,13 @@ typedef struct {
 	UINT8		rc;
 	UINT8		dmy[1];
 
-	FP_REG		reg[FPU_REG_NUM+1]; // R0 to R7 + ï¿½ï¿½
-	FP_TAG		tag[FPU_REG_NUM+1]; // R0 to R7 + ï¿½ï¿½
+	FP_REG		reg[FPU_REG_NUM+1]; // R0 to R7 + ?¿½?¿½
+	FP_TAG		tag[FPU_REG_NUM+1]; // R0 to R7 + ?¿½?¿½
 	FP_RND		round;
-#if defined(SUPPORT_FPU_DOSBOX2) // XXX: ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½É‚ï¿½ï¿½é‚½ï¿½ß—p
+#if defined(SUPPORT_FPU_DOSBOX2) // XXX: ?¿½?¿½?¿½?¿½?¿½Ô‚ï¿½?¿½?¿½?¿½?¿½?¿½m?¿½É‚ï¿½?¿½é‚½?¿½ß—p
 	FP_INT_REG	int_reg[FPU_REG_NUM+1];
 	UINT8		int_regvalid[FPU_REG_NUM+1];
-#elif defined(SUPPORT_FPU_DOSBOX2_COMPATIBLE) // XXX: ï¿½ÝŠï¿½ï¿½ÛŽï¿½ï¿½pï¿½@ï¿½ï¿½ï¿½gï¿½p
+#elif defined(SUPPORT_FPU_DOSBOX2_COMPATIBLE) // XXX: ?¿½ÝŠï¿½?¿½ÛŽï¿½?¿½p?¿½@?¿½?¿½?¿½g?¿½p
 	FP_INT_REG	reserved_fpu1[FPU_REG_NUM + 1];
 	UINT8		reserved_fpu2[FPU_REG_NUM + 1];
 #endif
@@ -383,36 +383,36 @@ typedef struct {
 
 #define I386CPUID_VERSION	1
 typedef struct {
-	UINT32 version; // CPUIDï¿½oï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½iï¿½Xï¿½eï¿½[ï¿½gï¿½Zï¿½[ï¿½uï¿½ÝŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½é‚½ï¿½ß—pï¿½jI386CPUID_VERSIONï¿½ï¿½ï¿½ÅV
-	char cpu_vendor[16]; // ï¿½xï¿½ï¿½ï¿½_ï¿½[ï¿½i12byteï¿½j
-	UINT32 cpu_family; // ï¿½tï¿½@ï¿½~ï¿½ï¿½
-	UINT32 cpu_model; // ï¿½ï¿½ï¿½fï¿½ï¿½
-	UINT32 cpu_stepping; // ï¿½Xï¿½eï¿½bï¿½sï¿½ï¿½ï¿½O
-	UINT32 cpu_feature; // ï¿½@ï¿½\ï¿½tï¿½ï¿½ï¿½O
-	UINT32 cpu_feature_ex; // ï¿½gï¿½ï¿½ï¿½@ï¿½\ï¿½tï¿½ï¿½ï¿½O
-	char cpu_brandstring[64]; // ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½i48byteï¿½j
-	UINT32 cpu_brandid; // ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½hID
-	UINT32 cpu_feature_ecx; // ECXï¿½@ï¿½\ï¿½tï¿½ï¿½ï¿½O
-	UINT32 cpu_eflags_mask; // EFLAGSï¿½}ï¿½Xï¿½N(1ï¿½Ì‚Æ‚ï¿½ï¿½ë‚ªï¿½}ï¿½Xï¿½Nï¿½ï¿½ï¿½)
+	UINT32 version; // CPUID?¿½o?¿½[?¿½W?¿½?¿½?¿½?¿½?¿½i?¿½X?¿½e?¿½[?¿½g?¿½Z?¿½[?¿½u?¿½ÝŠï¿½?¿½?¿½?¿½?¿½?¿½ÛŽï¿½?¿½?¿½?¿½é‚½?¿½ß—p?¿½jI386CPUID_VERSION?¿½?¿½?¿½ÅV
+	char cpu_vendor[16]; // ?¿½x?¿½?¿½?¿½_?¿½[?¿½i12byte?¿½j
+	UINT32 cpu_family; // ?¿½t?¿½@?¿½~?¿½?¿½
+	UINT32 cpu_model; // ?¿½?¿½?¿½f?¿½?¿½
+	UINT32 cpu_stepping; // ?¿½X?¿½e?¿½b?¿½s?¿½?¿½?¿½O
+	UINT32 cpu_feature; // ?¿½@?¿½\?¿½t?¿½?¿½?¿½O
+	UINT32 cpu_feature_ex; // ?¿½g?¿½?¿½?¿½@?¿½\?¿½t?¿½?¿½?¿½O
+	char cpu_brandstring[64]; // ?¿½u?¿½?¿½?¿½?¿½?¿½h?¿½?¿½?¿½i48byte?¿½j
+	UINT32 cpu_brandid; // ?¿½u?¿½?¿½?¿½?¿½?¿½hID
+	UINT32 cpu_feature_ecx; // ECX?¿½@?¿½\?¿½t?¿½?¿½?¿½O
+	UINT32 cpu_eflags_mask; // EFLAGS?¿½}?¿½X?¿½N(1?¿½Ì‚Æ‚ï¿½?¿½?‚ª?¿½}?¿½X?¿½N?¿½?¿½?¿½)
 
-	UINT8 allow_movCS; // mov cs,xxï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½
-	UINT8 reserved8[3]; // ï¿½ï¿½ï¿½ï¿½ï¿½ÌŠgï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ß‚É‚Æ‚è‚ ï¿½ï¿½ï¿½ï¿½
-	UINT32 cpu_feature_ex_ecx; // ECXï¿½gï¿½ï¿½ï¿½@ï¿½\ï¿½tï¿½ï¿½ï¿½O
-	UINT32 reserved[29]; // ï¿½ï¿½ï¿½ï¿½ï¿½ÌŠgï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ß‚É‚Æ‚è‚ ï¿½ï¿½ï¿½ï¿½32bit*29ï¿½Â—pï¿½Ó‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
+	UINT8 allow_movCS; // mov cs,xx?¿½?¿½?¿½?¿½?¿½Â‚ï¿½?¿½?¿½
+	UINT8 reserved8[3]; // ?¿½?¿½?¿½?¿½?¿½ÌŠg?¿½?¿½?¿½Ì‚ï¿½?¿½ß‚É‚Æ‚è‚ ?¿½?¿½?¿½?¿½
+	UINT32 cpu_feature_ex_ecx; // ECX?¿½g?¿½?¿½?¿½@?¿½\?¿½t?¿½?¿½?¿½O
+	UINT32 reserved[29]; // ?¿½?¿½?¿½?¿½?¿½ÌŠg?¿½?¿½?¿½Ì‚ï¿½?¿½ß‚É‚Æ‚è‚ ?¿½?¿½?¿½?¿½32bit*29?¿½Â—p?¿½Ó‚ï¿½?¿½Ä‚ï¿½?¿½?¿½
 	
-	UINT8 fpu_type; // FPUï¿½ï¿½ï¿½
+	UINT8 fpu_type; // FPU?¿½?¿½?¿½
 } I386CPUID;
 
 #define I386MSR_VERSION	1
 typedef struct {
-	UINT64 ia32_sysenter_cs; // SYSENTER CSï¿½ï¿½ï¿½Wï¿½Xï¿½^
-	UINT64 ia32_sysenter_esp; // SYSENTER ESPï¿½ï¿½ï¿½Wï¿½Xï¿½^
-	UINT64 ia32_sysenter_eip; // SYSENTER EIPï¿½ï¿½ï¿½Wï¿½Xï¿½^
+	UINT64 ia32_sysenter_cs; // SYSENTER CS?¿½?¿½?¿½W?¿½X?¿½^
+	UINT64 ia32_sysenter_esp; // SYSENTER ESP?¿½?¿½?¿½W?¿½X?¿½^
+	UINT64 ia32_sysenter_eip; // SYSENTER EIP?¿½?¿½?¿½W?¿½X?¿½^
 } I386MSR_REG;
 typedef struct {
-	UINT32 version; // MSRï¿½oï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½iï¿½Xï¿½eï¿½[ï¿½gï¿½Zï¿½[ï¿½uï¿½ÝŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½é‚½ï¿½ß—pï¿½jI386MSR_VERSIONï¿½ï¿½ï¿½ÅV
+	UINT32 version; // MSR?¿½o?¿½[?¿½W?¿½?¿½?¿½?¿½?¿½i?¿½X?¿½e?¿½[?¿½g?¿½Z?¿½[?¿½u?¿½ÝŠï¿½?¿½?¿½?¿½?¿½?¿½ÛŽï¿½?¿½?¿½?¿½é‚½?¿½ß—p?¿½jI386MSR_VERSION?¿½?¿½?¿½ÅV
 	union{
-		UINT64 regs[32]; // ï¿½ï¿½ï¿½ï¿½ï¿½ÌŠgï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ß‚É‚Æ‚è‚ ï¿½ï¿½ï¿½ï¿½64bit*32ï¿½Â—pï¿½Ó‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
+		UINT64 regs[32]; // ?¿½?¿½?¿½?¿½?¿½ÌŠg?¿½?¿½?¿½Ì‚ï¿½?¿½ß‚É‚Æ‚è‚ ?¿½?¿½?¿½?¿½64bit*32?¿½Â—p?¿½Ó‚ï¿½?¿½Ä‚ï¿½?¿½?¿½
 		I386MSR_REG reg;
 	};
 } I386MSR;
@@ -468,7 +468,7 @@ extern sigjmp_buf	exec_1step_jmpbuf;
 #define	CPU_VENDOR_VIA			"VIA VIA VIA "
 #define	CPU_VENDOR_NEKOPRO		"Neko Project"
 
-// ï¿½fï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Ý’ï¿½
+// ?¿½f?¿½t?¿½H?¿½?¿½?¿½g?¿½Ý’ï¿½
 #define	CPU_VENDOR		CPU_VENDOR_INTEL
 
 /*** version ***/
@@ -630,7 +630,7 @@ extern sigjmp_buf	exec_1step_jmpbuf;
 #define	CPU_FEATURE_SSE2_FLAG	0
 #endif
 
-/* ï¿½gï¿½pï¿½Å‚ï¿½ï¿½ï¿½@ï¿½\ï¿½Sï¿½ï¿½ */
+/* ?¿½g?¿½p?¿½Å‚ï¿½?¿½?¿½@?¿½\?¿½S?¿½?¿½ */
 #define	CPU_FEATURES_ALL	(CPU_FEATURE_FPU_FLAG|CPU_FEATURE_CX8|CPU_FEATURE_TSC_FLAG|CPU_FEATURE_VME_FLAG|CPU_FEATURE_CMOV|CPU_FEATURE_MMX_FLAG|CPU_FEATURE_SSE_FLAG|CPU_FEATURE_SSE2_FLAG|CPU_FEATURE_SEP)
 
 #define	CPU_FEATURES_CORE_I				(CPU_FEATURE_FPU|CPU_FEATURE_CX8|CPU_FEATURE_TSC|CPU_FEATURE_VME_FLAG|CPU_FEATURE_CMOV|CPU_FEATURE_FXSR|CPU_FEATURE_MMX|CPU_FEATURE_CLFSH|CPU_FEATURE_SSE|CPU_FEATURE_SSE2)
@@ -675,7 +675,7 @@ extern sigjmp_buf	exec_1step_jmpbuf;
 #define	CPU_FEATURE_EX_E3DNOW_FLAG	0
 #endif
 
-/* ï¿½gï¿½pï¿½Å‚ï¿½ï¿½ï¿½@ï¿½\ï¿½Sï¿½ï¿½ */
+/* ?¿½g?¿½p?¿½Å‚ï¿½?¿½?¿½@?¿½\?¿½S?¿½?¿½ */
 #define	CPU_FEATURES_EX_ALL		(CPU_FEATURE_EX_3DNOW_FLAG|CPU_FEATURE_EX_E3DNOW_FLAG)
 
 #define	CPU_FEATURES_EX_CORE_I		(0)
@@ -710,7 +710,7 @@ extern sigjmp_buf	exec_1step_jmpbuf;
 #define	CPU_FEATURE_EX_ECX_SSE4A_FLAG	0
 #endif
 
-/* ï¿½gï¿½pï¿½Å‚ï¿½ï¿½ï¿½@ï¿½\ï¿½Sï¿½ï¿½ */
+/* ?¿½g?¿½p?¿½Å‚ï¿½?¿½?¿½@?¿½\?¿½S?¿½?¿½ */
 #define	CPU_FEATURES_EX_ECX_ALL		(CPU_FEATURE_EX_ECX_SSE4A_FLAG)
 
 #define	CPU_FEATURES_EX_ECX_CORE_I		(0)
@@ -796,7 +796,7 @@ extern sigjmp_buf	exec_1step_jmpbuf;
 #define	CPU_FEATURE_ECX_POPCNT_FLAG	0
 #endif
 
-/* ï¿½gï¿½pï¿½Å‚ï¿½ï¿½ï¿½@ï¿½\ï¿½Sï¿½ï¿½ */
+/* ?¿½g?¿½p?¿½Å‚ï¿½?¿½?¿½@?¿½\?¿½S?¿½?¿½ */
 #define	CPU_FEATURES_ECX_ALL	(CPU_FEATURE_ECX_SSE3_FLAG|CPU_FEATURE_ECX_SSSE3_FLAG|CPU_FEATURE_ECX_SSE4_1_FLAG|CPU_FEATURE_ECX_SSE4_2_FLAG|CPU_FEATURE_ECX_POPCNT_FLAG)
 
 #define	CPU_FEATURES_ECX_CORE_I			(CPU_FEATURE_ECX_SSE3|CPU_FEATURE_ECX_SSSE3|CPU_FEATURE_ECX_SSE4_1|CPU_FEATURE_ECX_SSE4_2|CPU_FEATURE_ECX_POPCNT)
@@ -870,8 +870,8 @@ extern sigjmp_buf	exec_1step_jmpbuf;
 #define	CPU_BRAND_STRING_AMD_K7_ATHLON		"AMD-K7(tm) Processor "
 #define	CPU_BRAND_STRING_AMD_K6_III			"AMD-K6(tm) 3D+ Processor "
 #define	CPU_BRAND_STRING_AMD_K6_2			"AMD-K6(tm) 3D processor "
-#define	CPU_BRAND_STRING_NEKOPRO			"Neko Processor " // ï¿½Jï¿½Xï¿½^ï¿½ï¿½ï¿½Ý’ï¿½
-#define	CPU_BRAND_STRING_NEKOPRO2			"Neko Processor II " // ï¿½Sï¿½@ï¿½\ï¿½gï¿½pï¿½Â”\
+#define	CPU_BRAND_STRING_NEKOPRO			"Neko Processor " // ?¿½J?¿½X?¿½^?¿½?¿½?¿½Ý’ï¿½
+#define	CPU_BRAND_STRING_NEKOPRO2			"Neko Processor II " // ?¿½S?¿½@?¿½\?¿½g?¿½p?¿½Â”\
 
 
 /* brand id */
@@ -896,12 +896,12 @@ extern sigjmp_buf	exec_1step_jmpbuf;
 #define	CPU_BRAND_ID_AMD_K7_ATHLON		0
 #define	CPU_BRAND_ID_AMD_K6_III			0
 #define	CPU_BRAND_ID_AMD_K6_2			0
-#define	CPU_BRAND_ID_NEKOPRO			0 // ï¿½Jï¿½Xï¿½^ï¿½ï¿½ï¿½Ý’ï¿½
-#define	CPU_BRAND_ID_NEKOPRO2			0 // ï¿½Sï¿½@ï¿½\ï¿½gï¿½pï¿½Â”\
+#define	CPU_BRAND_ID_NEKOPRO			0 // ?¿½J?¿½X?¿½^?¿½?¿½?¿½Ý’ï¿½
+#define	CPU_BRAND_ID_NEKOPRO2			0 // ?¿½S?¿½@?¿½\?¿½g?¿½p?¿½Â”\
 
-#define	CPU_BRAND_ID_AUTO				0xffffffff // BrandIDï¿½ï¿½ï¿½ï¿½ï¿½Ý’ï¿½iï¿½ß‹ï¿½ï¿½oï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ÌŒÝŠï¿½ï¿½ÛŽï¿½ï¿½pï¿½j
+#define	CPU_BRAND_ID_AUTO				0xffffffff // BrandID?¿½?¿½?¿½?¿½?¿½Ý’ï¿½i?¿½ß‹ï¿½?¿½o?¿½[?¿½W?¿½?¿½?¿½?¿½?¿½Æ‚ÌŒÝŠï¿½?¿½ÛŽï¿½?¿½p?¿½j
 
-// CPUID ï¿½fï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Ý’ï¿½
+// CPUID ?¿½f?¿½t?¿½H?¿½?¿½?¿½g?¿½Ý’ï¿½
 #if defined(USE_FPU)
 #if defined(USE_SSE3)
 #define	CPU_FAMILY			CPU_PENTIUM_III_FAMILY
@@ -1390,20 +1390,20 @@ void dbg_printf(const char *str, ...);
 #define	FPU_REG(i)		FPU_STAT.reg[i]
 
 /* FPU status register */
-#define	FP_IE_FLAG	(1 << 0)	/* ï¿½ï¿½ï¿½ï¿½ï¿½È“ï¿½ï¿½ï¿½ */
-#define	FP_DE_FLAG	(1 << 1)	/* ï¿½fï¿½mï¿½[ï¿½}ï¿½ï¿½ï¿½Cï¿½Yï¿½hï¿½Eï¿½Iï¿½yï¿½ï¿½ï¿½ï¿½ï¿½h */
-#define	FP_ZE_FLAG	(1 << 2)	/* ï¿½[ï¿½ï¿½ï¿½É‚ï¿½éœï¿½Z */
-#define	FP_OE_FLAG	(1 << 3)	/* ï¿½Iï¿½[ï¿½oï¿½[ï¿½tï¿½ï¿½ï¿½[ */
-#define	FP_UE_FLAG	(1 << 4)	/* ï¿½Aï¿½ï¿½ï¿½_ï¿½[ï¿½tï¿½ï¿½ï¿½[ */
-#define	FP_PE_FLAG	(1 << 5)	/* ï¿½ï¿½ï¿½x */
-#define	FP_SF_FLAG	(1 << 6)	/* ï¿½Xï¿½^ï¿½bï¿½Nï¿½tï¿½Hï¿½ï¿½ï¿½g */
-#define	FP_ES_FLAG	(1 << 7)	/* ï¿½Gï¿½ï¿½ï¿½[ï¿½Tï¿½}ï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½^ï¿½X */
-#define	FP_C0_FLAG	(1 << 8)	/* ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½h */
-#define	FP_C1_FLAG	(1 << 9)	/* ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½h */
-#define	FP_C2_FLAG	(1 << 10)	/* ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½h */
-#define	FP_TOP_FLAG	(7 << 11)	/* ï¿½Xï¿½^ï¿½bï¿½Nï¿½|ï¿½Cï¿½ï¿½ï¿½gï¿½Ìƒgï¿½bï¿½v */
-#define	FP_C3_FLAG	(1 << 14)	/* ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½h */
-#define	FP_B_FLAG	(1 << 15)	/* FPU ï¿½rï¿½Wï¿½[ */
+#define	FP_IE_FLAG	(1 << 0)	/* ?¿½?¿½?¿½?¿½?¿½È“ï¿½?¿½?¿½ */
+#define	FP_DE_FLAG	(1 << 1)	/* ?¿½f?¿½m?¿½[?¿½}?¿½?¿½?¿½C?¿½Y?¿½h?¿½E?¿½I?¿½y?¿½?¿½?¿½?¿½?¿½h */
+#define	FP_ZE_FLAG	(1 << 2)	/* ?¿½[?¿½?¿½?¿½É‚ï¿½éœï¿½Z */
+#define	FP_OE_FLAG	(1 << 3)	/* ?¿½I?¿½[?¿½o?¿½[?¿½t?¿½?¿½?¿½[ */
+#define	FP_UE_FLAG	(1 << 4)	/* ?¿½A?¿½?¿½?¿½_?¿½[?¿½t?¿½?¿½?¿½[ */
+#define	FP_PE_FLAG	(1 << 5)	/* ?¿½?¿½?¿½x */
+#define	FP_SF_FLAG	(1 << 6)	/* ?¿½X?¿½^?¿½b?¿½N?¿½t?¿½H?¿½?¿½?¿½g */
+#define	FP_ES_FLAG	(1 << 7)	/* ?¿½G?¿½?¿½?¿½[?¿½T?¿½}?¿½?¿½?¿½X?¿½e?¿½[?¿½^?¿½X */
+#define	FP_C0_FLAG	(1 << 8)	/* ?¿½?¿½?¿½?¿½?¿½R?¿½[?¿½h */
+#define	FP_C1_FLAG	(1 << 9)	/* ?¿½?¿½?¿½?¿½?¿½R?¿½[?¿½h */
+#define	FP_C2_FLAG	(1 << 10)	/* ?¿½?¿½?¿½?¿½?¿½R?¿½[?¿½h */
+#define	FP_TOP_FLAG	(7 << 11)	/* ?¿½X?¿½^?¿½b?¿½N?¿½|?¿½C?¿½?¿½?¿½g?¿½Ìƒg?¿½b?¿½v */
+#define	FP_C3_FLAG	(1 << 14)	/* ?¿½?¿½?¿½?¿½?¿½R?¿½[?¿½h */
+#define	FP_B_FLAG	(1 << 15)	/* FPU ?¿½r?¿½W?¿½[ */
 
 #define	FP_TOP_SHIFT	11
 #define	FP_TOP_GET()	((FPU_STATUSWORD & FP_TOP_FLAG) >> FP_TOP_SHIFT)
@@ -1422,12 +1422,12 @@ do { \
 } while (/*CONSTCOND*/0)
 
 /* FPU control register */
-#define	FP_CTRL_PC_SHIFT	8	/* ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ */
-#define	FP_CTRL_RC_SHIFT	10	/* ï¿½Û‚ßï¿½ï¿½ï¿½ */
+#define	FP_CTRL_PC_SHIFT	8	/* ?¿½?¿½?¿½x?¿½?¿½?¿½?¿½ */
+#define	FP_CTRL_RC_SHIFT	10	/* ?¿½Û‚ßï¿½?¿½?¿½ */
 
-#define	FP_CTRL_PC_24		0	/* ï¿½Pï¿½ï¿½ï¿½x */
-#define	FP_CTRL_PC_53		1	/* ï¿½{ï¿½ï¿½ï¿½x */
-#define	FP_CTRL_PC_64		3	/* ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½x */
+#define	FP_CTRL_PC_24		0	/* ?¿½P?¿½?¿½?¿½x */
+#define	FP_CTRL_PC_53		1	/* ?¿½{?¿½?¿½?¿½x */
+#define	FP_CTRL_PC_64		3	/* ?¿½g?¿½?¿½?¿½?¿½?¿½x */
 
 #define	FP_CTRL_RC_NEAREST_EVEN	0
 #define	FP_CTRL_RC_DOWN		1

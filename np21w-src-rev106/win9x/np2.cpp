@@ -8,7 +8,7 @@
 
 #include "compiler.h"
 
-// Win2000�œ����悤�ɂ���
+// Win2000????????????
 #if defined(SUPPORT_WIN2000HOST)
 #ifdef _WINDOWS
 #ifndef _WIN64
@@ -119,7 +119,7 @@
 #endif
 #include	<process.h>
 
-extern bool scrnmng_create_pending; // �O���t�B�b�N�����_�������ۗ���
+extern bool scrnmng_create_pending; // ?O???t?B?b?N?????_???????????
 
 
 #ifdef SUPPORT_WACOM_TABLET
@@ -252,7 +252,7 @@ static	int			np2opening = 1;
 static	int			np2quitmsg = 0;
 static	WINLOCEX	smwlex;
 static	HMODULE		s_hModResource;
-static  UINT		lateframecount; // �t���[���x�ꐔ
+static  UINT		lateframecount; // ?t???[???x??
 static  int			mousecapturemode = 0;
 static  int			screenChanging = 0;
 
@@ -293,20 +293,20 @@ static const OEMCHAR szNp2ResDll[] = OEMTEXT("np2x64_%u.dll");
 static const OEMCHAR szNp2ResDll[] = OEMTEXT("np2_%u.dll");
 #endif	// defined(_WIN64)
 
-// ASCII -> 98�L�[�R�[�h�\(np21w ver0.86 rev22)
+// ASCII -> 98?L?[?R?[?h?\(np21w ver0.86 rev22)
 char vkeylist[256] = {0};
 char shift_on[256] = {0};
 
-// �}���`�X���b�h�p
+// ?}???`?X???b?h?p
 #if defined(SUPPORT_MULTITHREAD)
-static int np2_multithread_requestswitch = 0; // �}���`�X���b�h���[�h�ؑ֗v���t���O
-static int np2_multithread_enable = 0; // �}���`�X���b�h���[�h�L���t���O
-static BOOL np2_multithread_initialized = 0; // �}���`�X���b�h���[�h�������ς݃t���O
-static HANDLE	np2_multithread_hThread = NULL; // �G�~�����[�V�����p�X���b�h
-static CRITICAL_SECTION	np2_multithread_hThread_cs = {0}; // �G�~�����[�V�����p�X���b�h�@�N���e�B�J���Z�N�V����
-static BOOL	np2_multithread_hThread_requestexit = FALSE; // �G�~�����[�V�����p�X���b�h�@�I���v���t���O
-static bool np2_multithread_pauseemulation = false; // �G�~�����[�V�����ꎞ��~�t���O
-static bool np2_multithread_pausing = false; // �G�~�����[�V�����ꎞ��~���t���O
+static int np2_multithread_requestswitch = 0; // ?}???`?X???b?h???[?h???v???t???O
+static int np2_multithread_enable = 0; // ?}???`?X???b?h???[?h?L???t???O
+static BOOL np2_multithread_initialized = 0; // ?}???`?X???b?h???[?h?????????t???O
+static HANDLE	np2_multithread_hThread = NULL; // ?G?~?????[?V?????p?X???b?h
+static CRITICAL_SECTION	np2_multithread_hThread_cs = {0}; // ?G?~?????[?V?????p?X???b?h?@?N???e?B?J???Z?N?V????
+static BOOL	np2_multithread_hThread_requestexit = FALSE; // ?G?~?????[?V?????p?X???b?h?@?I???v???t???O
+static bool np2_multithread_pauseemulation = false; // ?G?~?????[?V????????~?t???O
+static bool np2_multithread_pausing = false; // ?G?~?????[?V????????~???t???O
 static void np2_multithread_Initialize(){
 	if(!np2_multithread_initialized){
 		InitializeCriticalSection(&np2_multithread_hThread_cs);
@@ -314,7 +314,7 @@ static void np2_multithread_Initialize(){
 	}
 }
 static void np2_multithread_fakeWndProc(){
-	// �O���t�B�b�N���肪WndProc�����������O��ɂȂ��Ă���̂Ŗ������
+	// ?O???t?B?b?N???�bWndProc???????????O??????????????????
 	MSG msg;
 	if(PeekMessage(&msg, 0, 0, 0, PM_NOREMOVE))
 	{
@@ -419,19 +419,19 @@ int np2_multithread_Enabled(){
 }
 #endif
 
-// �R�s�y�p(np21w ver0.86 rev22)
+// ?R?s?y?p(np21w ver0.86 rev22)
 char *autokey_sendbuffer = NULL;
 int autokey_sendbufferlen = 0;
 int autokey_sendbufferpos = 0;
 int autokey_lastkanastate = 0;
 
-// �I�[�g�����}���p
+// ?I?[?g?????}???p
 static int WM_QueryCancelAutoPlay;
 
-// �V�X�e���L�[�t�b�N�p
+// ?V?X?e???L?[?t?b?N?p
 #ifdef HOOK_SYSKEY
-static HANDLE	np2_hThreadKeyHook = NULL; // �L�[�t�b�N�p�X���b�h
-static int		np2_hThreadKeyHookexit = 0; // �X���b�h�I���t���O
+static HANDLE	np2_hThreadKeyHook = NULL; // ?L?[?t?b?N?p?X???b?h
+static int		np2_hThreadKeyHookexit = 0; // ?X???b?h?I???t???O
 static HWND		np2_hThreadKeyHookhWnd = 0;
 LRESULT CALLBACK LowLevelKeyboardProc(INT nCode, WPARAM wParam, LPARAM lParam);
 HHOOK hHook = NULL;
@@ -457,12 +457,12 @@ static unsigned int __stdcall np2_ThreadFuncKeyHook(LPVOID vdParam)
 
 	if(!(np2_hThreadKeyHookhWnd = CreateWindow(wndclassname, _T("NP2 Key Hook"), WS_POPUPWINDOW, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, g_hInstance, NULL))) return 0;
 
-	ShowWindow( np2_hThreadKeyHookhWnd, SW_HIDE ); // �O�̂���
+	ShowWindow( np2_hThreadKeyHookhWnd, SW_HIDE ); // ?O?????
 
 	if(!hHook){
 		hHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, g_hInstance, 0);
 	}
-	// ���C�� ���b�Z�[�W ���[�v
+	// ???C?? ???b?Z?[?W ???[?v
 	while( GetMessage(&msg, NULL, 0, 0) > 0 ) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
@@ -503,8 +503,8 @@ static void stop_hook_systemkey()
 }
 #endif
 
-// �^�C�g���o�[�̉��ʁE�}�E�X���x ������\���p
-#define TMRSYSMNG_ID	9898 // ���Ɣ��Ȃ��悤�ɂ��邱��
+// ?^?C?g???o?[?????E?}?E?X???x ??????\???p
+#define TMRSYSMNG_ID	9898 // ??????????????�??
 UINT_PTR tmrSysMngHide = 0;
 VOID CALLBACK SysMngHideTimerProc(HWND hwnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime) {
 	sys_miscinfo.showvolume = 0;
@@ -528,9 +528,9 @@ static int messagebox(HWND hWnd, LPCTSTR lpcszText, UINT uType)
 // ----
 
 /**
- * ���\�[�X DLL �����[�h
- * @param[in] hInstance ���̃C���X�^���X
- * @return �C���X�^���X
+ * ???\?[?X DLL ?????[?h
+ * @param[in] hInstance ????C???X?^???X
+ * @return ?C???X?^???X
  */
 static HINSTANCE LoadExternalResource(HINSTANCE hInstance)
 {
@@ -552,7 +552,7 @@ static HINSTANCE LoadExternalResource(HINSTANCE hInstance)
 }
 
 /**
- * ���\�[�X�̃A�����[�h
+ * ???\?[?X??A?????[?h
  */
 static void UnloadExternalResource()
 {
@@ -605,7 +605,7 @@ WINLOCEX np2_winlocexallwin(HWND base) {
 			list[i] = NULL;
 		}
 	}
-	if (base != g_hWndMain) {		// hWndMain�̂ݑS�̈ړ�
+	if (base != g_hWndMain) {		// hWndMain???S????
 		base = NULL;
 	}
 	return(winlocex_create(base, list, cnt));
@@ -657,7 +657,7 @@ static void changescreen(UINT8 newmode) {
 		if (scrnmng_create(newmode) == SUCCESS) {
 			g_scrnmode = newmode;
 			if(np2oscfg.scrnmode != g_scrnmode){
-				np2oscfg.scrnmode = g_scrnmode; // Screen��ԕۑ�
+				np2oscfg.scrnmode = g_scrnmode; // Screen?????
 				sysmng_update(SYS_UPDATEOSCFG);
 			}
 		}
@@ -840,8 +840,8 @@ static int flagload(HWND hWnd, const OEMCHAR *ext, LPCTSTR title, BOOL force)
 #endif
 
 /**
- * �T�E���h�f�o�C�X�̍ăI�[�v��
- * @param[in] hWnd �E�B���h�E �n���h��
+ * ?T?E???h?f?o?C?X???I?[?v??
+ * @param[in] hWnd ?E?B???h?E ?n???h??
  */
 static void OpenSoundDevice(HWND hWnd)
 {
@@ -892,8 +892,8 @@ static void np2popup(HWND hWnd, LPARAM lp) {
 
 #ifdef SUPPORT_PHYSICAL_CDDRV
 static void np2updateCDmenu() {
-	static char drvMenuVisible[4][26] = {0}; // ���h���C�u���j���[�̕\�����
-	char drvAvailable[26] = {0}; // �g������h���C�u
+	static char drvMenuVisible[4][26] = {0}; // ???h???C?u???j???[??\?????
+	char drvAvailable[26] = {0}; // ?g??????h???C?u
 	
 	REG8 drv;
 	HMENU hMenu = np2class_gethmenu(g_hWndMain);
@@ -905,7 +905,7 @@ static void np2updateCDmenu() {
 	int nDrive;
 	TCHAR szBuff2[] = OEMTEXT("A:\\");
 
-	// �L����CD�h���C�u�̃h���C�u�����𒲂ׂ�
+	// ?L????CD?h???C?u??h???C?u????????
 	dwDrive = GetLogicalDrives();
 	for ( nDrive = 0 ; nDrive < 26 ; nDrive++ ){
 		if ( dwDrive & (1 << nDrive) ){
@@ -921,7 +921,7 @@ static void np2updateCDmenu() {
 	{
 		int mnupos = 1;
 		if(menu_searchmenu(hMenu, IDM_IDE0OPEN+drv, &hMenuTgt, &hMenuTgtPos)){
-			// ��U�S������
+			// ??U?S??????
 			for ( nDrive = 0 ; nDrive < 26 ; nDrive++ ){
 				if(drvMenuVisible[drv][nDrive]){
 					DeleteMenu(hMenuTgt, IDM_IDE0PHYSICALDRV_ID0 + 26*drv + nDrive, MF_BYCOMMAND);
@@ -929,7 +929,7 @@ static void np2updateCDmenu() {
 				}
 			}
 			if(np2cfg.idetype[drv]==SXSIDEV_CDROM){
-				// �Ēǉ�
+				// ????
 				for ( nDrive = 0 ; nDrive < 26 ; nDrive++ ){
 					if(drvAvailable[nDrive]){
 						TCHAR mnuText[200] = {0};
@@ -1059,7 +1059,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 #if defined(SUPPORT_MULTITHREAD)
 			if (!!np2_multithread_enable != !!np2oscfg.multithread)
 			{
-				// �}���`�X���b�h���[�h�ؑ֗v��
+				// ?}???`?X???b?h???[?h???v??
 				np2_multithread_requestswitch = 1;
 			}
 #endif
@@ -1248,9 +1248,9 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 		//case IDM_FDD3_LIST_DIRNAME:
 		//case IDM_FDD4_LIST_DIRNAME:
 		//	{
-		//		OEMCHAR* fname = fdd_diskname(uID - IDM_FDD1_LIST_DIRNAME); // ���݊J���Ă���t�@�C������擾
+		//		OEMCHAR* fname = fdd_diskname(uID - IDM_FDD1_LIST_DIRNAME); // ????J???????t?@?C??????��
 		//		if (!fname || !(*fname)) {
-		//			fname = sysmng_getlastfddlistitem(uID - IDM_FDD1_LIST_DIRNAME); // ���߂Ȃ�f�B���N�g���p�X�Ɋ�Â��Ď擾
+		//			fname = sysmng_getlastfddlistitem(uID - IDM_FDD1_LIST_DIRNAME); // ??????f?B???N?g???p?X???????��
 		//		}
 		//		if (fname && *fname) {
 		//			TCHAR seltmp[500];
@@ -1914,7 +1914,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			np2oscfg.mouse_nc = !np2oscfg.mouse_nc;
 			if(np2oscfg.mouse_nc){
 				if (np2oscfg.wintype != 0) {
-					// XXX: ���j���[���o���Ȃ��Ȃ��ċl�ނ̂�����i�b��j
+					// XXX: ???j???[???o??????????l????????i?b??j
 					if (!scrnmng_isfullscreen()) {
 						WINLOCEX	wlex;
 						np2oscfg.wintype = 0;
@@ -1992,7 +1992,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 
 		case IDM_MOUSERAW:
 			np2oscfg.rawmouse = !np2oscfg.rawmouse;
-			mousemng_updateclip(); // �L���v�`��������
+			mousemng_updateclip(); // ?L???v?`????????
 			update |= SYS_UPDATEOSCFG;
 			break;
 
@@ -2237,7 +2237,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 		case IDM_ALLOWDRAGDROP:
 			np2oscfg.dragdrop = !np2oscfg.dragdrop;
 			if (np2oscfg.dragdrop)
-				DragAcceptFiles(hWnd, TRUE);	//	�C���[�W�t�@�C���̂c���c�ɑΉ�(Kai1)
+				DragAcceptFiles(hWnd, TRUE);	//	?C???[?W?t?@?C????c???c????(Kai1)
 			else
 				DragAcceptFiles(hWnd, FALSE);
 			update |= SYS_UPDATEOSCFG;
@@ -2260,17 +2260,17 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			{
 				HGLOBAL hMem;
 				OEMCHAR *lpMem;
-				hMem = GlobalAlloc(GHND,0x4000); // �A�g���r���[�g���������Ȃ�̂�0x4000�ŏ\��
+				hMem = GlobalAlloc(GHND,0x4000); // ?A?g???r???[?g?????????????0x4000??\??
 				lpMem = (OEMCHAR*)GlobalLock(hMem);
 				dialog_getTVRAM(lpMem);
 				GlobalUnlock(hMem);
 				if(OpenClipboard(hWnd)){
-					// �N���b�v�{�[�h�D�搬��
+					// ?N???b?v?{?[?h?D?��??
 					EmptyClipboard();
 					SetClipboardData(CF_TEXT, hMem);
 					CloseClipboard();
 				}else{
-					// �N���b�v�{�[�h�D�掸�s���
+					// ?N???b?v?{?[?h?D???s???
 					GlobalFree(hMem);
 				}
 				pcm86_setnextintr();
@@ -2310,12 +2310,12 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 				free(lppixels);
 				free(lpbinfo);
 				if(OpenClipboard(hWnd)){
-					// �N���b�v�{�[�h�D�搬��
+					// ?N???b?v?{?[?h?D?��??
 					EmptyClipboard();
 					SetClipboardData(CF_BITMAP,hBmp);
 					CloseClipboard();
 				}else{
-					// �N���b�v�{�[�h�D�掸�s���
+					// ?N???b?v?{?[?h?D???s???
 					DeleteObject(hBmp);
 				}
 				scrnsave_destroy(ss);
@@ -2349,7 +2349,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 						}
 					}
 				}else{
-					// �����I��
+					// ?????I??
 					autokey_sendbufferpos = autokey_sendbufferlen;
 				}
 			}
@@ -2390,13 +2390,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	static int lastbtn = -1;
 
 	switch (msg) {
-		//	�C���[�W�t�@�C���̂c���c�ɑΉ�(Kai1)
+		//	?C???[?W?t?@?C????c???c????(Kai1)
 		case WM_DROPFILES:
 			np2_multithread_EnterCriticalSection();
 			if(np2oscfg.dragdrop){
-				int		files;				//	Kai1�ǉ�
-				OEMCHAR	fname[MAX_PATH];	//	Kai1�ǉ�
-				const OEMCHAR	*ext;		//	Kai1�ǉ�
+				int		files;				//	Kai1???
+				OEMCHAR	fname[MAX_PATH];	//	Kai1???
+				const OEMCHAR	*ext;		//	Kai1???
    				files = DragQueryFile((HDROP)wParam, (UINT)-1, NULL, 0);
 				REG8	hddrv_IDE = 0x00;
 				REG8	hddrv_IDECD = 0x00;
@@ -2418,7 +2418,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 #endif
 					ext = file_getext(fname);
 #if defined(SUPPORT_IDEIO)
-					//	CD�C���[�W�H
+					//	CD?C???[?W?H
 					if ((!file_cmpname(ext, OEMTEXT("iso"))) ||
 						(!file_cmpname(ext, OEMTEXT("cue"))) ||
 						(!file_cmpname(ext, OEMTEXT("ccd"))) ||
@@ -2430,7 +2430,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 						continue;
 					}
 #endif	//	SUPPORT_IDEIO
-					//	HD�C���[�W�H
+					//	HD?C???[?W?H
 					if ((!file_cmpname(ext, str_hdi)) ||
 						(!file_cmpname(ext, str_thd)) ||
 						(!file_cmpname(ext, str_nhd))) {
@@ -2454,7 +2454,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 						}
 						continue;
 					}
-					// VM�ݒ�t�@�C���i�P�Ƃœ��ꂽ�ꍇ�̂ݗL���j
+					// VM???t?@?C???i?P???????????L???j
 					if ((!file_cmpname(ext, OEMTEXT("npcfg"))) ||
 						(!file_cmpname(ext, OEMTEXT("np2cfg"))) ||
 						(!file_cmpname(ext, OEMTEXT("np21cfg"))) ||
@@ -2487,7 +2487,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 							continue;
 						}
 					}
-					//	FD�C���[�W�c�H
+					//	FD?C???[?W?c?H
 					if (fddrv <= 0x02) {
 						file_cpyname(fddfolder, fname, _countof(fddfolder));
 						diskdrv_setfdd(fddrv, fname, 0);
@@ -2498,7 +2498,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 				}
 				DragFinish((HDROP)wParam);
 				if (GetKeyState(VK_SHIFT) & 0x8000) {
-					//	Shift�L�[����������Ă���΃��Z�b�g
+					//	Shift?L?[?????????????????Z?b?g
 					pccore_cfgupdate();
 #ifdef HOOK_SYSKEY
 					stop_hook_systemkey();
@@ -2706,7 +2706,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 				keystat_allrelease();
 				mousemng_enable(MOUSEPROC_BG);
 				np2_multithread_LeaveCriticalSection();
-				// �L���v�`���O��
+				// ?L???v?`???O??
 				mousemng_disable(MOUSEPROC_SYSTEM);
 				np2oscfg.MOUSE_SW = 0;
 				update |= SYS_UPDATECFG;
@@ -2836,7 +2836,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 			break;
 
 		case WM_KEYDOWN:
-			autokey_sendbufferpos = autokey_sendbufferlen; // �R�s�y�����I�� np21w ver0.86 rev22
+			autokey_sendbufferpos = autokey_sendbufferlen; // ?R?s?y?????I?? np21w ver0.86 rev22
 			if (wParam == VK_F11) {
 				np2class_enablemenu(g_hWndMain, TRUE);
 				return(DefWindowProc(hWnd, WM_SYSKEYDOWN, VK_F10, lParam));
@@ -2846,7 +2846,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 				np2oscfg.MOUSE_SW = !np2oscfg.MOUSE_SW;
 				if(np2oscfg.mouse_nc){
 					if (np2oscfg.wintype != 0) {
-						// XXX: ���j���[���o���Ȃ��Ȃ��ċl�ނ̂�����i�b��j
+						// XXX: ???j???[???o??????????l????????i?b??j
 						if (!scrnmng_isfullscreen()) {
 							WINLOCEX	wlex;
 							np2oscfg.wintype = 0;
@@ -2916,7 +2916,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 			break;
 
 		case WM_SYSKEYDOWN:
-			autokey_sendbufferpos = autokey_sendbufferlen; // �R�s�y�����I�� np21w ver0.86 rev22
+			autokey_sendbufferpos = autokey_sendbufferlen; // ?R?s?y?????I?? np21w ver0.86 rev22
 #ifdef HOOK_SYSKEY
 			if (GetAsyncKeyState (VK_RMENU) >> ((sizeof(SHORT) * 8) - 1)) {	// np21w ver0.86 rev6	
 #else
@@ -2931,7 +2931,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 					break;
 				}
 				if (np2oscfg.mouse_nc && np2oscfg.wintype != 0) {
-					// XXX: ���j���[���o���Ȃ��Ȃ��ċl�ނ̂�����i�b��j
+					// XXX: ???j???[???o??????????l????????i?b??j
 					if (!scrnmng_isfullscreen()) {
 						np2oscfg.wintype = 0;
 						wlex = np2_winlocexallwin(hWnd);
@@ -2971,8 +2971,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 				RECT rectClient;
 				int xPos, yPos;
 				int mouseon = 1;
-				static int mousebufX = 0; // �}�E�X�ړ��o�b�t�@(X)
-				static int mousebufY = 0; // �}�E�X�ړ��o�b�t�@(Y)
+				static int mousebufX = 0; // ?}?E?X????o?b?t?@(X)
+				static int mousebufY = 0; // ?}?E?X????o?b?t?@(Y)
 				int x = (short)LOWORD(lParam);
 				int y = (short)HIWORD(lParam);
 
@@ -3001,7 +3001,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 						dy += (SINT16)(mousebufY / np2oscfg.mousediv);
 						mousebufY   = mousebufY % np2oscfg.mousediv;
 					}
-					// XXX: �[����
+					// XXX: ?[????
 #define MOUSE_EDGE_ACM	4
 					if(x<mouse_edge_sh_x && dx < 0){
 						dxmul = 1+(mouse_edge_sh_x - x)*MOUSE_EDGE_ACM/mouse_edge_sh_x;
@@ -3029,7 +3029,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 					lastmx = x;
 					lastmy = y;
 
-					// ��΍��W�}�E�X
+					// ?????W?}?E?X
 					scrnmng_getrect(&rectClient);
 					xPos = x - rectClient.left;
 					yPos = y - rectClient.top;
@@ -3071,7 +3071,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 		case WM_LBUTTONDOWN:
 			np2_multithread_EnterCriticalSection();
-			autokey_sendbufferpos = autokey_sendbufferlen; // �R�s�y�����I�� np21w ver0.86 rev22
+			autokey_sendbufferpos = autokey_sendbufferlen; // ?R?s?y?????I?? np21w ver0.86 rev22
 			if (!mousemng_buttonevent(MOUSEMNG_LEFTDOWN)) {
 				if (!scrnmng_isfullscreen()) {
 					if (np2oscfg.wintype == 2) {
@@ -3118,13 +3118,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 		case WM_MBUTTONDOWN:
 			np2_multithread_EnterCriticalSection();
-			autokey_sendbufferpos = autokey_sendbufferlen; // �R�s�y�����I�� np21w ver0.86 rev22
+			autokey_sendbufferpos = autokey_sendbufferlen; // ?R?s?y?????I?? np21w ver0.86 rev22
 			mousemng_toggle(MOUSEPROC_SYSTEM);
 			np2oscfg.MOUSE_SW = !np2oscfg.MOUSE_SW;
 			sysmng_update(SYS_UPDATECFG);
 			if(np2oscfg.mouse_nc){
 				if (np2oscfg.wintype != 0) {
-					// XXX: ���j���[���o���Ȃ��Ȃ��ċl�ނ̂�����i�b��j
+					// XXX: ???j???[???o??????????l????????i?b??j
 					if (!scrnmng_isfullscreen()) {
 						WINLOCEX	wlex;
 						np2oscfg.wintype = 0;
@@ -3148,7 +3148,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 		case WM_RBUTTONDOWN:
 			np2_multithread_EnterCriticalSection();
-			autokey_sendbufferpos = autokey_sendbufferlen; // �R�s�y�����I�� np21w ver0.86 rev22
+			autokey_sendbufferpos = autokey_sendbufferlen; // ?R?s?y?????I?? np21w ver0.86 rev22
 			if (!mousemng_buttonevent(MOUSEMNG_RIGHTDOWN)) {
 				if (!scrnmng_isfullscreen()) {
 					np2popup(hWnd, lParam);
@@ -3193,7 +3193,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		case WM_LBUTTONDBLCLK:
 			if(np2oscfg.mouse_nc){
 				if (np2oscfg.wintype != 0) {
-					// XXX: ���j���[���o���Ȃ��Ȃ��ċl�ނ̂�����i�b��j
+					// XXX: ???j???[???o??????????l????????i?b??j
 					if (!scrnmng_isfullscreen()) {
 						WINLOCEX	wlex;
 						np2oscfg.wintype = 0;
@@ -3234,7 +3234,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 			if (!np2oscfg.MOUSE_SW) {
 				if(np2oscfg.mouse_nc){
 					if (np2oscfg.wintype != 0) {
-						// XXX: ���j���[���o���Ȃ��Ȃ��ċl�ނ̂�����i�b��j
+						// XXX: ???j???[???o??????????l????????i?b??j
 						if (!scrnmng_isfullscreen()) {
 							WINLOCEX	wlex;
 							np2oscfg.wintype = 0;
@@ -3262,7 +3262,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 			{
 				UINT8 action = (wParam & (MK_CONTROL | MK_SHIFT)) ? np2oscfg.wheelac2 : np2oscfg.wheelact;
 				if (action == WHEELACTION_VOLUME) {
-					// ����
+					// ????
 					int cMaster = np2cfg.vol_master;
 					cMaster += GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA * 2;
 					if (cMaster < 0) cMaster = 0;
@@ -3280,10 +3280,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 					tmrSysMngHide = SetTimer(hWnd, TMRSYSMNG_ID, 5000, SysMngHideTimerProc);
 				}
 				else if(action == WHEELACTION_MOUSESPEED) {
-					// �}�E�X
+					// ?}?E?X
 					int mmul = np2oscfg.mousemul;
 					int mdiv = np2oscfg.mousediv;
-					// ��X�ʓ|�Ȃ̂� 2x/2�̌`�ɂ���
+					// ??X??|???? 2x/2??`?????
 					if (mdiv == 1) {
 						mdiv *= 2;
 						mmul *= 2;
@@ -3308,7 +3308,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 					}
 					if (mmul > 8) mmul = 8;
 					if (mdiv > 8) mdiv = 8;
-					// 2�Ŋ����Ȃ犄���Ă���
+					// 2???????????????
 					if (mdiv == 2 && mmul % 2 == 0) {
 						mdiv /= 2;
 						mmul /= 2;
@@ -3378,7 +3378,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 				winuileave();
 			}
 			if (b) {
-				// ������ʃT�C�Y�ɖ߂�
+				// ???????T?C?Y????
 				np2_multithread_EnterCriticalSection();
 				scrnmng_setsize(0, 0, 640, 400);
 				np2_multithread_LeaveCriticalSection();
@@ -3478,10 +3478,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 										if(_tcsicmp(fname, drvstr)==0){
 											_tcscpy(fnamebuf, np2cfg.idecd[i]);
 											if(wParam == DBT_DEVICEARRIVAL){
-												// CD�}��
+												// CD?}??
 												diskdrv_setsxsi(i, fnamebuf);
 											}else{
-												// CD��o XXX: ���g����ł��}�E���g�͌p��
+												// CD??o XXX: ???g???????}?E???g??p??
 												diskdrv_setsxsi(i, NULL);
 												_tcscpy(np2cfg.idecd[i], fnamebuf);
 											}
@@ -3558,13 +3558,13 @@ void autoSendKey(){
 	//int i;
 	DWORD curtime = 0;
 	
-	// ������̂Ȃ�
+	// ?????????
 	if (autokey_sendbufferlen == 0)
 	{
 		return;
 	}
 	
-	// 10������������(���͑��x����t��)
+	// 10????????????(??????x????t??)
 	curtime = GetTickCount();
 	if(curtime - lastsendtime > 256/pccore.multiple+8){
 		int i;
@@ -3608,7 +3608,7 @@ void autoSendKey(){
 							keystat_senddata(0x80 | vkeylist[sendchar]);
 						}
 					}else if(0xA1 <= sendchar && sendchar <= 0xDF){
-						// ���p��
+						// ???p??
 						if (kanjimode)
 						{
 							keystat_senddata(0x00 | 0x74);
@@ -3640,7 +3640,7 @@ void autoSendKey(){
 							keystat_senddata(0x80 | vkeylist[sendchar]);
 						}
 					}else if(0x80 <= sendchar){
-						// ����2byte����
+						// ????2byte????
 						if (np2oscfg.knjpaste)
 						{
 							isKanji = 1;
@@ -3677,7 +3677,7 @@ void autoSendKey(){
 							keystat_senddata(0x80 | vkeylist[hexToAsc[((jiscode) & 0xf)]]);
 							if (np2oscfg.knjpaste == 2)
 							{
-								// DOS��1�������ɉ��������
+								// DOS??1????????????????
 								kanjimode = 0;
 							}
 							i += 16;
@@ -3693,12 +3693,12 @@ void autoSendKey(){
 				autokey_sendbufferpos++;
 				//if (isKanji)
 				//{
-				//	// �����͐T�d�ɑ���
+				//	// ??????T?d?????
 				//	break;
 				//}
 				if (keybrd.buffers > KB_BUF * 3 / 4)
 				{
-					// ��ꂻ���Ȃ̂ň�U������
+					// ??????????U??????
 					break;
 				}
 			}
@@ -3706,7 +3706,7 @@ void autoSendKey(){
 		lastsendtime = curtime;
 	}
 
-	// ���M����������
+	// ???M??????????
 	if(autokey_sendbufferpos >= autokey_sendbufferlen){
 		if (kanjimode)
 		{
@@ -3730,10 +3730,10 @@ void autoSendKey(){
 	}
 }
 
-// �L�[�R�[�h�\�쐬
+// ?L?[?R?[?h?\??
 void createAsciiTo98KeyCodeList(){
 	int i;
-	// �L�[�R�[�h�\�쐬�i�b��j
+	// ?L?[?R?[?h?\???i?b??j
 	UINT8 numkeys[] = {0,'!', '"','#','$','%','&','\'','(',')'};
 	for(i='0';i<='9';i++){
 		vkeylist[i] = i-'0';
@@ -3774,7 +3774,7 @@ void createAsciiTo98KeyCodeList(){
 }
 
 #ifdef HOOK_SYSKEY
-// �V�X�e���V���[�g�J�b�g�L�[
+// ?V?X?e???V???[?g?J?b?g?L?[
 LRESULT CALLBACK LowLevelKeyboardProc(INT nCode, WPARAM wParam, LPARAM lParam)
 {
 	if(np2oscfg.syskhook){
@@ -3820,7 +3820,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(INT nCode, WPARAM wParam, LPARAM lParam)
 						return 1;
 					}
 					if(pkbhs->vkCode == VK_SCROLL && bAltKeyDown && bControlKeyDown){
-						// Ctrl+Alt+ScrollLock �� Ctrl+Alt+Delete
+						// Ctrl+Alt+ScrollLock ?? Ctrl+Alt+Delete
 						switch((int)wParam){
 						case WM_KEYDOWN:
 						case WM_SYSKEYDOWN:
@@ -3869,8 +3869,8 @@ LRESULT CALLBACK LowLevelKeyboardProc(INT nCode, WPARAM wParam, LPARAM lParam)
 #endif
 
 /**
- * 1�t���[�����s
- * @param[in] bDraw �`��t���O
+ * 1?t???[?????s
+ * @param[in] bDraw ?`??t???O
  */
 static void ExecuteOneFrame_MT_EmulateThread(BOOL bDraw)
 {
@@ -3984,11 +3984,11 @@ static void processwait(UINT cnt) {
 	{
 		UINT32 rawTiming = timing_getcount_raw();
 		int waitTime = (TIMING_MSSHIFT_VALUE - (rawTiming & TIMING_MSSHIFT_MASK)) / timing_getmsstep();
-		waitTime--; // �������炷
+		waitTime--; // ????????
 		if (waitTime > 0)
 		{
 			if (waitTime > 1000) waitTime = 1000;
-			Sleep(waitTime); // �x��
+			Sleep(waitTime); // ?x??
 		}
 		else if (waitTime == 0)
 		{
@@ -3999,9 +3999,9 @@ static void processwait(UINT cnt) {
 }
 
 void unloadNP2INI(){
-	// ��INI�Еt��
+	// ??INI?�Et??
 
-	// ��ʕ\���{����ۑ�
+	// ???\???{??????
 	np2oscfg.scrn_mul = scrnmng_getmultiple();
 	toolwin_destroy();
 	kdispwin_destroy();
@@ -4073,7 +4073,7 @@ void loadNP2INI(const OEMCHAR *fname){
 	_tcscpy(lpFilenameBuf, fname);
 	hInstance = g_hInstance;
 
-	// �VINI�ǂݍ���
+	// ?VINI??????
 	Np2Arg::GetInstance()->setiniFilename(lpFilenameBuf);
 
 	initload();
@@ -4140,7 +4140,7 @@ void loadNP2INI(const OEMCHAR *fname){
 	scrnmng_initialize();
 
 	if(np2oscfg.dragdrop)
-		DragAcceptFiles(hWnd, TRUE);	//	�C���[�W�t�@�C���̂c���c�ɑΉ�(Kai1)
+		DragAcceptFiles(hWnd, TRUE);	//	?C???[?W?t?@?C????c???c????(Kai1)
 	else
 		DragAcceptFiles(hWnd, FALSE);
 
@@ -4151,10 +4151,10 @@ void loadNP2INI(const OEMCHAR *fname){
 #endif
 	
 	HMENU hSysMenu = GetSystemMenu(hWnd, FALSE);
-	//sysmenu_initialize(hSysMenu); // �Ή��ʓ|������
+	//sysmenu_initialize(hSysMenu); // ?????|??????
 	
 	HMENU hMenu = np2class_gethmenu(hWnd);
-	//xmenu_initialize(hMenu); // �Ή��ʓ|������
+	//xmenu_initialize(hMenu); // ?????|??????
 	xmenu_iniupdate(hMenu);
 	xmenu_update(hMenu);
 	if (file_attr_c(np2help) == -1)								// ver0.30
@@ -4233,7 +4233,7 @@ void loadNP2INI(const OEMCHAR *fname){
 	pccore_reset();
 	np2_SetUserPause(0);
 	
-	// �X�i�b�v�ʒu�̕����̂��ߐ�ɍ쐬
+	// ?X?i?b?v??u?????????????
 	if (!(g_scrnmode & SCRNMODE_FULLSCREEN)) {
 		if (np2oscfg.toolwin) {
 			toolwin_create();
@@ -4246,7 +4246,7 @@ void loadNP2INI(const OEMCHAR *fname){
 		}
 	}
 	
-	// �ꂶ����
+	// ??????
 #if defined(SUPPORT_RESUME)
 	if (np2oscfg.resume) {
 		int		id;
@@ -4274,12 +4274,12 @@ void loadNP2INI(const OEMCHAR *fname){
 #endif
 	soundmng_setvolume(np2cfg.vol_master);
 	
-	// ��ʕ\���{���𕜌�
+	// ???\???{?????
 	if(np2oscfg.svscrmul){
 		scrnmng_setmultiple(np2oscfg.scrn_mul);
 	}
-//	���Z�b�g���Ă���c 
-	// INI�ɋL�^���ꂽ�f�B�X�N��}��
+//	???Z?b?g???????c 
+	// INI??L?^?????f?B?X?N??}??
 	if(np2cfg.savefddfile){
 		for (i = 0; i < 4; i++)
 		{
@@ -4292,7 +4292,7 @@ void loadNP2INI(const OEMCHAR *fname){
 		}
 	}
 //#if defined(SUPPORT_IDEIO)
-//	// INI�ɋL�^���ꂽCD��}��
+//	// INI??L?^????CD??}??
 //	if (np2cfg.savecdfile) {
 //		for (i = 0; i < 4; i++)
 //		{
@@ -4396,7 +4396,7 @@ static unsigned int __stdcall np2_multithread_EmulatorThreadMain(LPVOID vdParam)
 				}
 			}
 			if(autokey_sendbufferlen > 0) 
-				autoSendKey(); // �����L�[���M
+				autoSendKey(); // ?????L?[???M
 		}
 		else if (np2_multithread_pauseemulation == 1) {
 			np2_multithread_pausing = true;
@@ -4441,7 +4441,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #ifdef _DEBUG
-	// �g���Ƃ���stdlib.h��crtdbg.h���C���N���[�h����
+	// ?g???????stdlib.h??crtdbg.h???C???N???[?h????
 	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(499);
 #endif
@@ -4502,7 +4502,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 	}
 #else
 	//if ((hWnd = FindWindow(szClassName, NULL)) != NULL && np2oscfg.resume) {
-	//	// ���W���[���̎��͕����N������Ƃ�΂��̂ť��
+	//	// ???W???[???????????N???????????????
 	//	ShowWindow(hWnd, SW_RESTORE);
 	//	SetForegroundWindow(hWnd);
 	//	dosio_term();
@@ -4594,17 +4594,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 	//	}
 	//}
 	
-	mousemng_initialize(); // �ꏊ�ړ� np21w ver0.96 rev13
+	mousemng_initialize(); // ????? np21w ver0.96 rev13
 
 	scrnmng_initialize();
 
 	if(np2oscfg.dragdrop)
-		DragAcceptFiles(hWnd, TRUE);	//	�C���[�W�t�@�C���̂c���c�ɑΉ�(Kai1)
+		DragAcceptFiles(hWnd, TRUE);	//	?C???[?W?t?@?C????c???c????(Kai1)
 	
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 	
-	SetWindowPos(hWnd, NULL, winx, winy, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_NOZORDER|SWP_NOACTIVATE|SWP_FRAMECHANGED); // Win10���ŃE�B���h�E�ʒu���������̑΍�
+	SetWindowPos(hWnd, NULL, winx, winy, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_NOZORDER|SWP_NOACTIVATE|SWP_FRAMECHANGED); // Win10?????E?B???h?E??u????????????
 	
 #ifdef OPENING_WAIT
 	tick = GetTickCount();
@@ -4645,7 +4645,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 		}
 	}
 	/*
-	// XXX: Direct3D���݂̃G���[�΍�
+	// XXX: Direct3D?????G???[???
 	{
 		MSG msg;
 		while(PeekMessage(&msg, 0, 0, 0, PM_NOREMOVE))
@@ -4708,7 +4708,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 	pccore_reset();
 	np2_SetUserPause(0);
 	
-	// �X�i�b�v�ʒu�̕����̂��ߐ�ɍ쐬
+	// ?X?i?b?v??u?????????????
 	if (!(g_scrnmode & SCRNMODE_FULLSCREEN)) {
 		if (np2oscfg.toolwin) {
 			toolwin_create();
@@ -4721,7 +4721,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 		}
 	}
 
-	// �ꂶ����
+	// ??????
 #if defined(SUPPORT_RESUME)
 	if (np2oscfg.resume) {
 		int		id;
@@ -4749,12 +4749,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 #endif
 	soundmng_setvolume(np2cfg.vol_master);
 	
-	// ��ʕ\���{���𕜌�
+	// ???\???{?????
 	if(np2oscfg.svscrmul){
 		scrnmng_setmultiple(np2oscfg.scrn_mul);
 	}
-//	���Z�b�g���Ă���c 
-	// INI�ɋL�^���ꂽ�f�B�X�N��}��
+//	???Z?b?g???????c 
+	// INI??L?^?????f?B?X?N??}??
 	if(np2cfg.savefddfile){
 		for (i = 0; i < 4; i++)
 		{
@@ -4766,7 +4766,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 			}
 		}
 	}
-	// �R�}���h���C���̃f�B�X�N�}���B
+	// ?R?}???h???C????f?B?X?N?}???B
 	for (i = 0; i < 4; i++)
 	{
 		LPCTSTR lpDisk = Np2Arg::GetInstance()->disk(i);
@@ -4776,7 +4776,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 			toolwin_setfdd((REG8)i, lpDisk);
 		}
 	}
-	// �R�}���h���C���̃f�B�X�N�}���B
+	// ?R?}???h???C????f?B?X?N?}???B
 	for (i = 0; i < 4; i++)
 	{
 		LPCTSTR lpDisk = Np2Arg::GetInstance()->disk(i);
@@ -4833,7 +4833,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 		{
 			UINT_PTR tmrID;
 			const int tmrInterval = 50;
-			// �}���`�X���b�h���[�h
+			// ?}???`?X???b?h???[?h
 			framereset = framereset_MT_EmulateThread;
 			np2_multithread_StartThread();
 			tmrID = SetTimer(hWnd, 23545, tmrInterval, NULL);
@@ -4979,7 +4979,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 							}
 						}
 						if (autokey_sendbufferlen > 0)
-							autoSendKey(); // �����L�[���M
+							autoSendKey(); // ?????L?[???M
 					}
 					scrnmng_delaychangemode();
 					mousemng_UIThreadSync();
@@ -5020,7 +5020,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 	stop_hook_systemkey();
 #endif
 
-	// ��ʕ\���{����ۑ�
+	// ???\???{??????
 	np2oscfg.scrn_mul = scrnmng_getmultiple();
 
 	toolwin_destroy();
