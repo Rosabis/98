@@ -187,7 +187,7 @@
       <UndefinePreprocessorDefinitions>SUPPORT_NPDISP_W2K</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ATLMFC_LIB);$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>d3d9.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -218,7 +218,7 @@
       <UndefinePreprocessorDefinitions>SUPPORT_NPDISP_W2K</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ATLMFC_LIB);$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>false</LargeAddressAware>
@@ -258,7 +258,7 @@
       <UndefinePreprocessorDefinitions>SUPPORT_NPDISP_W2K</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ATLMFC_LIB);$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -297,7 +297,7 @@
       <UndefinePreprocessorDefinitions>SUPPORT_NPDISP_W2K</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ATLMFC_LIB);$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -336,7 +336,7 @@
       <UndefinePreprocessorDefinitions>SUPPORT_NPDISP_W2K</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ATLMFC_LIB);$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -380,7 +380,7 @@
       <UndefinePreprocessorDefinitions>SUPPORT_NPDISP_W2K</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ATLMFC_LIB);$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -423,7 +423,7 @@
       <UndefinePreprocessorDefinitions>SUPPORT_NPDISP_W2K</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ATLMFC_LIB);$(VCToolsInstallDir)atlmfc\lib\$(PlatformArchitecture);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WinHvPlatform.lib;WinHvEmulation.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
