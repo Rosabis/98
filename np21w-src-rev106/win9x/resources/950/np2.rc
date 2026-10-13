@@ -1555,6 +1555,7 @@ BEGIN
     POPUP "模式(&M)"
     BEGIN
         MENUITEM "暫存器(&R)",                   IDM_VIEWMODEREG
+        MENUITEM "堆疊(&S)",                   IDM_VIEWMODESTK
         MENUITEM "傾印區段(&D)",               IDM_VIEWMODESEG
         MENUITEM "主記憶體傾印(&M)",           IDM_VIEWMODE1MB
         MENUITEM "反組譯(&U)",                 IDM_VIEWMODEASM
@@ -1564,7 +1565,11 @@ BEGIN
     END
     POPUP "編輯(&E)"
     BEGIN
-        MENUITEM "輸入位址(&A)...",           IDM_SETSEG, GRAYED
+        MENUITEM "編輯目前位置記憶體(&E)\tE",  IDM_EDIT_MEMORY
+        MENUITEM "搜尋(&F)...\tCtrl+F",  IDM_FIND
+        MENUITEM "搜尋下一個\tF3",  IDM_FINDAGAIN, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "移至(&G)...", IDM_SETSEG
         MENUITEM SEPARATOR
         MENUITEM "Seg = &CS",                   IDM_SEGCS
         MENUITEM "Seg = &DS",                   IDM_SEGDS
@@ -1572,7 +1577,19 @@ BEGIN
         MENUITEM "Seg = &SS",                   IDM_SEGSS
         MENUITEM "Seg = &TEXT",                 IDM_SEGTEXT
         MENUITEM SEPARATOR
-        MENUITEM "重新載入",                      IDM_RELOAD, GRAYED
+        MENUITEM "重新載入",                      IDM_RELOAD
+    END
+    POPUP "中斷點(&B)"
+    BEGIN
+        MENUITEM "Toggle breakpoint\tF2", IDM_BREAK_TOGGLE
+    END
+    POPUP "偵錯(&D)"
+    BEGIN
+        MENUITEM "Run\tF9", IDM_DEBUG_RUN, GRAYED
+        MENUITEM "Stop\tF12", IDM_DEBUG_STOP
+        MENUITEM SEPARATOR
+        MENUITEM "Step into\tF7", IDM_DEBUG_STEPINTO, GRAYED
+        MENUITEM "Step over\tF8", IDM_DEBUG_STEPOVER, GRAYED
     END
     POPUP "記憶體(&M)", GRAYED
     BEGIN
@@ -1582,6 +1599,38 @@ BEGIN
         MENUITEM "A20 線路(&A)",                   IDM_A20LINE
     END
 END
+
+IDD_ADDRESS DIALOG 0, 0, 196, 66
+STYLE DS_CENTER | DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_VISIBLE | WS_POPUP
+CAPTION "Enter address..."
+FONT 8, "MS Shell Dlg"
+{
+    DEFPUSHBUTTON   "OK", IDOK, 139, 7, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 139, 23, 50, 14
+    GROUPBOX        "Segment : Offset", -1, 7, 7, 72, 30
+    EDITTEXT        IDC_ADDR_SEG, 14, 19, 24, 12, ES_RIGHT
+    LTEXT           ":", -1, 42, 20, 8, 8, SS_LEFT
+    EDITTEXT        IDC_ADDR_OFF, 47, 19, 24, 12, ES_RIGHT
+    GROUPBOX        "Real address", -1, 83, 7, 50, 30
+    EDITTEXT        IDC_ADDR_REAL, 90, 19, 37, 12, WS_DISABLED | ES_RIGHT
+    LTEXT           "You can enter 16- and 32-bit CPU register names\n(e.g. ip, eax) to apply the current value in that register.", -1, 10, 43, 170, 16, SS_LEFT
+}
+
+IDD_EDIT DIALOG 0, 0, 239, 57
+STYLE DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_POPUP | WS_SYSMENU
+EXSTYLE WS_EX_WINDOWEDGE
+CAPTION "Edit..."
+FONT 8, "MS Shell Dlg"
+{
+    GROUPBOX        "Edit", IDC_EDIT_GROUP, 6, 2, 164, 25
+    GROUPBOX        "Data Type", -1, 6, 28, 164, 25
+    AUTORADIOBUTTON  "Hex", IDC_EDIT_TYPE_HEX, 13, 39, 29, 8, WS_TABSTOP
+    AUTORADIOBUTTON  "Text (Shift-JIS)", IDC_EDIT_TYPE_SJIS, 44, 39, 62, 8, WS_TABSTOP
+    AUTORADIOBUTTON  "Text (UTF-8)", IDC_EDIT_TYPE_UTF8, 106, 39, 56, 8, WS_TABSTOP
+    EDITTEXT        IDC_EDIT_STR, 12, 11, 152, 12, ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK", IDOK, 179, 7, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 179, 23, 50, 14
+}
 
 IDR_TRACE MENU
 BEGIN

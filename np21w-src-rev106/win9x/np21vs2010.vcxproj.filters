@@ -963,6 +963,9 @@
     <ClCompile Include="..\wab\wab.c">
       <Filter>ソース ファイル\wab</Filter>
     </ClCompile>
+    <ClCompile Include="break.cpp">
+      <Filter>ソース ファイル\win9x</Filter>
+    </ClCompile>
     <ClCompile Include="commng.cpp">
       <Filter>ソース ファイル\win9x</Filter>
     </ClCompile>
@@ -1085,6 +1088,66 @@
     </ClCompile>
     <ClCompile Include="debuguty\viewsnd.cpp">
       <Filter>ソース ファイル\win9x\debuguty</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_dir.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_fcb.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_file.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_util.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\mountdir.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_dir.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_fcb.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_file.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_util.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\mountdir.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="debuguty\d_edit.cpp">
+      <Filter>ソース ファイル\win9x\debuguty</Filter>
+    </ClCompile>
+    <ClCompile Include="debuguty\d_addr.cpp">
+      <Filter>ソース ファイル\win9x\debuguty</Filter>
+    </ClCompile>
+    <ClCompile Include="debuguty\viewstk.cpp">
+      <Filter>ソース ファイル\win9x\debuguty</Filter>
+    </ClCompile>
+    <ClCompile Include="debuguty\viewmenu.cpp">
+      <Filter>ソース ファイル\win9x\debuguty</Filter>
+    </ClCompile>
+    <ClCompile Include="debuguty\viewcmn.cpp">
+      <Filter>ソース ファイル\win9x\debuguty</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_dir.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_fcb.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_file.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\md_util.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
+    </ClCompile>
+    <ClCompile Include="mountdir\mountdir.c">
+      <Filter>ソース ファイル\win9x\mountdir</Filter>
     </ClCompile>
     <ClCompile Include="dialog\c_combodata.cpp">
       <Filter>ソース ファイル\win9x\dialog</Filter>
@@ -2483,6 +2546,9 @@
     <ClInclude Include="..\timing.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="..\break.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="..\bios\bios.h">
       <Filter>ヘッダー ファイル\bios</Filter>
     </ClInclude>
@@ -3136,6 +3202,66 @@
     </ClInclude>
     <ClInclude Include="debuguty\viewsnd.h">
       <Filter>ヘッダー ファイル\win9x\debuguty</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_dir.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_fcb.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_file.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_util.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\mountdir.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_dir.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_fcb.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_file.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_util.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\mountdir.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="debuguty\d_edit.h">
+      <Filter>ヘッダー ファイル\win9x\debuguty</Filter>
+    </ClInclude>
+    <ClInclude Include="debuguty\d_addr.h">
+      <Filter>ヘッダー ファイル\win9x\debuguty</Filter>
+    </ClInclude>
+    <ClInclude Include="debuguty\viewstk.h">
+      <Filter>ヘッダー ファイル\win9x\debuguty</Filter>
+    </ClInclude>
+    <ClInclude Include="debuguty\viewmenu.h">
+      <Filter>ヘッダー ファイル\win9x\debuguty</Filter>
+    </ClInclude>
+    <ClInclude Include="debuguty\viewcmn.h">
+      <Filter>ヘッダー ファイル\win9x\debuguty</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_dir.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_fcb.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_file.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\md_util.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
+    </ClInclude>
+    <ClInclude Include="mountdir\mountdir.h">
+      <Filter>ヘッダー ファイル\win9x\mountdir</Filter>
     </ClInclude>
     <ClInclude Include="dialog\c_combodata.h">
       <Filter>ヘッダー ファイル\win9x\dialog</Filter>

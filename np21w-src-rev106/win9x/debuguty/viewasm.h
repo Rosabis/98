@@ -1,6 +1,6 @@
 /**
  * @file	viewasm.h
- * @brief	ƒAƒZƒ“ƒuƒ‰ ƒŠƒXƒg•\¦ƒNƒ‰ƒX‚ÌéŒ¾‚¨‚æ‚ÑƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ì’è‹`‚ğ‚µ‚Ü‚·
+ * @brief	ï¿½Aï¿½Zï¿½ï¿½ï¿½uï¿½ï¿½ ï¿½ï¿½ï¿½Xï¿½gï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½ÌéŒ¾ï¿½ï¿½ï¿½ï¿½ÑƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½Cï¿½Xï¿½Ì’ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
  */
 
 #pragma once
@@ -10,7 +10,7 @@
 #include "viewmem.h"
 
 /**
- * @brief ƒAƒZƒ“ƒuƒ‰ ƒŠƒXƒg•\¦ƒNƒ‰ƒX
+ * @brief ï¿½Aï¿½Zï¿½ï¿½ï¿½uï¿½ï¿½ ï¿½ï¿½ï¿½Xï¿½gï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
  */
 class CDebugUtyAsm : public CDebugUtyItem
 {
@@ -23,13 +23,17 @@ public:
 	virtual bool Lock();
 	virtual void Unlock();
 	virtual bool IsLocked();
+	virtual UINT32 GetAddress() const;
+	virtual UINT GetSegment() const;
+	virtual void SetAddress(UINT32 addr);
+	virtual void ReadMemory(UINT32 nAddress, LPVOID lpBuffer, UINT32 cbBuffer);
 	virtual void OnPaint(HDC hDC, const RECT& rect);
 
 private:
-	UINT m_nSegment;							//!< ƒZƒOƒƒ“ƒg
-	UINT m_nOffset;								//!< ƒZƒOƒƒ“ƒg
-	DebugUtyViewMemory m_mem;					//!< ƒƒ‚ƒŠ
-	std::vector<unsigned char> m_buffer;		//!< ƒoƒbƒtƒ@
-	std::vector<UINT> m_address;				//!< ƒAƒhƒŒƒX ƒoƒbƒtƒ@
+	UINT m_nSegment;							//!< ï¿½Zï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½g
+	UINT m_nOffset;								//!< ï¿½Zï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½g
+	DebugUtyViewMemory m_mem;					//!< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	std::vector<unsigned char> m_buffer;		//!< ï¿½oï¿½bï¿½tï¿½@
+	std::vector<UINT> m_address;				//!< ï¿½Aï¿½hï¿½ï¿½ï¿½X ï¿½oï¿½bï¿½tï¿½@
 	void ReadMemory(UINT nOffset, unsigned char* lpBuffer, UINT cbBuffer) const;
 };

@@ -1,6 +1,6 @@
 /**
  * @file	dialog.h
- * @breif	ƒ_ƒCƒAƒƒO‚ÌéŒ¾
+ * @breif	ï¿½_ï¿½Cï¿½Aï¿½ï¿½ï¿½Oï¿½ÌéŒ¾
  */
 
 #pragma once
@@ -38,6 +38,9 @@ void dialog_changefdd(HWND hWnd, REG8 drv);
 void dialog_changehdd(HWND hWnd, REG8 drv);
 void dialog_newdisk_ex(HWND hWnd, int mode);
 void dialog_newdisk(HWND hWnd);
+#if defined(SUPPORT_MOUNTDIR)
+void dialog_changedir(HWND hWnd, REG8 drv);
+#endif
 
 // d_font.cpp
 void dialog_font(HWND hWnd);
@@ -75,8 +78,8 @@ void dialog_ideopt(HWND hwndParent);
 // d_hostdrv.cpp
 #if defined(SUPPORT_HOSTDRV)
 void dialog_hostdrvopt(HWND hwndParent);
-void hostdrv_readini(); // b’è hostdrv.c‚ ‚½‚è‚ÉˆÚ“®‚·‚×‚«H
-void hostdrv_writeini(); // b’è hostdrv.c‚ ‚½‚è‚ÉˆÚ“®‚·‚×‚«H
+void hostdrv_readini(); // ï¿½bï¿½ï¿½ hostdrv.cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉˆÚ“ï¿½ï¿½ï¿½ï¿½×‚ï¿½ï¿½H
+void hostdrv_writeini(); // ï¿½bï¿½ï¿½ hostdrv.cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉˆÚ“ï¿½ï¿½ï¿½ï¿½×‚ï¿½ï¿½H
 #endif
 
 // d_pci.cpp

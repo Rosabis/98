@@ -1,6 +1,6 @@
 /**
  *	@file	ini.cpp
- *	@brief	İ’èƒtƒ@ƒCƒ‹ ƒAƒNƒZƒX‚Ì“®ì‚Ì’è‹`‚ğs‚¢‚Ü‚·
+ *	@brief	ï¿½İ’ï¿½tï¿½@ï¿½Cï¿½ï¿½ ï¿½Aï¿½Nï¿½Zï¿½Xï¿½Ì“ï¿½ï¿½ï¿½Ì’ï¿½`ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½
  */
 
 #include "compiler.h"
@@ -16,9 +16,9 @@
 // ---- user type
 
 /**
- * 16ƒrƒbƒg”z—ñ‚ğ“Ç‚İ‚Ş
- * @param[in] lpString •¶š—ñ
- * @param[out] ini İ’èƒe[ƒuƒ‹
+ * 16ï¿½rï¿½bï¿½gï¿½zï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+ * @param[in] lpString ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[out] ini ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½
  */
 static void inirdargs16(LPCTSTR lpString, const PFTBL* ini)
 {
@@ -50,9 +50,9 @@ static void inirdargs16(LPCTSTR lpString, const PFTBL* ini)
 }
 
 /**
- * 3ƒoƒCƒg‚ğ“Ç‚İ‚Ş
- * @param[in] lpString •¶š—ñ
- * @param[out] ini İ’èƒe[ƒuƒ‹
+ * 3ï¿½oï¿½Cï¿½gï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+ * @param[in] lpString ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[out] ini ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½
  */
 static void inirdbyte3(LPCTSTR lpString, const PFTBL* ini)
 {
@@ -71,9 +71,9 @@ static void inirdbyte3(LPCTSTR lpString, const PFTBL* ini)
 }
 
 /**
- * ƒL[ƒ{[ƒhİ’è‚ğ“Ç‚İ‚Ş
- * @param[in] lpString •¶š—ñ
- * @param[out] ini İ’èƒe[ƒuƒ‹
+ * ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½İ’ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+ * @param[in] lpString ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[out] ini ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½
  */
 static void inirdkb(LPCTSTR lpString, const PFTBL* ini)
 {
@@ -96,10 +96,10 @@ static void inirdkb(LPCTSTR lpString, const PFTBL* ini)
 
 #if !defined(_UNICODE)
 /**
- * ƒrƒbƒg‚ğİ’è
- * @param[in,out] lpBuffer ƒoƒbƒtƒ@
- * @param[in] nPos ˆÊ’u
- * @param[in] set ƒZƒbƒg or ƒNƒŠƒA
+ * ï¿½rï¿½bï¿½gï¿½ï¿½İ’ï¿½
+ * @param[in,out] lpBuffer ï¿½oï¿½bï¿½tï¿½@
+ * @param[in] nPos ï¿½Ê’u
+ * @param[in] set ï¿½Zï¿½bï¿½g or ï¿½Nï¿½ï¿½ï¿½A
  */
 static void bitmapset(void* lpBuffer, UINT nPos, BOOL set)
 {
@@ -116,10 +116,10 @@ static void bitmapset(void* lpBuffer, UINT nPos, BOOL set)
 }
 
 /**
- * ƒrƒbƒg‚ğ“¾‚é
- * @param[in] lpBuffer ƒoƒbƒtƒ@
- * @param[in] nPos ˆÊ’u
- * @return ƒrƒbƒg
+ * ï¿½rï¿½bï¿½gï¿½ğ“¾‚ï¿½
+ * @param[in] lpBuffer ï¿½oï¿½bï¿½tï¿½@
+ * @param[in] nPos ï¿½Ê’u
+ * @return ï¿½rï¿½bï¿½g
  */
 static BOOL bitmapget(const void* lpBuffer, UINT nPos)
 {
@@ -129,10 +129,10 @@ static BOOL bitmapget(const void* lpBuffer, UINT nPos)
 }
 
 /**
- * ƒoƒCƒiƒŠ‚ğƒAƒ“ƒVƒŠƒAƒ‰ƒCƒY
- * @param[out] lpBin ƒoƒCƒiƒŠ
- * @param[in] cbBin ƒoƒCƒiƒŠ‚ÌƒTƒCƒY
- * @param[in] lpString •¶š—ñƒoƒbƒtƒ@
+ * ï¿½oï¿½Cï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Cï¿½Y
+ * @param[out] lpBin ï¿½oï¿½Cï¿½iï¿½ï¿½
+ * @param[in] cbBin ï¿½oï¿½Cï¿½iï¿½ï¿½ï¿½ÌƒTï¿½Cï¿½Y
+ * @param[in] lpString ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½bï¿½tï¿½@
  */
 static void binset(void* lpBin, UINT cbBin, LPCTSTR lpString)
 {
@@ -156,11 +156,11 @@ static void binset(void* lpBin, UINT cbBin, LPCTSTR lpString)
 }
 
 /**
- * ƒoƒCƒiƒŠ‚ğƒVƒŠƒAƒ‰ƒCƒY
- * @param[out] lpString •¶š—ñƒoƒbƒtƒ@
- * @param[in] cchString •¶š—ñƒoƒbƒtƒ@’·
- * @param[in] lpBin ƒoƒCƒiƒŠ
- * @param[in] cbBin ƒoƒCƒiƒŠ‚ÌƒTƒCƒY
+ * ï¿½oï¿½Cï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Cï¿½Y
+ * @param[out] lpString ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½bï¿½tï¿½@
+ * @param[in] cchString ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½
+ * @param[in] lpBin ï¿½oï¿½Cï¿½iï¿½ï¿½
+ * @param[in] cbBin ï¿½oï¿½Cï¿½iï¿½ï¿½ï¿½ÌƒTï¿½Cï¿½Y
  */
 static void binget(LPTSTR lpString, int cchString, const void* lpBin, UINT cbBin)
 {
@@ -180,11 +180,11 @@ static void binget(LPTSTR lpString, int cchString, const void* lpBin, UINT cbBin
 }
 
 /**
- * İ’è“Ç‚İo‚µ
- * @param[in] lpPath ƒpƒX
- * @param[in] lpTitle ƒ^ƒCƒgƒ‹
- * @param[in] lpTable İ’èƒe[ƒuƒ‹
- * @param[in] nCount İ’èƒe[ƒuƒ‹ ƒAƒCƒeƒ€”
+ * ï¿½İ’ï¿½Ç‚İoï¿½ï¿½
+ * @param[in] lpPath ï¿½pï¿½X
+ * @param[in] lpTitle ï¿½^ï¿½Cï¿½gï¿½ï¿½
+ * @param[in] lpTable ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½
+ * @param[in] nCount ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½ ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½
  */
 void ini_read(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount)
 {
@@ -275,11 +275,11 @@ void ini_read(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount
 }
 
 /**
- * İ’è‘‚«‚İ
- * @param[in] lpPath ƒpƒX
- * @param[in] lpTitle ƒ^ƒCƒgƒ‹
- * @param[in] lpTable İ’èƒe[ƒuƒ‹
- * @param[in] nCount İ’èƒe[ƒuƒ‹ ƒAƒCƒeƒ€”
+ * ï¿½İ’è‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[in] lpPath ï¿½pï¿½X
+ * @param[in] lpTitle ï¿½^ï¿½Cï¿½gï¿½ï¿½
+ * @param[in] lpTable ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½
+ * @param[in] nCount ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½ ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½
  */
 void ini_write(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount)
 {
@@ -364,9 +364,9 @@ void ini_write(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCoun
 // ---- Use profile.c
 
 /**
- * ƒR[ƒ‹ƒoƒbƒN
- * @param[in] item ƒAƒCƒeƒ€
- * @param[in] lpString •¶š—ñ
+ * ï¿½Rï¿½[ï¿½ï¿½ï¿½oï¿½bï¿½N
+ * @param[in] item ï¿½Aï¿½Cï¿½eï¿½ï¿½
+ * @param[in] lpString ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static void UserReadItem(const PFTBL* item, LPCTSTR lpString)
 {
@@ -387,11 +387,11 @@ static void UserReadItem(const PFTBL* item, LPCTSTR lpString)
 }
 
 /**
- * İ’è“Ç‚İæ‚è
- * @param[in] lpPath ƒpƒX
- * @param[in] lpTitle ƒ^ƒCƒgƒ‹
- * @param[in] lpTable İ’èƒe[ƒuƒ‹
- * @param[in] nCount İ’èƒe[ƒuƒ‹ ƒAƒCƒeƒ€”
+ * ï¿½İ’ï¿½Ç‚İï¿½ï¿½
+ * @param[in] lpPath ï¿½pï¿½X
+ * @param[in] lpTitle ï¿½^ï¿½Cï¿½gï¿½ï¿½
+ * @param[in] lpTable ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½
+ * @param[in] nCount ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½ ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½
  */
 void ini_read(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount)
 {
@@ -399,11 +399,11 @@ void ini_read(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount
 }
 
 /**
- * İ’è‘‚«‚İ
- * @param[in] lpPath ƒpƒX
- * @param[in] lpTitle ƒ^ƒCƒgƒ‹
- * @param[in] lpTable İ’èƒe[ƒuƒ‹
- * @param[in] nCount İ’èƒe[ƒuƒ‹ ƒAƒCƒeƒ€”
+ * ï¿½İ’è‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[in] lpPath ï¿½pï¿½X
+ * @param[in] lpTitle ï¿½^ï¿½Cï¿½gï¿½ï¿½
+ * @param[in] lpTable ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½
+ * @param[in] nCount ï¿½İ’ï¿½eï¿½[ï¿½uï¿½ï¿½ ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½
  */
 void ini_write(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCount)
 {
@@ -416,13 +416,13 @@ void ini_write(LPCTSTR lpPath, LPCTSTR lpTitle, const PFTBL* lpTable, UINT nCoun
 // ----
 
 #if !defined(SUPPORT_PC9821)
-static const TCHAR s_szIniTitle[] = TEXT("NekoProjectII");		//!< ƒAƒvƒŠ–¼
+static const TCHAR s_szIniTitle[] = TEXT("NekoProjectII");		//!< ï¿½Aï¿½vï¿½ï¿½ï¿½ï¿½
 #else
-static const TCHAR s_szIniTitle[] = TEXT("NekoProject21");		//!< ƒAƒvƒŠ–¼
+static const TCHAR s_szIniTitle[] = TEXT("NekoProject21");		//!< ï¿½Aï¿½vï¿½ï¿½ï¿½ï¿½
 #endif
 
 /**
- * ’Ç‰Áİ’è
+ * ï¿½Ç‰ï¿½ï¿½İ’ï¿½
  */
 enum
 {
@@ -438,7 +438,7 @@ enum
 };
 
 /**
- * OS İ’è ƒe[ƒuƒ‹
+ * OS ï¿½İ’ï¿½ ï¿½eï¿½[ï¿½uï¿½ï¿½
  */
 static const PFTBL s_IniItems[] =
 {
@@ -457,6 +457,12 @@ static const PFTBL s_IniItems[] =
 	PFSTR("npcfgDir", PFTYPE_STR,		npcfgfilefolder),
 	PFSTR("fontfile", PFTYPE_STR,		np2cfg.fontfile),
 	PFSTR("biospath", PFRO_STR,			np2cfg.biospath),
+
+#if defined(SUPPORT_MOUNTDIR)
+	PFSTR("DirMnt_A", PFTYPE_STR,		np2cfg.mountdir[0]),
+	PFSTR("DirMnt_B", PFTYPE_STR,		np2cfg.mountdir[1]),
+	PFSTR("DirMnt_C", PFTYPE_STR,		np2cfg.mountdir[2]),
+#endif
 
 #if defined(SUPPORT_HOSTDRV)
 	PFVAL("use_hdrv", PFTYPE_BOOL,		&np2cfg.hdrvenable),
@@ -480,7 +486,7 @@ static const PFTBL s_IniItems[] =
 #endif
 	PFVAL("ITF_WORK", PFTYPE_BOOL,		&np2cfg.ITF_WORK),
 	
-	PFVAL("USE_BIOS", PFTYPE_BOOL,		&np2cfg.usebios),  // À‹@BIOSg—p
+	PFVAL("USE_BIOS", PFTYPE_BOOL,		&np2cfg.usebios),  // ï¿½ï¿½ï¿½@BIOSï¿½gï¿½p
 	
 	PFVAL("SVFDFILE", PFTYPE_BOOL,		&np2cfg.savefddfile),
 	PFSTR("FDD1FILE", PFTYPE_STR,		np2cfg.fddfile[0]),
@@ -503,8 +509,8 @@ static const PFTBL s_IniItems[] =
 	PFVAL("IDE2TYPE", PFTYPE_UINT8,		&np2cfg.idetype[1]),
 	PFVAL("IDE3TYPE", PFTYPE_UINT8,		&np2cfg.idetype[2]),
 	PFVAL("IDE4TYPE", PFTYPE_UINT8,		&np2cfg.idetype[3]),
-	PFVAL("IDE_BIOS", PFTYPE_BOOL,		&np2cfg.idebios),  // À‹@IDE BIOSg—p
-	PFVAL("AIDEBIOS", PFTYPE_BOOL,		&np2cfg.autoidebios),  // À‹@IDE BIOSg—p‚ğ©“®İ’è‚·‚é
+	PFVAL("IDE_BIOS", PFTYPE_BOOL,		&np2cfg.idebios),  // ï¿½ï¿½ï¿½@IDE BIOSï¿½gï¿½p
+	PFVAL("AIDEBIOS", PFTYPE_BOOL,		&np2cfg.autoidebios),  // ï¿½ï¿½ï¿½@IDE BIOSï¿½gï¿½pï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ’è‚·ï¿½ï¿½
 	PFVAL("IDERWAIT", PFTYPE_UINT32,	&np2cfg.iderwait),
 	PFVAL("IDEWWAIT", PFTYPE_UINT32,	&np2cfg.idewwait),
 	PFVAL("IDEMWAIT", PFTYPE_UINT32,	&np2cfg.idemwait),
@@ -673,11 +679,11 @@ static const PFTBL s_IniItems[] =
 	
 	PFVAL("WINNTFIX", PFTYPE_BOOL,		&np2cfg.winntfix),
 	
-	PFVAL("SYSIOMSK", PFTYPE_HEX16,		&np2cfg.sysiomsk), // ƒVƒXƒeƒ€IOƒ}ƒXƒN
+	PFVAL("SYSIOMSK", PFTYPE_HEX16,		&np2cfg.sysiomsk), // ï¿½Vï¿½Xï¿½eï¿½ï¿½IOï¿½}ï¿½Xï¿½N
 	
-	PFMAX("MEMCHKMX", PFTYPE_UINT8,		&np2cfg.memchkmx,		0), // ƒƒ‚ƒŠƒ`ƒFƒbƒN‚·‚éÅ‘åƒTƒCƒYiÅ¬‚Í15MBE0‚Í§ŒÀ–³‚µEƒƒ‚ƒŠƒ`ƒFƒbƒN‚ª’·‚¢‚Ì‚ªŒ™‚¾‚¯‚ÇŒ©‚©‚¯ãƒJƒEƒ“ƒg‚¾‚¯‚Í‚µ‚Ä‚¨‚«‚½‚¢lŒü‚¯j
-	PFMAX("SBEEPLEN", PFTYPE_UINT8,		&np2cfg.sbeeplen,		0), // ƒsƒ|‰¹‚Ì’·‚³i0‚ÅƒfƒtƒHƒ‹ƒgE4‚ªNP2•W€j
-	PFVAL("SBEEPADJ", PFTYPE_BOOL,		&np2cfg.sbeepadj), // ƒsƒ|‰¹‚Ì’·‚³©“®’²®
+	PFMAX("MEMCHKMX", PFTYPE_UINT8,		&np2cfg.memchkmx,		0), // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½Å‘ï¿½Tï¿½Cï¿½Yï¿½iï¿½Åï¿½ï¿½ï¿½15MBï¿½E0ï¿½Íï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÇŒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Í‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½j
+	PFMAX("SBEEPLEN", PFTYPE_UINT8,		&np2cfg.sbeeplen,		0), // ï¿½sï¿½|ï¿½ï¿½ï¿½Ì’ï¿½ï¿½ï¿½ï¿½i0ï¿½Åƒfï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½E4ï¿½ï¿½NP2ï¿½Wï¿½ï¿½ï¿½j
+	PFVAL("SBEEPADJ", PFTYPE_BOOL,		&np2cfg.sbeepadj), // ï¿½sï¿½|ï¿½ï¿½ï¿½Ì’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	PFVAL("BIOSIOEM", PFTYPE_BOOL,		&np2cfg.biosioemu), // np21w ver0.86 rev46 BIOS I/O emulation
 	
@@ -693,25 +699,25 @@ static const PFTBL s_IniItems[] =
 	PFVAL("cpu_fxcx", PFTYPE_HEX32,		&np2cfg.cpu_feature_ex_ecx),
 	PFVAL("cpu_eflg", PFTYPE_HEX32,		&np2cfg.cpu_eflags_mask),
 
-	PFVAL("FPU_TYPE", PFTYPE_UINT8,		&np2cfg.fpu_type), // FPUí—Ş
+	PFVAL("FPU_TYPE", PFTYPE_UINT8,		&np2cfg.fpu_type), // FPUï¿½ï¿½ï¿½
 	
 #if defined(SUPPORT_FAST_MEMORYCHECK)
 	PFVAL("memckspd", PFTYPE_UINT8,		&np2cfg.memcheckspeed),
 #endif
 	
-	PFVAL("USERAM_D", PFTYPE_BOOL,		&np2cfg.useram_d), // EPSON‚Å‚È‚­‚Ä‚àD0000h-DFFFFh‚ğRAM‚Éi‚½‚¾‚µIDE BIOS D8000h-DBFFFh‚Í‘Ê–Új
-	PFVAL("USEPEGCP", PFTYPE_BOOL,		&np2cfg.usepegcplane), // PEGC ƒvƒŒ[ƒ“ƒ‚[ƒhƒTƒ|[ƒg
+	PFVAL("USERAM_D", PFTYPE_BOOL,		&np2cfg.useram_d), // EPSONï¿½Å‚È‚ï¿½ï¿½Ä‚ï¿½D0000h-DFFFFhï¿½ï¿½RAMï¿½Éiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDE BIOS D8000h-DBFFFhï¿½Í‘Ê–Új
+	PFVAL("USEPEGCP", PFTYPE_BOOL,		&np2cfg.usepegcplane), // PEGC ï¿½vï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½Tï¿½|ï¿½[ï¿½g
 	
-	PFVAL("USECDECC", PFTYPE_BOOL,		&np2cfg.usecdecc), // CD-ROM EDC/ECC ƒGƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“ƒTƒ|[ƒg
-	PFVAL("CDDTSKIP", PFTYPE_BOOL,		&np2cfg.cddtskip), // CD-ROM ƒI[ƒfƒBƒIÄ¶‚Éƒf[ƒ^ƒgƒ‰ƒbƒN‚ğƒXƒLƒbƒv
+	PFVAL("USECDECC", PFTYPE_BOOL,		&np2cfg.usecdecc), // CD-ROM EDC/ECC ï¿½Gï¿½~ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½|ï¿½[ï¿½g
+	PFVAL("CDDTSKIP", PFTYPE_BOOL,		&np2cfg.cddtskip), // CD-ROM ï¿½Iï¿½[ï¿½fï¿½Bï¿½Iï¿½Äï¿½ï¿½ï¿½ï¿½Éƒfï¿½[ï¿½^ï¿½gï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Xï¿½Lï¿½bï¿½v
 	
 #if defined(SUPPORT_ASYNC_CPU)
-	PFVAL("ASYNCCPU", PFTYPE_BOOL,		&np2cfg.asynccpu), // ”ñ“¯ŠúCPUƒ‚[ƒh—LŒø
-	PFVAL("ASYNCLVL", PFTYPE_UINT8,		&np2cfg.asynclvl), // ”ñ“¯ŠúCPUƒ‚[ƒh’²®ƒŒƒxƒ‹i0:§ŒäÅã`100:ƒAƒOƒŒƒbƒVƒuj
+	PFVAL("ASYNCCPU", PFTYPE_BOOL,		&np2cfg.asynccpu), // ï¿½ñ“¯Šï¿½CPUï¿½ï¿½ï¿½[ï¿½hï¿½Lï¿½ï¿½
+	PFVAL("ASYNCLVL", PFTYPE_UINT8,		&np2cfg.asynclvl), // ï¿½ñ“¯Šï¿½CPUï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½i0:ï¿½ï¿½ï¿½ï¿½Åï¿½`100:ï¿½Aï¿½Oï¿½ï¿½ï¿½bï¿½Vï¿½uï¿½j
 #endif
-	PFVAL("CONSTTSC", PFTYPE_BOOL,		&np2cfg.consttsc), // RDTSC‚ğƒNƒƒbƒN•ÏX‚É‚æ‚ç‚¸ˆê’èŠÔŠu‚É‚·‚é
+	PFVAL("CONSTTSC", PFTYPE_BOOL,		&np2cfg.consttsc), // RDTSCï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ÏXï¿½É‚ï¿½ç‚¸ï¿½ï¿½ï¿½ÔŠuï¿½É‚ï¿½ï¿½ï¿½
 #if defined(SUPPORT_IDEIO)
-	PFVAL("IDEBADDR", PFRO_HEX8,		&np2cfg.idebaddr), // IDE BIOS ƒAƒhƒŒƒXiƒfƒtƒHƒ‹ƒgFD8h(D8000h)j
+	PFVAL("IDEBADDR", PFRO_HEX8,		&np2cfg.idebaddr), // IDE BIOS ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½iï¿½fï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½FD8h(D8000h)ï¿½j
 #endif
 #if defined(SUPPORT_GAMEPORT)
 	PFVAL("GAMEPORT", PFTYPE_BOOL,		&np2cfg.gameport),
@@ -728,10 +734,10 @@ static const PFTBL s_IniItems[] =
 	PFVAL("CPUSPEED", PFTYPE_UINT32,	&np2cfg.emuspeed),
 	PFSTR("fontface", PFRO_STR,			np2cfg.fontface),
 	PFVAL("SLOWMOUS", PFTYPE_BOOL,		&np2cfg.slowmous),
-	PFVAL("GDCWOVRG", PFTYPE_BOOL,		&np2cfg.gdcwovrg), // 98•W€ƒOƒ‰ƒtƒBƒbƒN‚Å‰æ–Ê•80Œ…’´‚¦‚ğ”F‚ß‚é
+	PFVAL("GDCWOVRG", PFTYPE_BOOL,		&np2cfg.gdcwovrg), // 98ï¿½Wï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½tï¿½Bï¿½bï¿½Nï¿½Å‰ï¿½Ê•ï¿½80ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ß‚ï¿½
 	
 
-	// OSˆË‘¶H
+	// OSï¿½Ë‘ï¿½ï¿½H
 	PFVAL("keyboard", PFRO_KB,			&np2oscfg.KEYBOARD),
 	PFVAL("usenlock", PFTYPE_BOOL,		&np2oscfg.USENUMLOCK),
 	PFVAL("F12_COPY", PFTYPE_UINT8,		&np2oscfg.F12COPY),
@@ -879,11 +885,11 @@ static const PFTBL s_IniItems[] =
 	PFVAL("fscrn_cy", PFRO_SINT32,		&np2oscfg.fscrn_cy),
 	PFVAL("fscrnbpp", PFRO_UINT8,		&np2oscfg.fscrnbpp),
 	PFVAL("fscrnmod", PFTYPE_HEX8,		&np2oscfg.fscrnmod),
-	PFVAL("fsrescfg", PFTYPE_BOOL,		&np2oscfg.fsrescfg), // ‰ğ‘œ“x–ˆ‚Éİ’è•Û‘¶‚·‚é
+	PFVAL("fsrescfg", PFTYPE_BOOL,		&np2oscfg.fsrescfg), // ï¿½ğ‘œ“xï¿½ï¿½ï¿½Éİ’ï¿½Û‘ï¿½ï¿½ï¿½ï¿½ï¿½
 
 #if defined(SUPPORT_SCRN_DIRECT3D)
-	PFVAL("D3D_IMODE", PFTYPE_UINT8,	&np2oscfg.d3d_imode), // Direct3D Šg‘åk¬•âŠÔƒ‚[ƒh
-	PFVAL("D3D_EXCLU", PFTYPE_BOOL,		&np2oscfg.d3d_exclusive), // Direct3D ”r‘¼ƒ‚[ƒhg—p
+	PFVAL("D3D_IMODE", PFTYPE_UINT8,	&np2oscfg.d3d_imode), // Direct3D ï¿½gï¿½ï¿½kï¿½ï¿½ï¿½ï¿½Ôƒï¿½ï¿½[ï¿½h
+	PFVAL("D3D_EXCLU", PFTYPE_BOOL,		&np2oscfg.d3d_exclusive), // Direct3D ï¿½rï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½gï¿½p
 #endif
 
 	PFVAL("snddev_t", PFTYPE_UINT8,		&np2oscfg.cSoundDeviceType),
@@ -893,64 +899,64 @@ static const PFTBL s_IniItems[] =
 	PFSTR("VSTiFile", PFRO_STR,			np2oscfg.szVSTiFile),
 #endif	// defined(SUPPORT_VSTi)
 	
-	PFVAL("EMUDDRAW", PFTYPE_BOOL,		&np2oscfg.emuddraw), // Å‹ß‚ÍEMULATIONONLY‚É‚µ‚½•û‘¬‚©‚Á‚½‚è‚·‚éi“Á‚ÉƒsƒNƒZƒ‹‘€ì‚·‚éê‡‚Æ‚©j
-	PFVAL("DRAWTYPE", PFTYPE_UINT8,		&np2oscfg.drawtype), // ‰æ–ÊƒŒƒ“ƒ_ƒ‰ (0: DirectDraw, 1: reserved(DirecrDraw), 2: Direct3D)
+	PFVAL("EMUDDRAW", PFTYPE_BOOL,		&np2oscfg.emuddraw), // ï¿½Å‹ß‚ï¿½EMULATIONONLYï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è‚·ï¿½ï¿½iï¿½ï¿½ï¿½Éƒsï¿½Nï¿½Zï¿½ï¿½ï¿½ï¿½ï¿½ì‚·ï¿½ï¿½ê‡ï¿½Æ‚ï¿½ï¿½j
+	PFVAL("DRAWTYPE", PFTYPE_UINT8,		&np2oscfg.drawtype), // ï¿½ï¿½Êƒï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ (0: DirectDraw, 1: reserved(DirecrDraw), 2: Direct3D)
 	
-	PFVAL("DRAGDROP", PFTYPE_BOOL,		&np2oscfg.dragdrop), // ƒhƒ‰ƒbƒOƒAƒ“ƒhƒhƒƒbƒvƒTƒ|[ƒg
-	PFVAL("MAKELHDD", PFRO_BOOL,		&np2oscfg.makelhdd), // ‹‘åHDDƒCƒ[ƒWì¬ƒTƒ|[ƒg
-	PFVAL("SYSKHOOK", PFTYPE_BOOL,		&np2oscfg.syskhook), // ƒVƒXƒeƒ€ƒL[ƒtƒbƒNƒTƒ|[ƒg
-	PFVAL("RAWMOUSE", PFTYPE_BOOL,		&np2oscfg.rawmouse), // ’¼Úƒ}ƒEƒXƒf[ƒ^“Ç‚İæ‚è
-	PFVAL("MOUSEMUL", PFTYPE_SINT16,	&np2oscfg.mousemul), // ƒ}ƒEƒXƒXƒs[ƒh”{—¦i•ªqj
-	PFVAL("MOUSEDIV", PFTYPE_SINT16,	&np2oscfg.mousediv), // ƒ}ƒEƒXƒXƒs[ƒh”{—¦i•ª•êj
+	PFVAL("DRAGDROP", PFTYPE_BOOL,		&np2oscfg.dragdrop), // ï¿½hï¿½ï¿½ï¿½bï¿½Oï¿½Aï¿½ï¿½ï¿½hï¿½hï¿½ï¿½ï¿½bï¿½vï¿½Tï¿½|ï¿½[ï¿½g
+	PFVAL("MAKELHDD", PFRO_BOOL,		&np2oscfg.makelhdd), // ï¿½ï¿½ï¿½ï¿½HDDï¿½Cï¿½ï¿½ï¿½[ï¿½Wï¿½ì¬ï¿½Tï¿½|ï¿½[ï¿½g
+	PFVAL("SYSKHOOK", PFTYPE_BOOL,		&np2oscfg.syskhook), // ï¿½Vï¿½Xï¿½eï¿½ï¿½ï¿½Lï¿½[ï¿½tï¿½bï¿½Nï¿½Tï¿½|ï¿½[ï¿½g
+	PFVAL("RAWMOUSE", PFTYPE_BOOL,		&np2oscfg.rawmouse), // ï¿½ï¿½ï¿½Úƒ}ï¿½Eï¿½Xï¿½fï¿½[ï¿½^ï¿½Ç‚İï¿½ï¿½
+	PFVAL("MOUSEMUL", PFTYPE_SINT16,	&np2oscfg.mousemul), // ï¿½}ï¿½Eï¿½Xï¿½Xï¿½sï¿½[ï¿½hï¿½{ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½qï¿½j
+	PFVAL("MOUSEDIV", PFTYPE_SINT16,	&np2oscfg.mousediv), // ï¿½}ï¿½Eï¿½Xï¿½Xï¿½sï¿½[ï¿½hï¿½{ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½j
 	
-	PFVAL("SCRNMODE", PFTYPE_UINT8,		&np2oscfg.scrnmode), // ƒtƒ‹ƒXƒNƒŠ[ƒ“İ’è
-	PFVAL("SAVESCRN", PFTYPE_BOOL,		&np2oscfg.savescrn), // ƒtƒ‹ƒXƒNƒŠ[ƒ“İ’è‚ğ•Û‘¶E•œŒ³‚·‚é
+	PFVAL("SCRNMODE", PFTYPE_UINT8,		&np2oscfg.scrnmode), // ï¿½tï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½İ’ï¿½
+	PFVAL("SAVESCRN", PFTYPE_BOOL,		&np2oscfg.savescrn), // ï¿½tï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½İ’ï¿½ï¿½Û‘ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	PFVAL("SVSCRMUL", PFTYPE_BOOL,		&np2oscfg.svscrmul), // ‰æ–Ê•\¦”{—¦‚ğ•Û‘¶‚·‚é‚©
-	PFVAL("SCRN_MUL", PFTYPE_UINT8,		&np2oscfg.scrn_mul), // ‰æ–Ê•\¦”{—¦i8‚ª“™”{j
+	PFVAL("SVSCRMUL", PFTYPE_BOOL,		&np2oscfg.svscrmul), // ï¿½ï¿½Ê•\ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½Û‘ï¿½ï¿½ï¿½ï¿½é‚©
+	PFVAL("SCRN_MUL", PFTYPE_UINT8,		&np2oscfg.scrn_mul), // ï¿½ï¿½Ê•\ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½i8ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½j
 	
-	PFVAL("MOUSE_NC", PFTYPE_BOOL,		&np2oscfg.mouse_nc), // ƒ}ƒEƒXƒLƒƒƒvƒ`ƒƒ–³‚µƒRƒ“ƒgƒ[ƒ‹
-	PFVAL("CPUSTABF", PFTYPE_UINT16,	&np2oscfg.cpustabf), // ƒNƒƒbƒNˆÀ’èŠí“K—pŒÀŠEŠÔiƒtƒŒ[ƒ€j
-	PFVAL("READONLY", PFRO_BOOL,		&np2oscfg.readonly), // •ÏX‚ğİ’èƒtƒ@ƒCƒ‹‚É‘‚«‚Ü‚È‚¢
-	PFVAL("TICKMODE", PFRO_UINT8,		&np2oscfg.tickmode), // TickƒJƒEƒ“ƒ^‚Ìƒ‚[ƒh‚ğ‹­§“I‚Éİ’è‚·‚é
-	PFVAL("WHEELACT", PFTYPE_UINT8,		&np2oscfg.wheelact), // ƒ}ƒEƒXƒzƒC[ƒ‹‚É‚æ‚é“®ì‚ğİ’è‚·‚é(0=–³Œø, 1=‰¹—Ê, 2=ƒ}ƒEƒX‘¬“xİ’è, 3=Arrow Key, 4=Roll Up Down)
-	PFVAL("WHEELAC2", PFTYPE_UINT8,		&np2oscfg.wheelac2), // Ctrl or Shift + ƒ}ƒEƒXƒzƒC[ƒ‹‚É‚æ‚é“®ì‚ğİ’è‚·‚é(0=–³Œø, 1=‰¹—Ê, 2=ƒ}ƒEƒX‘¬“xİ’è, 3=Arrow Key, 4=Roll Up Down)
-	//PFVAL("USE_MVOL", PFRO_BOOL,		&np2oscfg.usemastervolume), // ƒ}ƒXƒ^ƒ{ƒŠƒ…[ƒ€İ’è‚ğg—p‚·‚é
-	PFVAL("USEMIDIV", PFRO_BOOL,		&np2oscfg.usemidivolume), // MIDI‹^—ƒ{ƒŠƒ…[ƒ€İ’è‚ğg—p‚·‚é
-	PFMAX("MVOL_MAX", PFRO_UINT8,		&np2oscfg.mastervolumemax, 255), // ƒ}ƒXƒ^ƒ{ƒŠƒ…[ƒ€‚ÌÅ‘å’l‚ğİ’è‚·‚é
+	PFVAL("MOUSE_NC", PFTYPE_BOOL,		&np2oscfg.mouse_nc), // ï¿½}ï¿½Eï¿½Xï¿½Lï¿½ï¿½ï¿½vï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½
+	PFVAL("CPUSTABF", PFTYPE_UINT16,	&np2oscfg.cpustabf), // ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½pï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½Ôiï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½j
+	PFVAL("READONLY", PFRO_BOOL,		&np2oscfg.readonly), // ï¿½ÏXï¿½ï¿½İ’ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Éï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚È‚ï¿½
+	PFVAL("TICKMODE", PFRO_UINT8,		&np2oscfg.tickmode), // Tickï¿½Jï¿½Eï¿½ï¿½ï¿½^ï¿½Ìƒï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½Éİ’è‚·ï¿½ï¿½
+	PFVAL("WHEELACT", PFTYPE_UINT8,		&np2oscfg.wheelact), // ï¿½}ï¿½Eï¿½Xï¿½zï¿½Cï¿½[ï¿½ï¿½ï¿½É‚ï¿½é“®ï¿½ï¿½ï¿½İ’è‚·ï¿½ï¿½(0=ï¿½ï¿½ï¿½ï¿½, 1=ï¿½ï¿½ï¿½ï¿½, 2=ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½xï¿½İ’ï¿½, 3=Arrow Key, 4=Roll Up Down)
+	PFVAL("WHEELAC2", PFTYPE_UINT8,		&np2oscfg.wheelac2), // Ctrl or Shift + ï¿½}ï¿½Eï¿½Xï¿½zï¿½Cï¿½[ï¿½ï¿½ï¿½É‚ï¿½é“®ï¿½ï¿½ï¿½İ’è‚·ï¿½ï¿½(0=ï¿½ï¿½ï¿½ï¿½, 1=ï¿½ï¿½ï¿½ï¿½, 2=ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½xï¿½İ’ï¿½, 3=Arrow Key, 4=Roll Up Down)
+	//PFVAL("USE_MVOL", PFRO_BOOL,		&np2oscfg.usemastervolume), // ï¿½}ï¿½Xï¿½^ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½İ’ï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½
+	PFVAL("USEMIDIV", PFRO_BOOL,		&np2oscfg.usemidivolume), // MIDIï¿½^ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½İ’ï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½
+	PFMAX("MVOL_MAX", PFRO_UINT8,		&np2oscfg.mastervolumemax, 255), // ï¿½}ï¿½Xï¿½^ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ÌÅ‘ï¿½lï¿½ï¿½İ’è‚·ï¿½ï¿½
 	
-	PFVAL("TWNDHIST", PFRO_UINT8,		&np2oscfg.toolwndhistory), // ƒc[ƒ‹ƒEƒBƒ“ƒhƒE‚ÌFDƒtƒ@ƒCƒ‹—š—ğ‚Ì‹L‰¯”
+	PFVAL("TWNDHIST", PFRO_UINT8,		&np2oscfg.toolwndhistory), // ï¿½cï¿½[ï¿½ï¿½ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ï¿½FDï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹Lï¿½ï¿½ï¿½ï¿½
 	
 #if defined(SUPPORT_WACOM_TABLET)
-	PFVAL("PENTABFA", PFTYPE_BOOL,		&np2oscfg.pentabfa), // ƒyƒ“ƒ^ƒuƒŒƒbƒg ƒAƒXƒyƒNƒg”äŒÅ’èƒ‚[ƒh
+	PFVAL("PENTABFA", PFTYPE_BOOL,		&np2oscfg.pentabfa), // ï¿½yï¿½ï¿½ï¿½^ï¿½uï¿½ï¿½ï¿½bï¿½g ï¿½Aï¿½Xï¿½yï¿½Nï¿½gï¿½ï¿½Å’èƒ‚ï¿½[ï¿½h
 #endif
 #if defined(SUPPORT_MULTITHREAD)
-	PFVAL("MTENABLE", PFTYPE_BOOL,		&np2oscfg.multithread), // ƒ}ƒ‹ƒ`ƒXƒŒƒbƒhƒ‚[ƒh
+	PFVAL("MTENABLE", PFTYPE_BOOL,		&np2oscfg.multithread), // ï¿½}ï¿½ï¿½ï¿½`ï¿½Xï¿½ï¿½ï¿½bï¿½hï¿½ï¿½ï¿½[ï¿½h
 #endif
 
-	PFVAL("midiasns", PFRO_BOOL,		&np2oscfg.midiasns), // MIDI Active Sensing‚ğ‘—‚é
-	PFVAL("midiaint", PFRO_SINT32,		&np2oscfg.midiaint), // MIDI Active Sensing‚ğ‘—‚éŠÔŠuiƒ~ƒŠ•bj
+	PFVAL("midiasns", PFRO_BOOL,		&np2oscfg.midiasns), // MIDI Active Sensingï¿½ğ‘—‚ï¿½
+	PFVAL("midiaint", PFRO_SINT32,		&np2oscfg.midiaint), // MIDI Active Sensingï¿½ğ‘—‚ï¿½ÔŠuï¿½iï¿½~ï¿½ï¿½ï¿½bï¿½j
 
-	PFVAL("knjpaste", PFTYPE_UINT8,		&np2oscfg.knjpaste), // ƒNƒŠƒbƒvƒ{[ƒh‚©‚çƒeƒLƒXƒg“\‚è•t‚¯‚ÌÛ‚ÌŠ¿š‚Ìˆµ‚¢i0=Š¿š–³‹, 1=BASIC, 2=FEP‚È‚µDOSj
-	PFVAL("scrscfix", PFRO_UINT8,		&np2oscfg.scrscfix), // ‰æ–ÊŠg‘å“]‘—‚Ì•â³i0=©“®, 1=’Êí“]‘—, 2=NVDIAŒü‚¯j
-	PFVAL("dirfdlst", PFRO_BOOL,		&np2oscfg.dirfdlst), // “¯‚¶ƒfƒBƒŒƒNƒgƒŠ‚É‚ ‚éFDƒCƒ[ƒWƒtƒ@ƒCƒ‹‚ÌƒŠƒXƒg‚ğ•\¦‚·‚é
-	PFVAL("allports", PFRO_BOOL,		&np2oscfg.allports), // İ’è‚ÅƒVƒŠƒAƒ‹Eƒpƒ‰ƒŒƒ‹‚ÉŠÖŒW‚È‚­”CˆÓ‚Ìƒ|[ƒg‚ğ‘I‚×‚é‚æ‚¤‚É‚·‚é
+	PFVAL("knjpaste", PFTYPE_UINT8,		&np2oscfg.knjpaste), // ï¿½Nï¿½ï¿½ï¿½bï¿½vï¿½{ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½gï¿½\ï¿½ï¿½tï¿½ï¿½ï¿½ÌÛ‚ÌŠï¿½ï¿½ï¿½ï¿½Ìˆï¿½ï¿½ï¿½ï¿½i0=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 1=BASIC, 2=FEPï¿½È‚ï¿½DOSï¿½j
+	PFVAL("scrscfix", PFRO_UINT8,		&np2oscfg.scrscfix), // ï¿½ï¿½ÊŠgï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½Ì•â³ï¿½i0=ï¿½ï¿½ï¿½ï¿½, 1=ï¿½Êï¿½]ï¿½ï¿½, 2=NVDIAï¿½ï¿½ï¿½ï¿½ï¿½j
+	PFVAL("dirfdlst", PFRO_BOOL,		&np2oscfg.dirfdlst), // ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½Bï¿½ï¿½ï¿½Nï¿½gï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½FDï¿½Cï¿½ï¿½ï¿½[ï¿½Wï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒï¿½ï¿½Xï¿½gï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	PFVAL("allports", PFRO_BOOL,		&np2oscfg.allports), // ï¿½İ’ï¿½ÅƒVï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Eï¿½pï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉŠÖŒWï¿½È‚ï¿½ï¿½Cï¿½Ó‚Ìƒ|ï¿½[ï¿½gï¿½ï¿½Iï¿½×‚ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½
 
-	PFSTR("prnfontM", PFRO_STR,			np2oscfg.prnfontM), // ˆóüƒtƒHƒ“ƒg–¼i–¾’©‘Ìj
-	PFSTR("prnfontG", PFRO_STR,			np2oscfg.prnfontG), // ˆóüƒtƒHƒ“ƒg–¼iƒSƒVƒbƒN‘Ìj
-	PFVAL("prncfgpp", PFTYPE_BOOL,		&np2oscfg.prncfgpp), // ˆóü‚Ì“x‚É—p†İ’è‚ğ•\¦‚·‚é
+	PFSTR("prnfontM", PFRO_STR,			np2oscfg.prnfontM), // ï¿½ï¿½ï¿½ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ìj
+	PFSTR("prnfontG", PFRO_STR,			np2oscfg.prnfontG), // ï¿½ï¿½ï¿½ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½ï¿½ï¿½iï¿½Sï¿½Vï¿½bï¿½Nï¿½Ìj
+	PFVAL("prncfgpp", PFTYPE_BOOL,		&np2oscfg.prncfgpp), // ï¿½ï¿½ï¿½ï¿½Ì“xï¿½É—pï¿½ï¿½ï¿½İ’ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	PFLST("CPUMMENU", PFTYPE_ARGS16,	np2oscfg.cpumullst), // CPUƒNƒƒbƒN”{—¦ƒŠƒXƒg
-	PFLST("CPUSMENU", PFTYPE_ARGS16,	np2oscfg.cpuspdlst), // CPUƒXƒs[ƒhƒŠƒXƒg
+	PFLST("CPUMMENU", PFTYPE_ARGS16,	np2oscfg.cpumullst), // CPUï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½g
+	PFLST("CPUSMENU", PFTYPE_ARGS16,	np2oscfg.cpuspdlst), // CPUï¿½Xï¿½sï¿½[ï¿½hï¿½ï¿½ï¿½Xï¿½g
 };
 
-//! .ini Šg’£q
+//! .ini ï¿½gï¿½ï¿½ï¿½q
 static const TCHAR s_szExt[] = TEXT(".ini");
 
 /**
- * İ’èƒtƒ@ƒCƒ‹‚ÌƒpƒX‚ğ“¾‚é
- * @param[out] lpPath ƒpƒX
- * @param[in] cchPath ƒpƒX ƒoƒbƒtƒ@‚Ì’·‚³
+ * ï¿½İ’ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒpï¿½Xï¿½ğ“¾‚ï¿½
+ * @param[out] lpPath ï¿½pï¿½X
+ * @param[in] cchPath ï¿½pï¿½X ï¿½oï¿½bï¿½tï¿½@ï¿½Ì’ï¿½ï¿½ï¿½
  */
 void initgetfile(LPTSTR lpPath, UINT cchPath)
 {
@@ -973,7 +979,7 @@ void initgetfile(LPTSTR lpPath, UINT cchPath)
 }
 
 /**
- * “Ç‚İ‚İ
+ * ï¿½Ç‚İï¿½ï¿½ï¿½
  */
 void initload(void)
 {
@@ -984,7 +990,7 @@ void initload(void)
 }
 
 /**
- * ‘‚«o‚µ
+ * ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
  */
 void initsave(void)
 {

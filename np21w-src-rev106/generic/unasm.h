@@ -1,7 +1,20 @@
 
+enum {
+	MI_WRITE = 0,
+	MI_READ = 1
+};
+
+//! メモリオペランド情報 (np2debug)
+typedef struct {
+	UINT8	type;
+	UINT16	seg;
+	UINT16	off;
+} UNASM_MEMINFO;
+
 typedef struct {
 const char	*mnemonic;
 	char	operand[44];
+	UNASM_MEMINFO meminf[2];
 } _UNASM, *UNASM;
 
 

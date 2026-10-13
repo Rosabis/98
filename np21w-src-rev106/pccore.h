@@ -7,6 +7,10 @@
 
 #include "nevent.h"
 
+#define MAX_SASI 4
+#define MAX_SCSI 4
+#define MAX_DIR 3
+
 enum {
 	PCBASECLOCK25		= 2457600,
 	PCBASECLOCK20		= 1996800
@@ -106,7 +110,7 @@ enum {
  */
 struct tagNP2Config
 {
-	// ƒGƒ~ƒ…ƒŒ[ƒg’†‚É‚æ‚­QÆ‚³‚ê‚é“z
+	// ï¿½Gï¿½~ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½gï¿½ï¿½ï¿½É‚æ‚­ï¿½Qï¿½Æ‚ï¿½ï¿½ï¿½ï¿½z
 	UINT8	uPD72020;
 	UINT8	DISPSYNC;
 	UINT8	RASTER;
@@ -133,15 +137,15 @@ struct tagNP2Config
 	UINT8	timerfix;
 	
 #if defined(SUPPORT_ASYNC_CPU)
-	UINT8	asynccpu; // ”ñ“¯ŠúCPUƒ‚[ƒh—LŒø
-	UINT8	asynclvl; // ”ñ“¯ŠúCPUƒ‚[ƒh’²®ƒŒƒxƒ‹i0:§ŒäÅã`100:ƒAƒOƒŒƒbƒVƒuj
+	UINT8	asynccpu; // ï¿½ñ“¯Šï¿½CPUï¿½ï¿½ï¿½[ï¿½hï¿½Lï¿½ï¿½
+	UINT8	asynclvl; // ï¿½ñ“¯Šï¿½CPUï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½i0:ï¿½ï¿½ï¿½ï¿½Åï¿½`100:ï¿½Aï¿½Oï¿½ï¿½ï¿½bï¿½Vï¿½uï¿½j
 #endif
-	UINT8	consttsc; // RDTSC‚ğAsyncƒNƒƒbƒN•ÏX‚É‚æ‚ç‚¸ˆê’èŠÔŠu‚É‚·‚é
+	UINT8	consttsc; // RDTSCï¿½ï¿½Asyncï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ÏXï¿½É‚ï¿½ç‚¸ï¿½ï¿½ï¿½ÔŠuï¿½É‚ï¿½ï¿½ï¿½
 #if defined(SUPPORT_IDEIO)
-	UINT8	idebaddr; // IDE BIOS ƒAƒhƒŒƒXiƒfƒtƒHƒ‹ƒgFD8h(D8000h)j
+	UINT8	idebaddr; // IDE BIOS ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½iï¿½fï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½FD8h(D8000h)ï¿½j
 #endif
 	
-	// ƒŠƒZƒbƒg‚Æ‚©‚ ‚ñ‚Ü‚èQÆ‚³‚ê‚È‚¢“z
+	// ï¿½ï¿½ï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½Qï¿½Æ‚ï¿½ï¿½ï¿½È‚ï¿½ï¿½z
 	OEMCHAR	model[8];
 	UINT	baseclock;
 	UINT	multiple;
@@ -250,9 +254,9 @@ struct tagNP2Config
 	OEMCHAR	idecd[4][MAX_PATH];										// ver0.85w
 	UINT8	idebios;												// ver0.86w rev20
 	UINT8	autoidebios;												// ver0.86w rev36
-	UINT32	iderwait; // IDE“Ç‚İæ‚è‚ÌŠ„‚è‚İ’x‰„ŠÔ(clock)B  np21w ver0.86 rev19
-	UINT32	idewwait; // IDE‘‚«‚İ‚ÌŠ„‚è‚İ’x‰„ŠÔ(clock)B  np21w ver0.86 rev18
-	UINT32	idemwait; // IDE BIOS‚ª‚ ‚éê‡‚ÌŠ„‚è‚İ’x‰„Å¬’l  np21w ver0.86 rev26 ”p~
+	UINT32	iderwait; // IDEï¿½Ç‚İï¿½ï¿½ÌŠï¿½ï¿½èï¿½İ’xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(clock)ï¿½B  np21w ver0.86 rev19
+	UINT32	idewwait; // IDEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ÌŠï¿½ï¿½èï¿½İ’xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(clock)ï¿½B  np21w ver0.86 rev18
+	UINT32	idemwait; // IDE BIOSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ÌŠï¿½ï¿½èï¿½İ’xï¿½ï¿½ï¿½Åï¿½ï¿½l  np21w ver0.86 rev26 ï¿½pï¿½~
 	UINT8	savecdfile;	
 	UINT8	useasynccd;
 	UINT8	allowcdtraycmd;	
@@ -263,6 +267,7 @@ struct tagNP2Config
 #if defined(SUPPORT_SCSI)
 	OEMCHAR	scsihdd[4][MAX_PATH];									// ver0.74
 #endif
+	OEMCHAR	mountdir[MAX_DIR][MAX_PATH];
 	OEMCHAR	fontfile[MAX_PATH];
 	OEMCHAR	biospath[MAX_PATH];
 	OEMCHAR	hdrvroot[MAX_PATH];
@@ -301,16 +306,16 @@ struct tagNP2Config
 	UINT8	usemodex;
 #endif
 #if defined(SUPPORT_GPIB)
-	UINT8	usegpib; // GPIBg—p
+	UINT8	usegpib; // GPIBï¿½gï¿½p
 	UINT8	gpibirq; // GPIB IRQ
 	UINT8	gpibmode; // GPIB Master/Slave
 	UINT8	gpibaddr; // GPIB Address
 	UINT8	gpibexio; // GPIB custom I/O port base
 #endif
 #if defined(SUPPORT_PCI)
-	UINT8	usepci; // PCI Busg—p
-	UINT8	pci_bios32; // BIOS32g—p
-	UINT8	pci_pcmc; // PCMC‘I‘ğ
+	UINT8	usepci; // PCI Busï¿½gï¿½p
+	UINT8	pci_bios32; // BIOS32ï¿½gï¿½p
+	UINT8	pci_pcmc; // PCMCï¿½Iï¿½ï¿½
 #endif
 	
 	UINT8	winntfix;
@@ -322,53 +327,53 @@ struct tagNP2Config
 	
 	UINT8	biosioemu;
 
-	char	cpu_vendor[16]; // ƒxƒ“ƒ_[i12bytej
-	UINT32	cpu_family; // ƒtƒ@ƒ~ƒŠ
-	UINT32	cpu_model; // ƒ‚ƒfƒ‹
-	UINT32	cpu_stepping; // ƒXƒeƒbƒsƒ“ƒO
-	UINT32	cpu_feature; // ‹@”\ƒtƒ‰ƒO
-	UINT32	cpu_feature_ex; // Šg’£‹@”\ƒtƒ‰ƒO
-	char	cpu_brandstring[64]; // ƒuƒ‰ƒ“ƒh–¼i48bytej
-	OEMCHAR	cpu_vendor_o[16]; // ƒxƒ“ƒ_[i12bytejOEMCHAR
-	OEMCHAR	cpu_brandstring_o[64]; // ƒuƒ‰ƒ“ƒh–¼i48bytejOEMCHAR
-	UINT32	cpu_brandid; // ƒuƒ‰ƒ“ƒhID
-	UINT32  cpu_feature_ecx; // ECX‹@”\ƒtƒ‰ƒO
-	UINT32  cpu_feature_ex_ecx; // ECXŠg’£‹@”\ƒtƒ‰ƒO
-	UINT32  cpu_eflags_mask; // EFLAGSƒ}ƒXƒN
+	char	cpu_vendor[16]; // ï¿½xï¿½ï¿½ï¿½_ï¿½[ï¿½i12byteï¿½j
+	UINT32	cpu_family; // ï¿½tï¿½@ï¿½~ï¿½ï¿½
+	UINT32	cpu_model; // ï¿½ï¿½ï¿½fï¿½ï¿½
+	UINT32	cpu_stepping; // ï¿½Xï¿½eï¿½bï¿½sï¿½ï¿½ï¿½O
+	UINT32	cpu_feature; // ï¿½@ï¿½\ï¿½tï¿½ï¿½ï¿½O
+	UINT32	cpu_feature_ex; // ï¿½gï¿½ï¿½ï¿½@ï¿½\ï¿½tï¿½ï¿½ï¿½O
+	char	cpu_brandstring[64]; // ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½i48byteï¿½j
+	OEMCHAR	cpu_vendor_o[16]; // ï¿½xï¿½ï¿½ï¿½_ï¿½[ï¿½i12byteï¿½jOEMCHAR
+	OEMCHAR	cpu_brandstring_o[64]; // ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½i48byteï¿½jOEMCHAR
+	UINT32	cpu_brandid; // ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½hID
+	UINT32  cpu_feature_ecx; // ECXï¿½@ï¿½\ï¿½tï¿½ï¿½ï¿½O
+	UINT32  cpu_feature_ex_ecx; // ECXï¿½gï¿½ï¿½ï¿½@ï¿½\ï¿½tï¿½ï¿½ï¿½O
+	UINT32  cpu_eflags_mask; // EFLAGSï¿½}ï¿½Xï¿½N
 	
-	UINT8	fpu_type; // FPUí—Şi0=Berkeley SoftFloat, 1=DOSBox FPU, 2=DOSBox FPU+INT64j
+	UINT8	fpu_type; // FPUï¿½ï¿½Şi0=Berkeley SoftFloat, 1=DOSBox FPU, 2=DOSBox FPU+INT64ï¿½j
 	
 #if defined(SUPPORT_FAST_MEMORYCHECK)
-	UINT8	memcheckspeed; // ƒƒ‚ƒŠƒ`ƒFƒbƒN‘¬“x
+	UINT8	memcheckspeed; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½x
 #endif
 	
-	UINT8	useram_d; // EPSON‚Å‚È‚­‚Ä‚àD0000h-DFFFFh‚ğRAM‚Éi‚½‚¾‚µIDE BIOS D8000h-DBFFFh‚Í‘Ê–Új
-	UINT8	usepegcplane; // PEGC ƒvƒŒ[ƒ“ƒ‚[ƒhƒTƒ|[ƒg
+	UINT8	useram_d; // EPSONï¿½Å‚È‚ï¿½ï¿½Ä‚ï¿½D0000h-DFFFFhï¿½ï¿½RAMï¿½Éiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDE BIOS D8000h-DBFFFhï¿½Í‘Ê–Új
+	UINT8	usepegcplane; // PEGC ï¿½vï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½Tï¿½|ï¿½[ï¿½g
 	
-	UINT8	usecdecc; // CD-ROM EDC/ECC ƒGƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“ƒTƒ|[ƒg
-	UINT8	cddtskip; // CD-ROM ƒI[ƒfƒBƒIÄ¶‚Éƒf[ƒ^ƒgƒ‰ƒbƒN‚ğƒXƒLƒbƒv
+	UINT8	usecdecc; // CD-ROM EDC/ECC ï¿½Gï¿½~ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½|ï¿½[ï¿½g
+	UINT8	cddtskip; // CD-ROM ï¿½Iï¿½[ï¿½fï¿½Bï¿½Iï¿½Äï¿½ï¿½ï¿½ï¿½Éƒfï¿½[ï¿½^ï¿½gï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Xï¿½Lï¿½bï¿½v
 
 #if defined(SUPPORT_GAMEPORT)
-	UINT8	gameport; // SB16‚â118‰¹Œ¹‚ÌƒQ[ƒ€ƒ|[ƒg‚ğg—p‚·‚é
-	UINT8	analogjoy; // ƒQ[ƒ€ƒ|[ƒg‚ğƒAƒiƒƒOƒWƒ‡ƒCƒXƒeƒBƒbƒN‚É‚·‚é
+	UINT8	gameport; // SB16ï¿½ï¿½118ï¿½ï¿½ï¿½ï¿½ï¿½ÌƒQï¿½[ï¿½ï¿½ï¿½|ï¿½[ï¿½gï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½
+	UINT8	analogjoy; // ï¿½Qï¿½[ï¿½ï¿½ï¿½|ï¿½[ï¿½gï¿½ï¿½ï¿½Aï¿½iï¿½ï¿½ï¿½Oï¿½Wï¿½ï¿½ï¿½Cï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½É‚ï¿½ï¿½ï¿½
 #endif
-	UINT8	allowMOVCS; // mov cs,xx–½—ß‚ÌÀs‚ğ‹–‰Â‚·‚éi8086j
-	UINT8	usetexthook; // Text Hook‚ğ—LŒø‚É‚·‚éiŠCŠOŒü‚¯j
-	UINT8	rascsi92; // 92ŒİŠ·‚ÅRaSCSIŒ`®(*.HDN)‚ğ“Ç‚Ş
-	UINT8	nbeepofs; // BEEP‚Ìo—ÍƒIƒtƒZƒbƒg‚ğÁ‚·
+	UINT8	allowMOVCS; // mov cs,xxï¿½ï¿½ï¿½ß‚Ìï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½i8086ï¿½j
+	UINT8	usetexthook; // Text Hookï¿½ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½iï¿½Cï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½j
+	UINT8	rascsi92; // 92ï¿½İŠï¿½ï¿½ï¿½RaSCSIï¿½`ï¿½ï¿½(*.HDN)ï¿½ï¿½Ç‚ï¿½
+	UINT8	nbeepofs; // BEEPï¿½Ìoï¿½ÍƒIï¿½tï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	SINT64	cal_vofs; // ‰¼‘zƒJƒŒƒ“ƒ_ƒIƒtƒZƒbƒg(•b)
+	SINT64	cal_vofs; // ï¿½ï¿½ï¿½zï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½tï¿½Zï¿½bï¿½g(ï¿½b)
 
 #if defined(SUPPORT_NP2SCSI)
-	UINT8	usenp2stor; // np2 SCSI‚ğg—p‚·‚é
+	UINT8	usenp2stor; // np2 SCSIï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½
 #endif
 
 	UINT32	emuspeed; // emulation speed(%)
 
 	OEMCHAR	fontface[256];
 
-	UINT8	slowmous; // 4ƒrƒbƒgØ‚èÌ‚Ä‚Ì’á‘¬ƒ}ƒEƒX‚ğg‚¤
-	UINT8	gdcwovrg; // 98•W€ƒOƒ‰ƒtƒBƒbƒN‚Å‰æ–Ê•80Œ…’´‚¦‚ğ”F‚ß‚é
+	UINT8	slowmous; // 4ï¿½rï¿½bï¿½gï¿½Ø‚ï¿½Ì‚Ä‚Ì’á‘¬ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½gï¿½ï¿½
+	UINT8	gdcwovrg; // 98ï¿½Wï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½tï¿½Bï¿½bï¿½Nï¿½Å‰ï¿½Ê•ï¿½80ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ß‚ï¿½
 };
 typedef struct tagNP2Config  NP2CFG;		/*!< The define of config */
 
@@ -384,7 +389,7 @@ typedef struct {
 #else
 	UINT8	extmem;
 #endif
-	UINT8	dipsw[3];		// ƒŠƒZƒbƒg‚ÌDIPSW
+	UINT8	dipsw[3];		// ï¿½ï¿½ï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½ï¿½DIPSW
 	UINT8	rom;
 
 	SOUNDID sound;

@@ -54,13 +54,14 @@
 #define	CPU_INTERRUPT(vect, soft)	ia32_interrupt(vect, soft)
 #define	CPU_EXEC()			ia32()
 #define	CPU_EXECV30()			ia32()
+#define	CPU_STEPEXEC()			ia32_step()
 #define	CPU_SHUT()			ia32shut()
 #define	CPU_SETEXTSIZE(size)		ia32_setextsize((UINT32)(size) << 20)
 #define CPU_SETEMM(frame, addr)		ia32_setemm(frame, addr)
 
- // USE_LEGACY_MEMORY_ACCESS‚ª‚ ‚éê‡‚Í‹Œƒ‹[ƒ`ƒ“‚ðŽg—p‚·‚é
+ // USE_LEGACY_MEMORY_ACCESSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Í‹ï¿½ï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½
 #if defined(USE_LEGACY_MEMORY_ACCESS)
-// ‹Œ”Å
+// ï¿½ï¿½ï¿½ï¿½
 #define	cpu_memorywrite(a,v)	memp_write8(a,v)
 #define	cpu_memorywrite_b(a,v)	memp_write8(a,v)
 #define	cpu_memorywrite_w(a,v)	memp_write16(a,v)
@@ -94,7 +95,7 @@
 #endif
 
 #else
-// ‚‘¬”Å
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define	cpu_memorywrite(a,v)	memp_write8_fast(a,v)
 #define	cpu_memorywrite_b(a,v)	memp_write8_fast(a,v)
 #define	cpu_memorywrite_w(a,v)	memp_write16_fast(a,v)

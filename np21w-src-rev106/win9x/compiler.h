@@ -164,6 +164,9 @@ typedef	signed __int64		SINT64;
 #define	IA32_REBOOT_ON_PANIC
 #define	SUPPORT_CRT31KHZ
 #define	SUPPORT_PC9801_119
+// デバッグユーティリティ（ブレークポイント・シングルステップ・ステップオーバー）
+// 実装は break.cpp / i386c/ia32/interface.c / pccore.c を参照
+#define	SUPPORT_NP2BREAK
 #endif
 #define	SUPPORT_CRT15KHZ
 #define	SUPPORT_PC9861K
@@ -175,6 +178,7 @@ typedef	signed __int64		SINT64;
 #define	SUPPORT_KEYDISP
 #define	SUPPORT_MEMDBG32
 #define	SUPPORT_HOSTDRV
+#define	SUPPORT_MOUNTDIR	/* INT 21h hook: mount host directories as DOS drives (win9x/mountdir) */
 #define	SUPPORT_SASI
 #define	SUPPORT_SCSI
 /* #define	SUPPORT_IDEIO */
@@ -200,12 +204,12 @@ typedef	signed __int64		SINT64;
 
 #define	SUPPORT_TEXTCNV
 
-// �v�����^�G�~�����[�V����
+// �v�����^�G�~�����[�V����
 #define SUPPORT_PRINT_PR201
 #define SUPPORT_PRINT_ESCP
 
 #if (_MSC_VER + 0) <= 1600
-// VS2017 ���Â��ꍇ
+// VS2017 ���Â��ꍇ
 #define SUPPORT_WIN2000HOST
 #endif
 

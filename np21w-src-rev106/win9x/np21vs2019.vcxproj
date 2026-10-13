@@ -175,7 +175,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_LARGE_MEMORY;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_NPDISP_D3D;SUPPORT_CL_GD5430;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;SUPPORT_PCI;SUPPORT_SCRN_DIRECT3D;SUPPORT_FAST_MEMORYCHECK;SUPPORT_PEGC;SUPPORT_ASYNC_CPU;SUPPORT_SMPU98;SUPPORT_WACOM_TABLET;SUPPORT_RS232C_FIFO;SUPPORT_NAMED_PIPE;SUPPORT_VGA_MODEX;SUPPORT_GAMEPORT;SUPPORT_IDEIO_48BIT;SUPPORT_MULTITHREAD;SUPPORT_TEXTHOOK;SUPPORT_HOSTDRVNT;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;USE_FASTPAGING;USE_VME;USE_CPU_MODRMPREFETCH;USE_CPU_INLINEINST;USE_CPU_DIRECTREG;USE_CPU_EIPMASK;BIOS_IO_EMULATION;TRACE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\;.\x86;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\mountdir;.\x86;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -207,7 +207,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_LARGE_MEMORY;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_NPDISP_D3D;SUPPORT_CL_GD5430;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;SUPPORT_PCI;SUPPORT_SCRN_DIRECT3D;SUPPORT_FAST_MEMORYCHECK;SUPPORT_PEGC;SUPPORT_ASYNC_CPU;SUPPORT_SMPU98;SUPPORT_WACOM_TABLET;SUPPORT_RS232C_FIFO;SUPPORT_NAMED_PIPE;SUPPORT_VGA_MODEX;SUPPORT_GAMEPORT;SUPPORT_IDEIO_48BIT;SUPPORT_MULTITHREAD;SUPPORT_TEXTHOOK;SUPPORT_HOSTDRVNT;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;USE_FASTPAGING;USE_VME;USE_CPU_MODRMPREFETCH;USE_CPU_INLINEINST;USE_CPU_DIRECTREG;USE_CPU_EIPMASK;BIOS_IO_EMULATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\;.\x64;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\mountdir;.\x64;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -241,7 +241,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_LARGE_MEMORY;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_CL_GD5430;SUPPORT_WAB_NPDISP;SUPPORT_NPDISP_W2K;SUPPORT_NPDISP_D3D;SUPPORT_NPDISP_GL;SUPPORT_WAB_GA1280A;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;SUPPORT_PCI;SUPPORT_SCRN_DIRECT3D;SUPPORT_FAST_MEMORYCHECK;SUPPORT_PEGC;SUPPORT_ASYNC_CPU;SUPPORT_SMPU98;SUPPORT_WACOM_TABLET;SUPPORT_RS232C_FIFO;SUPPORT_NAMED_PIPE;SUPPORT_VGA_MODEX;SUPPORT_GAMEPORT;SUPPORT_IDEIO_48BIT;SUPPORT_MULTITHREAD;SUPPORT_TEXTHOOK;SUPPORT_HOSTDRVNT;SUPPORT_HOSTDRV9X;SUPPORT_NP2SCSI;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;USE_FASTPAGING;USE_VME;USE_CPU_PLATFORMINT;USE_CPU_INLINEINST;USE_CPU_DIRECTREG;USE_CPU_EIPMASK;BIOS_IO_EMULATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\;.\x86;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\mountdir;.\x86;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -278,7 +278,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_LARGE_MEMORY;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_WAB_NPDISP;SUPPORT_NPDISP_W2K;SUPPORT_NPDISP_D3D;SUPPORT_NPDISP_GL;SUPPORT_CL_GD5430;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;SUPPORT_PCI;SUPPORT_SCRN_DIRECT3D;SUPPORT_FAST_MEMORYCHECK;SUPPORT_PEGC;SUPPORT_SMPU98;SUPPORT_WACOM_TABLET;SUPPORT_RS232C_FIFO;SUPPORT_NAMED_PIPE;SUPPORT_VGA_MODEX;SUPPORT_GAMEPORT;SUPPORT_IDEIO_48BIT;SUPPORT_MULTITHREAD;SUPPORT_TEXTHOOK;SUPPORT_HOSTDRVNT;SUPPORT_NP2SCSI;SUPPORT_IA32_HAXM;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;USE_FASTPAGING;USE_VME;BIOS_IO_EMULATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\;.\x86;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\mountdir;.\x86;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -314,7 +314,7 @@
       </PrecompiledHeader>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CRTDBG_MAP_ALLOC;_WINDOWS;_CRT_SECURE_NO_WARNINGS;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_LARGE_MEMORY;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_CL_GD5430;SUPPORT_WAB_NPDISP;SUPPORT_NPDISP_W2K;SUPPORT_NPDISP_D3D;SUPPORT_NPDISP_GL;SUPPORT_WAB_GA1280A;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;SUPPORT_PCI;SUPPORT_SCRN_DIRECT3D;SUPPORT_FAST_MEMORYCHECK;SUPPORT_PEGC;SUPPORT_ASYNC_CPU;SUPPORT_SMPU98;SUPPORT_WACOM_TABLET;SUPPORT_RS232C_FIFO;SUPPORT_NAMED_PIPE;SUPPORT_VGA_MODEX;SUPPORT_GAMEPORT;SUPPORT_IDEIO_48BIT;SUPPORT_MULTITHREAD;SUPPORT_TEXTHOOK;SUPPORT_HOSTDRVNT;SUPPORT_HOSTDRV9X;SUPPORT_NP2SCSI;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;USE_FASTPAGING;USE_VME;USE_CPU_PLATFORMINT;USE_CPU_INLINEINST;USE_CPU_DIRECTREG;USE_CPU_EIPMASK;BIOS_IO_EMULATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\;.\x64;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\mountdir;.\x64;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -357,7 +357,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CRTDBG_MAP_ALLOC;_WINDOWS;_CRT_SECURE_NO_WARNINGS;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_LARGE_MEMORY;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_WAB_NPDISP;SUPPORT_NPDISP_W2K;SUPPORT_NPDISP_D3D;SUPPORT_NPDISP_GL;SUPPORT_CL_GD5430;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;SUPPORT_PCI;SUPPORT_SCRN_DIRECT3D;SUPPORT_FAST_MEMORYCHECK;SUPPORT_PEGC;SUPPORT_SMPU98;SUPPORT_WACOM_TABLET;SUPPORT_RS232C_FIFO;SUPPORT_NAMED_PIPE;SUPPORT_VGA_MODEX;SUPPORT_GAMEPORT;SUPPORT_IDEIO_48BIT;SUPPORT_MULTITHREAD;SUPPORT_TEXTHOOK;SUPPORT_HOSTDRVNT;SUPPORT_NP2SCSI;SUPPORT_IA32_HAXM;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;USE_FASTPAGING;USE_VME;BIOS_IO_EMULATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\;.\x64;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\mountdir;.\x64;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -398,7 +398,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CRTDBG_MAP_ALLOC;_WINDOWS;_CRT_SECURE_NO_WARNINGS;SUPPORT_PC9821;SUPPORT_IDEIO;SUPPORT_LARGE_HDD;SUPPORT_LARGE_MEMORY;SUPPORT_NET;SUPPORT_LGY98;SUPPORT_WAB;SUPPORT_WAB_NPDISP;SUPPORT_NPDISP_W2K;SUPPORT_NPDISP_D3D;SUPPORT_NPDISP_GL;SUPPORT_CL_GD5430;SUPPORT_HRTIMER;SUPPORT_VPCVHD;SUPPORT_KAI_IMAGES;SUPPORT_NVL_IMAGES;SUPPORT_PHYSICAL_CDDRV;SUPPORT_FMGEN;SUPPORT_SOUND_SB16;SUPPORT_FPU_DOSBOX2_COMPATIBLE;SUPPORT_FPU_SOFTFLOAT3;SUPPORT_GPIB;SUPPORT_PCI;SUPPORT_SCRN_DIRECT3D;SUPPORT_FAST_MEMORYCHECK;SUPPORT_PEGC;SUPPORT_SMPU98;SUPPORT_WACOM_TABLET;SUPPORT_RS232C_FIFO;SUPPORT_NAMED_PIPE;SUPPORT_VGA_MODEX;SUPPORT_GAMEPORT;SUPPORT_IDEIO_48BIT;SUPPORT_MULTITHREAD;SUPPORT_TEXTHOOK;SUPPORT_HOSTDRVNT;SUPPORT_NP2SCSI;SUPPORT_IA32_WHPX;HOOK_SYSKEY;ALLOW_MULTIRUN;USE_FPU;USE_MMX;USE_3DNOW;USE_SSE;USE_SSE2;USE_SSE3;USE_SSSE3;USE_SSE4_1;USE_SSE4_2;USE_SSE4A;USE_TSC;USE_MAME;USE_MAME_BSD;USE_FASTPAGING;USE_VME;BIOS_IO_EMULATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\;.\x64;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\mountdir;.\x64;..\;..\common;..\i386c;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -1089,6 +1089,7 @@
     <ClCompile Include="..\zlib\inflate.c" />
     <ClCompile Include="..\zlib\inftrees.c" />
     <ClCompile Include="..\zlib\zutil.c" />
+    <ClCompile Include="break.cpp" />
     <ClCompile Include="commng.cpp" />
     <ClCompile Include="commng\cmbase.cpp" />
     <ClCompile Include="commng\cmfile.cpp" />
@@ -1116,6 +1117,8 @@
     <ClCompile Include="compiler.cpp" />
     <ClCompile Include="debuguty\view1mb.cpp" />
     <ClCompile Include="debuguty\viewasm.cpp" />
+    <ClCompile Include="debuguty\d_addr.cpp" />
+    <ClCompile Include="debuguty\d_edit.cpp" />
     <ClCompile Include="debuguty\viewer.cpp" />
     <ClCompile Include="debuguty\viewitem.cpp" />
     <ClCompile Include="debuguty\viewmem.cpp" />
@@ -1123,6 +1126,14 @@
     <ClCompile Include="debuguty\viewseg.cpp" />
     <ClCompile Include="debuguty\viewsnd.cpp" />
     <ClCompile Include="dialog\c_combodata.cpp" />
+    <ClCompile Include="debuguty\viewstk.cpp" />
+    <ClCompile Include="debuguty\viewmenu.cpp" />
+    <ClCompile Include="debuguty\viewcmn.cpp" />
+    <ClCompile Include="mountdir\md_dir.c" />
+    <ClCompile Include="mountdir\md_fcb.c" />
+    <ClCompile Include="mountdir\md_file.c" />
+    <ClCompile Include="mountdir\md_util.c" />
+    <ClCompile Include="mountdir\mountdir.c" />
     <ClCompile Include="dialog\c_dipsw.cpp" />
     <ClCompile Include="dialog\c_midi.cpp" />
     <ClCompile Include="dialog\c_slidervalue.cpp" />
@@ -1199,6 +1210,7 @@
     <ClCompile Include="winloc.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\break.h" />
     <ClInclude Include="..\bios\bios.h" />
     <ClInclude Include="..\bios\biosmem.h" />
     <ClInclude Include="..\bios\fdfmt.h" />
@@ -1539,6 +1551,8 @@
     <ClInclude Include="compiler.h" />
     <ClInclude Include="debuguty\view1mb.h" />
     <ClInclude Include="debuguty\viewasm.h" />
+    <ClInclude Include="debuguty\d_addr.h" />
+    <ClInclude Include="debuguty\d_edit.h" />
     <ClInclude Include="debuguty\viewer.h" />
     <ClInclude Include="debuguty\viewitem.h" />
     <ClInclude Include="debuguty\viewmem.h" />
@@ -1546,6 +1560,14 @@
     <ClInclude Include="debuguty\viewseg.h" />
     <ClInclude Include="debuguty\viewsnd.h" />
     <ClInclude Include="dialog\c_combodata.h" />
+    <ClInclude Include="debuguty\viewstk.h" />
+    <ClInclude Include="debuguty\viewmenu.h" />
+    <ClInclude Include="debuguty\viewcmn.h" />
+    <ClInclude Include="mountdir\md_dir.h" />
+    <ClInclude Include="mountdir\md_fcb.h" />
+    <ClInclude Include="mountdir\md_file.h" />
+    <ClInclude Include="mountdir\md_util.h" />
+    <ClInclude Include="mountdir\mountdir.h" />
     <ClInclude Include="dialog\c_dipsw.h" />
     <ClInclude Include="dialog\c_midi.h" />
     <ClInclude Include="dialog\c_slidervalue.h" />

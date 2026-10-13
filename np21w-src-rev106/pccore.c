@@ -15,6 +15,7 @@
 #include	"mousemng.h"
 #include	"cpucore.h"
 #include	"pccore.h"
+#include	"break.h"
 #include	"iocore.h"
 #include	"gdc_sub.h"
 #include	"cbuscore.h"
@@ -56,6 +57,13 @@
 #endif
 #if defined(SUPPORT_HOSTDRV9X)
 #include	"hostdrv9x.h"
+#endif
+#ifdef WIN32
+#include	"mountdir.h"
+#else
+#define	md_create()
+#define	md_reset()
+#define	md_destroy()
 #endif
 #include	"np2ver.h"
 #include	"calendar.h"
@@ -170,9 +178,10 @@ const OEMCHAR np2version[] = OEMTEXT(NP2VER_CORE);
 				{OEMTEXT(""), OEMTEXT("")},
 #endif
 #if defined(SUPPORT_SCSI)
-				{OEMTEXT(""), OEMTEXT(""), OEMTEXT(""), OEMTEXT("")},
+			{OEMTEXT(""), OEMTEXT(""), OEMTEXT(""), OEMTEXT("")},
 #endif
-				OEMTEXT(""), OEMTEXT(""), OEMTEXT(""),
+			{{OEMTEXT(""), OEMTEXT(""), OEMTEXT("")}},
+			OEMTEXT(""), OEMTEXT(""), OEMTEXT(""),
 #if defined(SUPPORT_NET)
 				OEMTEXT(""), 0,
 #endif
@@ -308,7 +317,7 @@ static void pccore_set(const NP2CFG *pConfig)
 	pccore.maxmultiple = pccore.multiple;
 	pccore.realclock = pccore.baseclock * multiple;
 
-	// HDD‚ÌÚ‘± (I/O‚Ìg—pó‘Ô‚ª•Ï‚í‚é‚Ì‚Å..
+	// HDDï¿½ÌÚ‘ï¿½ (I/Oï¿½Ìgï¿½pï¿½ï¿½Ô‚ï¿½ï¿½Ï‚ï¿½ï¿½Ì‚ï¿½..
 	if (pConfig->dipsw[1] & 0x20)
 	{
 		pccore.hddif |= PCHDD_IDE;
@@ -325,7 +334,7 @@ static void pccore_set(const NP2CFG *pConfig)
 		sxsi_setdevtype(0x03, SXSIDEV_NC);
 	}
 
-	// Šg’£ƒƒ‚ƒŠ
+	// ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	extsize = 0;
 	if (!(pConfig->dipsw[2] & 0x80))
 	{
@@ -339,10 +348,10 @@ static void pccore_set(const NP2CFG *pConfig)
 	pccore.extmem = extsize;
 	CopyMemory(pccore.dipsw, pConfig->dipsw, 3);
 
-	// ƒTƒEƒ“ƒhƒ{[ƒh‚ÌÚ‘±
+	// ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½{ï¿½[ï¿½hï¿½ÌÚ‘ï¿½
 	pccore.sound = (SOUNDID)pConfig->SOUND_SW;
 
-	// ‚»‚Ì‘¼CBUS‚ÌÚ‘±
+	// ï¿½ï¿½ï¿½Ì‘ï¿½CBUSï¿½ÌÚ‘ï¿½
 	pccore.device = 0;
 	if (pConfig->pc9861enable)
 	{
@@ -529,6 +538,8 @@ void pccore_init(void) {
 #if defined(SUPPORT_GPIB)
 	gpibio_initialize();
 #endif
+
+	md_create();
 }
 
 void pccore_term(void) {
@@ -574,7 +585,7 @@ void pccore_term(void) {
 	
 	pic_deinitialize();
 
-	CPU_SETEXTSIZE(0); // ƒƒ‚ƒŠ‰ğ•ú
+	CPU_SETEXTSIZE(0); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CPU_DEINITIALIZE();
 	
 #if defined(SUPPORT_IA32_HAXM)
@@ -597,6 +608,8 @@ void pccore_term(void) {
 	ct1741cs_shutdown();
 	nevent_shutdown();
 #endif
+
+	md_destroy();
 }
 
 
@@ -657,12 +670,12 @@ void pccore_reset(void) {
 	}
 #endif
 	ZeroMemory(mem, 0x110000);
-	FillMemory(mem + 0xC0000, 0xE8000 - 0xC0000, 0xff); // ‚È‚¼
+	FillMemory(mem + 0xC0000, 0xE8000 - 0xC0000, 0xff); // ï¿½È‚ï¿½
 	ZeroMemory(mem + VRAM1_B, 0x18000);
 	ZeroMemory(mem + VRAM1_E, 0x08000);
 	ZeroMemory(mem + FONT_ADRS, 0x08000);
 
-	//ƒƒ‚ƒŠƒXƒCƒbƒ`
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Cï¿½bï¿½`
 	for (i=0; i<8; i++)
 	{
 		mem[0xa3fe2 + i*4] = np2cfg.memsw[i];
@@ -746,7 +759,7 @@ void pccore_reset(void) {
 #else
 		strcpy(np2cfg.cpu_vendor, np2cfg.cpu_vendor_o);
 #endif
-		// š”‚ª‘«‚è‚È‚¢ƒXƒy[ƒX‚Å–„‚ß‚é
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½Xï¿½yï¿½[ï¿½Xï¿½Å–ï¿½ï¿½ß‚ï¿½
 		for(i=0;i<12;i++){
 			if(np2cfg.cpu_vendor[i] == '\0'){
 				np2cfg.cpu_vendor[i] = ' ';
@@ -761,13 +774,13 @@ void pccore_reset(void) {
 #else
 		strcpy(np2cfg.cpu_brandstring, np2cfg.cpu_brandstring_o);
 #endif
-		// ÅŒã‚É1•¶šƒXƒy[ƒX‚ğ“ü‚ê‚é
+		// ï¿½ÅŒï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½yï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		strcat(np2cfg.cpu_brandstring, " ");
 	}
 #endif
 	strcpy(i386cpuid.cpu_vendor, np2cfg.cpu_vendor);
 	if(np2cfg.cpu_family == 0 && np2cfg.cpu_model == 0 && np2cfg.cpu_stepping == 0 && np2cfg.cpu_feature == 0 && np2cfg.cpu_feature_ex == 0){
-		// İ’è‚ÉŠÖŒW‚È‚­‘S•”g‚¦‚é‚æ‚¤‚É‚·‚é
+		// ï¿½İ’ï¿½ÉŠÖŒWï¿½È‚ï¿½ï¿½Sï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½
 		i386cpuid.cpu_family = CPU_FAMILY;
 		i386cpuid.cpu_model = CPU_MODEL;
 		i386cpuid.cpu_stepping = CPU_STEPPING;
@@ -790,7 +803,7 @@ void pccore_reset(void) {
 	}
 	strcpy(i386cpuid.cpu_brandstring, np2cfg.cpu_brandstring);
 
-	// BrandID©“®İ’èi‰ß‹ƒo[ƒWƒ‡ƒ“‚Æ‚ÌŒİŠ·ˆÛ—pj
+	// BrandIDï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½iï¿½ß‹ï¿½ï¿½oï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ÌŒİŠï¿½ï¿½Ûï¿½ï¿½pï¿½j
 	if(i386cpuid.cpu_brandid == CPU_BRAND_ID_AUTO){
 		if(strncmp(i386cpuid.cpu_brandstring, CPU_BRAND_STRING_PENTIUM_III, 27)==0){
 			CPU_EBX = 0x2;
@@ -803,10 +816,10 @@ void pccore_reset(void) {
 		}
 	}
 	
-	// mov cs,xx‹–‰Âƒtƒ‰ƒO
+	// mov cs,xxï¿½ï¿½ï¿½Âƒtï¿½ï¿½ï¿½O
 	i386cpuid.allow_movCS = np2cfg.allowMOVCS;
 
-	// FPUí—Ş‚ğİ’è g‚¦‚È‚¢‚È‚ç•Ê‚Ìƒ^ƒCƒv‚Ö•ÏX‚·‚é
+	// FPUï¿½ï¿½Ş‚ï¿½İ’ï¿½ ï¿½gï¿½ï¿½ï¿½È‚ï¿½ï¿½È‚ï¿½Ê‚Ìƒ^ï¿½Cï¿½vï¿½Ö•ÏXï¿½ï¿½ï¿½ï¿½
 	i386cpuid.fpu_type = np2cfg.fpu_type;
 #if !defined(SUPPORT_FPU_SOFTFLOAT) && !defined(SUPPORT_FPU_SOFTFLOAT3)
 	if (i386cpuid.fpu_type == FPU_TYPE_SOFTFLOAT) {
@@ -861,9 +874,9 @@ void pccore_reset(void) {
 	}
 #endif
 
-	// HDDƒZƒbƒg
+	// HDDï¿½Zï¿½bï¿½g
 	diskdrv_hddbind();
-	// SASI/IDE‚Ç‚Á‚¿H
+	// SASI/IDEï¿½Ç‚ï¿½ï¿½ï¿½ï¿½H
 #if defined(SUPPORT_SASI)
 	if (sxsi_issasi()) {
 		pccore.hddif &= ~PCHDD_IDE;
@@ -886,7 +899,7 @@ void pccore_reset(void) {
 	fddfile_reset2dmode();
 	bios0x18_16(0x20, 0xe1);
 
-	iocore_reset(&np2cfg);								// ƒTƒEƒ“ƒh‚Åpic‚ğŒÄ‚Ô‚Ì‚Åc
+	iocore_reset(&np2cfg);								// ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½ï¿½picï¿½ï¿½ï¿½Ä‚Ô‚Ì‚Åc
 	cbuscore_reset(&np2cfg);
 	fmboard_reset(&np2cfg, pccore.sound);
 
@@ -923,7 +936,9 @@ void pccore_reset(void) {
 
 	timing_reset();
 	soundmng_play();
-	
+
+	md_reset();
+
 #if defined(SUPPORT_IA32_HAXM)
 	if(np2hax.enable){
 		if(np2hax.hVMDevice){
@@ -978,14 +993,14 @@ void pccore_reset(void) {
 #endif
 #endif
 
-	// ƒGƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“‘¬“xƒZƒbƒg
+	// ï¿½Gï¿½~ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½Zï¿½bï¿½g
 	if (np2cfg.emuspeed < 1) np2cfg.emuspeed = 1;
 	timing_setspeed(np2cfg.emuspeed * 128 / 100);
 
-	// ƒ}ƒEƒXƒŠƒZƒbƒg
+	// ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½Zï¿½bï¿½g
 	mousemng_reset();
 
-	// ƒL[ƒ{[ƒhƒŠƒZƒbƒg
+	// ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½ï¿½ï¿½Zï¿½bï¿½g
 	keystat_initialize();
 }
 
@@ -1108,7 +1123,7 @@ static void drawscreen(void) {
 					}
 				}
 			}else{
-				// ”’•ƒOƒ‰ƒtƒBƒbƒN
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½tï¿½Bï¿½bï¿½N
 				grphfn = makegrph;
 				bit = GDCSCRN_MAKE;
 				if (gdcs.disp) {
@@ -1183,7 +1198,7 @@ void screenvsync(NEVENTITEM item) {
 	}
 	nevent_set(NEVENT_FLAMES, gdc.vsyncclock, screendisp, NEVENT_RELATIVE);
 
-	// drawscreen‚Å pccore.vsyncclock‚ª•ÏX‚³‚ê‚é‰Â”\«‚ª‚ ‚è‚Ü‚·
+	// drawscreenï¿½ï¿½ pccore.vsyncclockï¿½ï¿½ï¿½ÏXï¿½ï¿½ï¿½ï¿½ï¿½Â”\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
 	if (np2cfg.DISPSYNC) {
 		drawscreen();
 	}
@@ -1231,30 +1246,30 @@ void pccore_asynccpu_updatesettings(int asyncLevel)
 	if (asyncLevel > 100) asyncLevel = 100;
 	pccore_asynccpustat.asyncTarget = asyncLevel;
 
-	// ã‚°‰º‚°‚Ì•p“x‚ğİ’è@ˆÀ’è«‚ğl—¶‚µ‚ÄÅ’á1‚Í‚Â‚¯‚é
+	// ï¿½ã‚°ï¿½ï¿½ï¿½ï¿½ï¿½Ì•pï¿½xï¿½ï¿½İ’ï¿½@ï¿½ï¿½ï¿½è«ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ÄÅ’ï¿½1ï¿½Í‚Â‚ï¿½ï¿½ï¿½
 	pccore_asynccpustat.threshold_down = (6 * asyncLevel + 1 * (100 - asyncLevel)) / 100;
 	pccore_asynccpustat.threshold_up = (1 * asyncLevel + 6 * (100 - asyncLevel)) / 100;
 	if (pccore_asynccpustat.threshold_down < 1) pccore_asynccpustat.threshold_down = 1;
 	if (pccore_asynccpustat.threshold_up < 1) pccore_asynccpustat.threshold_up = 1;
 
-	// Œ»İ‚ÌƒNƒƒbƒN”{—¦‚É‘Î‚µ‚Ä‚Ç‚ê‚¾‚¯ƒNƒƒbƒN”{—¦‚ğã‚°‰º‚°‚·‚é‚©‚Ìƒe[ƒuƒ‹
-	upBaseValue = (8 * asyncLevel + 4 * (100 - asyncLevel)) / 100; // ƒx[ƒX’l‚ÍƒNƒƒbƒN”{—¦40‚É‘Î‚µ‚Ä‚Ç‚ê‚¾‚¯ã‚°‚é‚©‚Ì’l‚Æ‚·‚é
-	downBaseValue = (10 * asyncLevel + 15 * (100 - asyncLevel)) / 100; // ƒx[ƒX’l‚ÍƒNƒƒbƒN”{—¦40‚É‘Î‚µ‚Ä‚Ç‚ê‚¾‚¯‰º‚°‚é‚©‚Ì’l‚Æ‚·‚é
+	// ï¿½ï¿½ï¿½İ‚ÌƒNï¿½ï¿½ï¿½bï¿½Nï¿½{ï¿½ï¿½ï¿½É‘Î‚ï¿½ï¿½Ä‚Ç‚ê‚¾ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½ã‚°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‚©ï¿½Ìƒeï¿½[ï¿½uï¿½ï¿½
+	upBaseValue = (8 * asyncLevel + 4 * (100 - asyncLevel)) / 100; // ï¿½xï¿½[ï¿½Xï¿½lï¿½ÍƒNï¿½ï¿½ï¿½bï¿½Nï¿½{ï¿½ï¿½40ï¿½É‘Î‚ï¿½ï¿½Ä‚Ç‚ê‚¾ï¿½ï¿½ï¿½ã‚°ï¿½é‚©ï¿½Ì’lï¿½Æ‚ï¿½ï¿½ï¿½
+	downBaseValue = (10 * asyncLevel + 15 * (100 - asyncLevel)) / 100; // ï¿½xï¿½[ï¿½Xï¿½lï¿½ÍƒNï¿½ï¿½ï¿½bï¿½Nï¿½{ï¿½ï¿½40ï¿½É‘Î‚ï¿½ï¿½Ä‚Ç‚ê‚¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‚©ï¿½Ì’lï¿½Æ‚ï¿½ï¿½ï¿½
 	for (i = 1; i < ASYNCCPU_CLOCKTABLE_MAX; i++) {
-		pccore_asynccpustat.clockUpTbl[i] = (upBaseValue * i + 39) / 40; // Å’á1‚Í‚Â‚¯‚½‚¢‚Ì‚ÅØ‚èã‚°
-		pccore_asynccpustat.clockDownTbl[i] = (downBaseValue * i + 39) / 40; // Å’á1‚Í‚Â‚¯‚½‚¢‚Ì‚ÅØ‚èã‚°
+		pccore_asynccpustat.clockUpTbl[i] = (upBaseValue * i + 39) / 40; // ï¿½Å’ï¿½1ï¿½Í‚Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ÅØ‚ï¿½ã‚°
+		pccore_asynccpustat.clockDownTbl[i] = (downBaseValue * i + 39) / 40; // ï¿½Å’ï¿½1ï¿½Í‚Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ÅØ‚ï¿½ã‚°
 		if (pccore_asynccpustat.clockDownTbl[i] > i - 1) {
-			// ƒNƒƒbƒN”{—¦0ˆÈ‰º‚Í•s‰Â
+			// ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½{ï¿½ï¿½0ï¿½È‰ï¿½ï¿½Í•sï¿½ï¿½
 			pccore_asynccpustat.clockDownTbl[i] = i - 1;
 		}
 	}
-	// ƒNƒƒbƒN”{—¦0‚Í‚ ‚è“¾‚È‚¢‚ª”O‚Ì‚½‚ß’l‚Í‘‚¢‚Ä‚¨‚­
+	// ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½{ï¿½ï¿½0ï¿½Í‚ï¿½ï¿½è“¾ï¿½È‚ï¿½ï¿½ï¿½ï¿½Oï¿½Ì‚ï¿½ï¿½ß’lï¿½Íï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
 	pccore_asynccpustat.clockDownTbl[0] = 0;
 	pccore_asynccpustat.clockUpTbl[0] = 1;
 }
 static void pccore_asynccpu()
 {
-	// ”ñ“¯ŠúCPUˆ—
+	// ï¿½ñ“¯Šï¿½CPUï¿½ï¿½ï¿½ï¿½
 	static int latecount = 0;
 	static int latecount2 = 0;
 	static unsigned int hltflag = 0;
@@ -1296,7 +1311,7 @@ static void pccore_asynccpu()
 						UINT32 changeValue = pccore_asynccpustat.clockDownTbl[pccore.multiple < ASYNCCPU_CLOCKTABLE_MAX ? pccore.multiple : ASYNCCPU_CLOCKTABLE_MAX - 1];
 						if (timimg > 2 * shdrawskip)
 						{
-							// ‚»‚Ì‚Ü‚Ü
+							// ï¿½ï¿½ï¿½Ì‚Ü‚ï¿½
 						}
 						else if (timimg > 15 * shdrawskip / 10)
 						{
@@ -1348,7 +1363,7 @@ static void pccore_asynccpu()
 							UINT32 changeValue = pccore_asynccpustat.clockUpTbl[pccore.multiple < ASYNCCPU_CLOCKTABLE_MAX ? pccore.multiple : ASYNCCPU_CLOCKTABLE_MAX - 1];
 							if (timimg < 5 * shdrawskip / 10)
 							{
-								// ‚»‚Ì‚Ü‚Ü
+								// ï¿½ï¿½ï¿½Ì‚Ü‚ï¿½
 							}
 							else if (timimg < 7 * shdrawskip / 10)
 							{
@@ -1396,7 +1411,7 @@ static void pccore_asynccpu()
 
 void pccore_exec(BOOL draw) {
 
-	// ‚±‚±‚Åƒ[ƒJƒ‹•Ï”‚ğg‚¤‚Æsetjmpü‚è‚ÌÅ“K‰»‚Å”j‰ó‚³‚ê‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å’ˆÓ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Åƒï¿½ï¿½[ï¿½Jï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½setjmpï¿½ï¿½ï¿½ï¿½ÌÅ“Kï¿½ï¿½ï¿½Å”jï¿½ó‚³‚ï¿½ï¿½Â”\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Å’ï¿½ï¿½ï¿½
 	static UINT32 baseclk = 0;
 	//UINT32 lastclock;
 	//UINT32 mflag = 0;
@@ -1408,13 +1423,13 @@ void pccore_exec(BOOL draw) {
 	pal_eventclear();
 	
 #if defined(SUPPORT_IA32_HAXM)
-	// HAXM‚Ìê‡Aæ‚É•`‰æ
+	// HAXMï¿½Ìê‡ï¿½Aï¿½ï¿½É•`ï¿½ï¿½
 	if (!np2cfg.DISPSYNC) {
 		drawscreen();
 	}
 #endif
 #if defined(SUPPORT_IA32_WHPX)
-	// WHPX‚Ìê‡Aæ‚É•`‰æ
+	// WHPXï¿½Ìê‡ï¿½Aï¿½ï¿½É•`ï¿½ï¿½
 	if (!np2cfg.DISPSYNC) {
 		drawscreen();
 	}
@@ -1455,26 +1470,26 @@ void pccore_exec(BOOL draw) {
 			np2wab_setRelayState(0); // XXX:
 #endif
 #if defined(SUPPORT_CL_GD5430)
-			np2clvga.gd54xxtype = np2clvga.defgd54xxtype; // Auto Select—p
+			np2clvga.gd54xxtype = np2clvga.defgd54xxtype; // Auto Selectï¿½p
 			pc98_cirrus_vga_initVRAMWindowAddr();
 			pc98_cirrus_vga_resetresolution();
 #endif
 #if defined(SUPPORT_IDEIO)
-			ideio_basereset(); // XXX: Win9x‚ÌÄ‹N“®‚Å•K—v
+			ideio_basereset(); // XXX: Win9xï¿½ÌÄ‹Nï¿½ï¿½ï¿½Å•Kï¿½v
 #endif
 #if defined(SUPPORT_HOSTDRV)
-			hostdrv_reset(); // XXX: Win9x‚ÌÄ‹N“®‚Å•K—v
+			hostdrv_reset(); // XXX: Win9xï¿½ÌÄ‹Nï¿½ï¿½ï¿½Å•Kï¿½v
 #endif
 #if defined(SUPPORT_HOSTDRV9X)
 			hostdrv9x_reset();
 #endif
 #if defined(SUPPORT_HOSTDRVNT)
-			hostdrvNT_reset(); // XXX: Win9x‚ÌÄ‹N“®‚Å•K—v
+			hostdrvNT_reset(); // XXX: Win9xï¿½ÌÄ‹Nï¿½ï¿½ï¿½Å•Kï¿½v
 #endif
 #if defined(SUPPORT_PCI)
-			pcidev_basereset(); // XXX: Win9x‚ÌÄ‹N“®‚Å•K—v
+			pcidev_basereset(); // XXX: Win9xï¿½ÌÄ‹Nï¿½ï¿½ï¿½Å•Kï¿½v
 #endif
-			// ƒ}ƒEƒXƒŠƒZƒbƒg
+			// ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½Zï¿½bï¿½g
 			mousemng_reset();
 
 #if defined(SUPPORT_IA32_HAXM)
@@ -1519,13 +1534,44 @@ void pccore_exec(BOOL draw) {
 #endif
 		{
 #if !defined(SINGLESTEPONLY)
+#if defined(SUPPORT_NP2BREAK)
+			// Debug utility single-step: execute exactly one instruction and
+			// hand control back to the UI thread so that it can refresh the
+			// debug utility views and pause the emulation again.
+			if (np2singlestep) {
+				if (CPU_REMCLOCK > 0) {
+					CPU_STEPEXEC();
+				}
+				nevent_progress();
+				break;
+			}
+#endif
 			if (CPU_REMCLOCK > 0) {
+#if defined(SUPPORT_NP2BREAK)
+				// ia32() reports whether a breakpoint was hit before the
+				// next instruction.
+				UINT8	ret;
+				if (!(CPU_TYPE & CPUTYPE_V30)) {
+					ret = CPU_EXEC();
+				}
+				else {
+					ret = CPU_EXECV30();
+				}
+				if (!ret) {
+					// Pause the emulation and make the next frame execute a
+					// single instruction only.
+					np2singlestep = 1;
+					np2active_set(0);
+					break;
+				}
+#else
 				if (!(CPU_TYPE & CPUTYPE_V30)) {
 					CPU_EXEC();
 				}
 				else {
 					CPU_EXECV30();
 				}
+#endif
 			}
 #else
 			while(CPU_REMCLOCK > 0) {

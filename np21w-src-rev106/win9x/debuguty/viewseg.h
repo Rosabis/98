@@ -1,6 +1,6 @@
 /**
  * @file	viewseg.h
- * @brief	ƒƒ‚ƒŠ ƒŒƒWƒXƒ^•\¦ƒNƒ‰ƒX‚ÌéŒ¾‚¨‚æ‚ÑƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ì’è‹`‚ğ‚µ‚Ü‚·
+ * @brief	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½ÌéŒ¾ï¿½ï¿½ï¿½ï¿½ÑƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½Cï¿½Xï¿½Ì’ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
  */
 
 #pragma once
@@ -10,7 +10,7 @@
 #include "viewmem.h"
 
 /**
- * @brief ƒƒ‚ƒŠ ƒŒƒWƒXƒ^•\¦ƒNƒ‰ƒX
+ * @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
  */
 class CDebugUtySeg : public CDebugUtyItem
 {
@@ -23,12 +23,16 @@ public:
 	virtual bool Lock();
 	virtual void Unlock();
 	virtual bool IsLocked();
+	virtual UINT32 GetAddress() const;
+	virtual UINT GetSegment() const;
+	virtual void SetAddress(UINT32 addr);
+	virtual void ReadMemory(UINT32 nAddress, LPVOID lpBuffer, UINT32 cbBuffer);
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	virtual void OnPaint(HDC hDC, const RECT& rect);
 
 private:
-	UINT m_nSegment;							//!< ƒZƒOƒƒ“ƒg
-	DebugUtyViewMemory m_mem;					//!< ƒƒ‚ƒŠ
-	std::vector<unsigned char> m_buffer;		//!< ƒoƒbƒtƒ@
+	UINT m_nSegment;							//!< ï¿½Zï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½g
+	DebugUtyViewMemory m_mem;					//!< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	std::vector<unsigned char> m_buffer;		//!< ï¿½oï¿½bï¿½tï¿½@
 	void SetSegment(UINT nSegment);
 };

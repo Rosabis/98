@@ -1,6 +1,6 @@
 /**
  * @file	viewer.cpp
- * @brief	DebugUty —pƒrƒ…[ƒ ƒNƒ‰ƒX‚Ì“®ì‚Ì’è‹`‚ğs‚¢‚Ü‚·
+ * @brief	DebugUty ï¿½pï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½Nï¿½ï¿½ï¿½Xï¿½Ì“ï¿½ï¿½ï¿½Ì’ï¿½`ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½
  */
 
 #include "compiler.h"
@@ -8,28 +8,38 @@
 #include "np2.h"
 #include "viewer.h"
 #include "viewitem.h"
+#include "viewmenu.h"
+#include "viewcmn.h"
+#include "d_addr.h"
+#include "d_edit.h"
 #include "cpucore.h"
 #include "mousemng.h"
+#include "break.h"
 
-//! ƒCƒ“ƒXƒ^ƒ“ƒX
+//! æ¤œç´¢ãƒ‡ãƒ¼ã‚¿ (IDM_FINDAGAIN ã§å†åˆ©ç”¨)
+static EDITDATA s_findData = { { 0 }, { 0 }, 0, IDC_EDIT_TYPE_HEX };
+
+static void EnableFindAgain(BOOL bEnable);
+
+//! ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½X
 static CDebugUtyView* g_np2view[NP2VIEW_MAX];
 static CDebugUtyView* g_np2view_closed[NP2VIEW_MAX];
 
-//! ƒrƒ…[ ƒNƒ‰ƒX–¼
+//! ï¿½rï¿½ï¿½ï¿½[ ï¿½Nï¿½ï¿½ï¿½Xï¿½ï¿½
 static const TCHAR s_szViewClass[] = TEXT("NP2-ViewWindow");
 
-//! ƒtƒHƒ“ƒg
-static const TCHAR s_szViewFont[] = _T("‚l‚r ƒSƒVƒbƒN");
+//! ï¿½tï¿½Hï¿½ï¿½ï¿½g
+static const TCHAR s_szViewFont[] = _T("ï¿½lï¿½r ï¿½Sï¿½Vï¿½bï¿½N");
 
-//! ÅŒã‚ÌTick
+//! ï¿½ÅŒï¿½ï¿½Tick
 DWORD CDebugUtyView::sm_dwLastTick;
 
-//! ƒ`ƒFƒbƒN ƒ}ƒNƒ
+//! ï¿½`ï¿½Fï¿½bï¿½N ï¿½}ï¿½Nï¿½ï¿½
 #define MFCHECK(bChecked) ((bChecked) ? MF_CHECKED : MF_UNCHECKED)
 
 /**
- * ‰Šú‰»
- * @param[in] hInstance ƒCƒ“ƒXƒ^ƒ“ƒX
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[in] hInstance ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½X
  */
 void CDebugUtyView::Initialize(HINSTANCE hInstance)
 {
@@ -43,7 +53,7 @@ void CDebugUtyView::Initialize(HINSTANCE hInstance)
 	np2vc.lpfnWndProc = ::DefWindowProc;
 	np2vc.cbClsExtra = 0;
 	np2vc.cbWndExtra = 0;
-	np2vc.hInstance = sm_hInstance;//hInstance; // XXX: Œ¾ŒêƒŠƒ\[ƒX‚ğg‚¤‚ÆƒfƒoƒbƒOƒ†[ƒeƒBƒŠƒeƒB‚ª•\¦‚Å‚«‚È‚­‚È‚é‚Ì‚ğ‚²‚Ü‚©‚· np21w ver0.86 rev13
+	np2vc.hInstance = sm_hInstance;//hInstance; // XXX: ï¿½ï¿½ï¿½êƒŠï¿½\ï¿½[ï¿½Xï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Æƒfï¿½oï¿½bï¿½Oï¿½ï¿½ï¿½[ï¿½eï¿½Bï¿½ï¿½ï¿½eï¿½Bï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½Å‚ï¿½ï¿½È‚ï¿½ï¿½È‚ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ np21w ver0.86 rev13
 	np2vc.hIcon = ::LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON2));
 	np2vc.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 	np2vc.hbrBackground = static_cast<HBRUSH>(NULL);
@@ -53,7 +63,7 @@ void CDebugUtyView::Initialize(HINSTANCE hInstance)
 }
 
 /**
- * V‚µ‚¢ƒEƒBƒ“ƒhƒE‚ğì¬‚·‚é
+ * ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
  */
 void CDebugUtyView::New()
 {
@@ -82,7 +92,7 @@ void CDebugUtyView::New()
 	}
 }
 /**
- * ƒƒ‚ƒŠ”jŠü
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½
  */
 void CDebugUtyView::DisposeAllClosedWindow()
 {
@@ -97,7 +107,7 @@ void CDebugUtyView::DisposeAllClosedWindow()
 }
 
 /**
- * ‚·‚×‚Ä•Â‚¶‚é
+ * ï¿½ï¿½ï¿½×‚Ä•Â‚ï¿½ï¿½ï¿½
  */
 void CDebugUtyView::AllClose()
 {
@@ -113,8 +123,8 @@ void CDebugUtyView::AllClose()
 }
 
 /**
- * ‚·‚×‚ÄXV
- * @param[in] bForce ‹­§“I‚ÉXV‚·‚é
+ * ï¿½ï¿½ï¿½×‚ÄXï¿½V
+ * @param[in] bForce ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ÉXï¿½Vï¿½ï¿½ï¿½ï¿½
  */
 void CDebugUtyView::AllUpdate(bool bForce)
 {
@@ -135,7 +145,23 @@ void CDebugUtyView::AllUpdate(bool bForce)
 }
 
 /**
- * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+ * æ…¡å°åºåƒ¹å„ä¹•åºå„Šåƒ¯å„ä¹•å¿¬æ‡ºå‚ªå³æ€´å¡å‚
+ * @param[in] bRunning åƒ„å„ˆå„å„—ä¹•åƒ”å„‘å„å‘å¹šå³´æ‹å
+ */
+void CDebugUtyView::AllMenuState(bool bRunning)
+{
+	for (size_t i = 0; i < _countof(g_np2view); i++)
+	{
+		CDebugUtyView* lpView = g_np2view[i];
+		if (lpView != NULL)
+		{
+			viewmenu_debug_toggle(lpView, bRunning ? TRUE : FALSE);
+		}
+	}
+}
+
+/**
+ * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
  */
 CDebugUtyView::CDebugUtyView()
 	: m_bActive(false)
@@ -144,11 +170,12 @@ CDebugUtyView::CDebugUtyView()
 	, m_nVPage(0)
 	, m_nVMultiple(1)
 	, m_lpItem(NULL)
+	, m_hWndStatus(NULL)
 {
 }
 
 /**
- * ƒfƒXƒgƒ‰ƒNƒ^
+ * ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
  */
 CDebugUtyView::~CDebugUtyView()
 {
@@ -156,7 +183,7 @@ CDebugUtyView::~CDebugUtyView()
 }
 
 /**
- * ƒfƒoƒbƒO•\¦ƒ‹[ƒ`ƒ“‚©‚çØ‚è—£‚·
+ * ï¿½fï¿½oï¿½bï¿½Oï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø‚è—£ï¿½ï¿½
  */
 void CDebugUtyView::DetachDebugView()
 {
@@ -166,11 +193,13 @@ void CDebugUtyView::DetachDebugView()
 		m_lpItem = NULL;
 	}
 
+	CloseStatusBar();
+
 	for (size_t i = 0; i < _countof(g_np2view); i++)
 	{
 		if (g_np2view[i] == this)
 		{
-			g_np2view_closed[i] = g_np2view[i]; // •Â‚¶‚ç‚ê‚½ƒEƒBƒ“ƒhƒE‚Æ‚µ‚Ä“o˜^
+			g_np2view_closed[i] = g_np2view[i]; // ï¿½Â‚ï¿½ï¿½ï¿½ê‚½ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Æ‚ï¿½ï¿½Ä“oï¿½^
 			g_np2view[i] = NULL;
 			UpdateActive();
 			break;
@@ -179,7 +208,7 @@ void CDebugUtyView::DetachDebugView()
 }
 
 /**
- * ƒLƒƒƒvƒVƒ‡ƒ“‚ÌXV
+ * ï¿½Lï¿½ï¿½ï¿½vï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÌXï¿½V
  */
 void CDebugUtyView::UpdateCaption()
 {
@@ -201,8 +230,8 @@ void CDebugUtyView::UpdateCaption()
 }
 
 /**
- * V ƒXƒNƒ[ƒ‹ˆÊ’u‚Ìİ’è
- * @param[in] nPos V‚µ‚¢ˆÊ’u
+ * V ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ê’uï¿½Ìİ’ï¿½
+ * @param[in] nPos ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Ê’u
  */
 void CDebugUtyView::SetVScrollPos(UINT nPos)
 {
@@ -215,9 +244,9 @@ void CDebugUtyView::SetVScrollPos(UINT nPos)
 }
 
 /**
- * V ƒXƒNƒ[ƒ‹‚Ìİ’è
- * @param[in] nPos V‚µ‚¢ˆÊ’u
- * @param[in] nLines ƒ‰ƒCƒ“”
+ * V ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ìİ’ï¿½
+ * @param[in] nPos ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Ê’u
+ * @param[in] nLines ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½
  */
 void CDebugUtyView::SetVScroll(UINT nPos, UINT nLines)
 {
@@ -232,7 +261,7 @@ void CDebugUtyView::SetVScroll(UINT nPos, UINT nLines)
 }
 
 /**
- * V ƒXƒNƒ[ƒ‹ƒo[‚ÌXV
+ * V ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½oï¿½[ï¿½ÌXï¿½V
  */
 void CDebugUtyView::UpdateVScroll()
 {
@@ -248,11 +277,11 @@ void CDebugUtyView::UpdateVScroll()
 }
 
 /**
- * ƒEƒBƒ“ƒhƒE ƒvƒƒV[ƒWƒƒ
- * @param[in] message ƒƒbƒZ[ƒW
- * @param[in] wParam ƒpƒ‰ƒƒ^
- * @param[in] lParam ƒpƒ‰ƒƒ^
- * @return ƒŠƒUƒ‹ƒg ƒR[ƒh
+ * ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½E ï¿½vï¿½ï¿½ï¿½Vï¿½[ï¿½Wï¿½ï¿½
+ * @param[in] message ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½W
+ * @param[in] wParam ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^
+ * @param[in] lParam ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^
+ * @return ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½g ï¿½Rï¿½[ï¿½h
  */
 LRESULT CDebugUtyView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -298,10 +327,10 @@ LRESULT CDebugUtyView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 /**
- * ƒ†[ƒU[‚ªƒƒjƒ…[‚Ì€–Ú‚ğ‘I‘ğ‚µ‚½‚Æ‚«‚ÉAƒtƒŒ[ƒ€ƒ[ƒN‚É‚æ‚Á‚ÄŒÄ‚Ño‚³‚ê‚Ü‚·
- * @param[in] wParam ƒpƒ‰ƒƒ^
- * @param[in] lParam ƒpƒ‰ƒƒ^
- * @retval TRUE ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ª‚±‚ÌƒƒbƒZ[ƒW‚ğˆ—‚µ‚½
+ * ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½Ú‚ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉAï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Nï¿½É‚ï¿½ï¿½ï¿½ÄŒÄ‚Ñoï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
+ * @param[in] wParam ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^
+ * @param[in] lParam ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^
+ * @retval TRUE ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 BOOL CDebugUtyView::OnCommand(WPARAM wParam, LPARAM lParam)
 {
@@ -323,6 +352,7 @@ BOOL CDebugUtyView::OnCommand(WPARAM wParam, LPARAM lParam)
 
 		case IDM_VIEWMODEREG:
 		case IDM_VIEWMODESEG:
+		case IDM_VIEWMODESTK:
 		case IDM_VIEWMODE1MB:
 		case IDM_VIEWMODEASM:
 		case IDM_VIEWMODESND:
@@ -342,6 +372,110 @@ BOOL CDebugUtyView::OnCommand(WPARAM wParam, LPARAM lParam)
 			Invalidate();
 			break;
 
+#if defined(SUPPORT_NP2BREAK)
+		case IDM_DEBUG_RUN:
+			np2active_set(1);
+			break;
+
+		case IDM_DEBUG_STOP:
+			np2active_set(0);
+			break;
+
+		case IDM_DEBUG_STEPINTO:
+			np2active_step();
+			break;
+
+		case IDM_DEBUG_STEPOVER:
+			np2active_step_over();
+			break;
+
+		case IDM_BREAK_TOGGLE:
+			m_lpItem->OnCommand(wParam, lParam);
+			break;
+#endif
+
+		case IDM_RELOAD:
+			m_lpItem->Update();
+			Invalidate();
+			UpdateStatusBar();
+			break;
+
+		case IDM_SETSEG:
+			{
+				// ã‚¢ãƒ‰ãƒ¬ã‚¹å…¥åŠ› (d_addr)
+				const UINT32 nAddr = m_lpItem->GetAddress();
+				const UINT16 nSeg = (m_lpItem->GetID() == IDM_VIEWMODE1MB)
+					? (UINT16)((nAddr >> 4) & 0xf000)
+					: (UINT16)m_lpItem->GetSegment();
+				const UINT16 nOff = (UINT16)(nAddr & 0xffff);
+				const UINT32 ret = daddr_input(m_hWnd, nSeg, nOff);
+				if (ret != (UINT32)-1)
+				{
+					m_lpItem->SetAddress(((ret >> 16) << 4) + (ret & 0xffff));
+					m_lpItem->Update();
+					Invalidate();
+					UpdateStatusBar();
+				}
+			}
+			break;
+
+		case IDM_EDIT_MEMORY:
+			{
+				// ãƒ¡ãƒ¢ãƒªç·¨é›† (d_edit)
+				EDITDATA* ed = dedit_input(m_hWnd, FALSE);
+				if ((ed != NULL) && (ed->bytes_len > 0))
+				{
+					m_lpItem->WriteMemory(m_lpItem->GetAddress(), ed->bytes, ed->bytes_len);
+					m_lpItem->Update();
+					Invalidate();
+					UpdateStatusBar();
+				}
+			}
+			break;
+
+		case IDM_FIND:
+			{
+				// æ¤œç´¢ (d_edit)
+				EDITDATA* ed = dedit_input(m_hWnd, TRUE);
+				if ((ed != NULL) && (ed->bytes_len > 0))
+				{
+					s_findData = *ed;
+					UINT32 nFound = 0;
+					if (m_lpItem->FindMemory(m_lpItem->GetAddress() + 1, ed->bytes, ed->bytes_len, &nFound))
+					{
+						m_lpItem->SetAddress(nFound);
+						m_lpItem->Update();
+						SetStatusMessage(_T("Found"));
+						EnableFindAgain(TRUE);
+					}
+					else
+					{
+						SetStatusMessage(_T("Not found"));
+					}
+					Invalidate();
+					UpdateStatusBar();
+				}
+			}
+			break;
+
+		case IDM_FINDAGAIN:
+			if (s_findData.bytes_len > 0)
+			{
+				UINT32 nFound = 0;
+				if (m_lpItem->FindMemory(m_lpItem->GetAddress() + 1, s_findData.bytes, s_findData.bytes_len, &nFound))
+				{
+					m_lpItem->SetAddress(nFound);
+					m_lpItem->Update();
+					SetStatusMessage(_T("Found"));
+				}
+				else
+				{
+					SetStatusMessage(_T("Not found"));
+				}
+				Invalidate();
+				UpdateStatusBar();
+			}
+			break;
 
 		default:
 			return m_lpItem->OnCommand(wParam, lParam);
@@ -350,38 +484,59 @@ BOOL CDebugUtyView::OnCommand(WPARAM wParam, LPARAM lParam)
 }
 
 /**
- * ƒEƒBƒ“ƒhƒE‚Ìì¬‚ÉA‚±‚Ìƒƒ“ƒo[ŠÖ”‚ğŒÄ‚Ño‚µ‚Ü‚·
+ * ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Ìì¬ï¿½ï¿½ï¿½ÉAï¿½ï¿½ï¿½Ìƒï¿½ï¿½ï¿½ï¿½oï¿½[ï¿½Öï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Ü‚ï¿½
  * @param[in] lpCreateStruct
- * @retval 0 ¬Œ÷
+ * @retval 0 ï¿½ï¿½ï¿½ï¿½
  */
 int CDebugUtyView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	m_lpItem = CDebugUtyItem::New(IDM_VIEWMODEREG, this);
 	UpdateCaption();
+	OpenStatusBar();
 	return 0;
 }
 
 /**
- * ƒtƒŒ[ƒ€ƒ[ƒN‚ÍAƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚ª•Ï‚í‚Á‚½Œã‚É‚±‚Ìƒƒ“ƒo[ŠÖ”‚ğŒÄ‚Ñ‚Ü‚· 
- * @param[in] nType ƒTƒCƒY•ÏX‚Ìí—Ş
- * @param[in] cx ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚ÌV‚µ‚¢•
- * @param[in] cy ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚ÌV‚µ‚¢‚‚³
+ * ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Nï¿½ÍAï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ÌƒTï¿½Cï¿½Yï¿½ï¿½ï¿½Ï‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½Ìƒï¿½ï¿½ï¿½ï¿½oï¿½[ï¿½Öï¿½ï¿½ï¿½ï¿½Ä‚Ñ‚Ü‚ï¿½ 
+ * @param[in] nType ï¿½Tï¿½Cï¿½Yï¿½ÏXï¿½Ìï¿½ï¿½
+ * @param[in] cx ï¿½Nï¿½ï¿½ï¿½Cï¿½Aï¿½ï¿½ï¿½gï¿½Ìˆï¿½ÌVï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[in] cy ï¿½Nï¿½ï¿½ï¿½Cï¿½Aï¿½ï¿½ï¿½gï¿½Ìˆï¿½ÌVï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 void CDebugUtyView::OnSize(UINT nType, int cx, int cy)
 {
+	if (m_hWndStatus != NULL)
+	{
+		RECT rectStatus;
+		GetWindowRect(m_hWndStatus, &rectStatus);
+		const int nStatusHeight = rectStatus.bottom - rectStatus.top;
+		MoveWindow(m_hWndStatus, 0, cy - nStatusHeight, cx, nStatusHeight, TRUE);
+		cy -= nStatusHeight;
+	}
 	m_nVPage = cy / 16;
 	UpdateVScroll();
 }
 
 /**
- * Ä•`‰æ—v‹‚ÉA‚±‚Ìƒƒ“ƒo[ŠÖ”‚ğŒÄ‚Ño‚µ‚Ü‚·
+ * ï¿½Ä•`ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ÉAï¿½ï¿½ï¿½Ìƒï¿½ï¿½ï¿½ï¿½oï¿½[ï¿½Öï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Ü‚ï¿½
  */
 void CDebugUtyView::OnPaint()
 {
 	PAINTSTRUCT ps;
 	HDC hDC = BeginPaint(&ps);
 
-	const RECT& rect = ps.rcPaint;
+	RECT rect = ps.rcPaint;
+	if (m_hWndStatus != NULL)
+	{
+		RECT rectStatus;
+		GetWindowRect(m_hWndStatus, &rectStatus);
+		POINT pt = { 0, 0 };
+		ClientToScreen(m_hWnd, &pt);
+		const int nStatusTop = rectStatus.top - pt.y;
+		if (rect.bottom > nStatusTop)
+		{
+			rect.bottom = nStatusTop;
+		}
+	}
 
 	HDC hdcMem = ::CreateCompatibleDC(hDC);
 	HBITMAP hBitmap = ::CreateCompatibleBitmap(hDC, rect.right, rect.bottom);
@@ -409,10 +564,10 @@ void CDebugUtyView::OnPaint()
 }
 
 /**
- * ƒtƒŒ[ƒ€ƒ[ƒN‚ÍAƒ†[ƒU[‚ªƒEƒBƒ“ƒhƒE‚É‚’¼ƒXƒNƒ[ƒ‹ ƒo[‚ğƒNƒŠƒbƒN‚·‚é‚ÆA‚±‚Ìƒƒ“ƒo[ŠÖ”‚ğŒÄ‚Ño‚µ‚Ü‚·
- * @param[in] nSBCode ƒ†[ƒU[‚Ì—v‹‚ğ¦‚·ƒXƒNƒ[ƒ‹ ƒo[ ƒR[ƒh‚ğw’è‚µ‚Ü‚·
- * @param[in] nPos Œ»İ‚ÌƒXƒNƒ[ƒ‹ ƒ{ƒbƒNƒX‚ÌˆÊ’u
- * @param[in] hwndScrollBar ƒXƒNƒ[ƒ‹ ƒo[ ƒRƒ“ƒgƒ[ƒ‹
+ * ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Nï¿½ÍAï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Éï¿½ï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½oï¿½[ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ÆAï¿½ï¿½ï¿½Ìƒï¿½ï¿½ï¿½ï¿½oï¿½[ï¿½Öï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Ü‚ï¿½
+ * @param[in] nSBCode ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½Ì—vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½oï¿½[ ï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½wï¿½è‚µï¿½Ü‚ï¿½
+ * @param[in] nPos ï¿½ï¿½ï¿½İ‚ÌƒXï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½{ï¿½bï¿½Nï¿½Xï¿½ÌˆÊ’u
+ * @param[in] hwndScrollBar ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½oï¿½[ ï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½
  */
 void CDebugUtyView::OnVScroll(UINT nSBCode, UINT nPos, HWND hwndScrollBar)
 {
@@ -470,18 +625,7 @@ void CDebugUtyView::OnEnterMenuLoop(BOOL bIsTrackPopupMenu)
 	{
 		return;
 	}
-	::CheckMenuItem(hMenu, IDM_VIEWMODELOCK, MF_BYCOMMAND | MFCHECK(m_lpItem->IsLocked()));
-
-	const UINT nID = m_lpItem->GetID();
-#if 1
-	::CheckMenuRadioItem(hMenu, IDM_VIEWMODEREG, IDM_VIEWMODESND, nID, MF_BYCOMMAND);
-#else
-	::CheckMenuItem(hMenu, IDM_VIEWMODEREG, MF_BYCOMMAND | MFCHECK(nID == IDM_VIEWMODEREG));
-	::CheckMenuItem(hMenu, IDM_VIEWMODESEG, MF_BYCOMMAND | MFCHECK(nID == IDM_VIEWMODESEG));
-	::CheckMenuItem(hMenu, IDM_VIEWMODE1MB, MF_BYCOMMAND | MFCHECK(nID == IDM_VIEWMODE1MB));
-	::CheckMenuItem(hMenu, IDM_VIEWMODEASM, MF_BYCOMMAND | MFCHECK(nID == IDM_VIEWMODEASM));
-	::CheckMenuItem(hMenu, IDM_VIEWMODESND, MF_BYCOMMAND | MFCHECK(nID == IDM_VIEWMODESND));
-#endif
+	viewmenu_mode(this);
 
 	HMENU hSubMenu = ::GetSubMenu(hMenu, 2);
 	if (hSubMenu)
@@ -495,10 +639,10 @@ void CDebugUtyView::OnEnterMenuLoop(BOOL bIsTrackPopupMenu)
 }
 
 /**
- * ƒtƒŒ[ƒ€ƒ[ƒN‚Í CWnd ‚ÌƒIƒuƒWƒFƒNƒg‚ªƒAƒNƒeƒBƒu‰»‚Ü‚½‚Í”ñƒAƒNƒeƒBƒu‰»‚³‚ê‚½‚Æ‚«‚É‚±‚Ìƒƒ“ƒo[ŠÖ”‚ªŒÄ‚Ño‚³‚ê‚Ü‚·
- * @param[in] nState ƒAƒNƒeƒBƒu‚É‚È‚Á‚Ä‚¢‚é‚©”ñƒAƒNƒeƒBƒu‚É‚È‚Á‚Ä‚¢‚é‚©‚ğw’è‚µ‚Ü‚·
- * @param[in] hwndOther ƒAƒNƒeƒBƒu‚Ü‚½‚Í”ñƒAƒNƒeƒBƒu‚É‚È‚éƒEƒBƒ“ƒhƒE ƒnƒ“ƒhƒ‹
- * @param[in] bMinimized ƒAƒNƒeƒBƒu‚Ü‚½‚Í”ñƒAƒNƒeƒBƒu‚É‚È‚éƒEƒBƒ“ƒhƒE‚ÌÅ¬‰»‚Ìó‘Ô‚ğw’è‚µ‚Ü‚·
+ * ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Nï¿½ï¿½ CWnd ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Í”ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½ï¿½É‚ï¿½ï¿½Ìƒï¿½ï¿½ï¿½ï¿½oï¿½[ï¿½Öï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
+ * @param[in] nState ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚È‚ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚È‚ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½ï¿½ï¿½wï¿½è‚µï¿½Ü‚ï¿½
+ * @param[in] hwndOther ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½Ü‚ï¿½ï¿½Í”ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚È‚ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½E ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
+ * @param[in] bMinimized ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½Ü‚ï¿½ï¿½Í”ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚È‚ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ÌÅï¿½ï¿½ï¿½ï¿½Ìï¿½Ô‚ï¿½ï¿½wï¿½è‚µï¿½Ü‚ï¿½
  */
 void CDebugUtyView::OnActivate(UINT nState, HWND hwndOther, BOOL bMinimized)
 {
@@ -515,8 +659,8 @@ void CDebugUtyView::PostNcDestroy()
 }
 
 /**
- * ƒ‚[ƒh•ÏX
- * @param[in] nID ƒ‚[ƒh
+ * ï¿½ï¿½ï¿½[ï¿½hï¿½ÏX
+ * @param[in] nID ï¿½ï¿½ï¿½[ï¿½h
  */
 void CDebugUtyView::SetMode(UINT nID)
 {
@@ -530,7 +674,7 @@ void CDebugUtyView::SetMode(UINT nID)
 }
 
 /**
- * ƒrƒ…[XV
+ * ï¿½rï¿½ï¿½ï¿½[ï¿½Xï¿½V
  */
 void CDebugUtyView::UpdateView()
 {
@@ -541,11 +685,11 @@ void CDebugUtyView::UpdateView()
 }
 
 /**
- * ƒƒjƒ…[ ƒAƒCƒeƒ€‚ğXV
- * @param[in] hMenu ƒƒjƒ…[ ƒnƒ“ƒhƒ‹
- * @param[in] nId ƒƒjƒ…[ ID
- * @param[in] lpSegment ƒZƒOƒƒ“ƒg–¼
- * @param[in] nSegment ƒZƒOƒƒ“ƒg’l
+ * ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½V
+ * @param[in] hMenu ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
+ * @param[in] nId ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ID
+ * @param[in] lpSegment ï¿½Zï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½
+ * @param[in] nSegment ï¿½Zï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½gï¿½l
  */
 void CDebugUtyView::SetSegmentItem(HMENU hMenu, int nId, LPCTSTR lpSegment, UINT nSegment)
 {
@@ -555,7 +699,7 @@ void CDebugUtyView::SetSegmentItem(HMENU hMenu, int nId, LPCTSTR lpSegment, UINT
 }
 
 /**
- * ƒAƒNƒeƒBƒu ƒtƒ‰ƒO‚ğXV
+ * ï¿½Aï¿½Nï¿½eï¿½Bï¿½u ï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½Xï¿½V
  */
 void CDebugUtyView::UpdateActive()
 {
@@ -579,3 +723,146 @@ void CDebugUtyView::UpdateActive()
 	}
 	np2active_renewal();
 }
+
+/// Debug utility activity control hooks (break.cpp)
+/// -------------------------------------------------
+np2break_t	np2break_lasthit_type = NP2BP_NONE;
+UINT32		np2break_lasthit_addr = 0;
+
+/*
+ * np2active_renewal() (and therefore np2break_ui_toggle()) can be called from
+ * the emulation thread when a breakpoint halts the CPU, so the actual window
+ * work is deferred to the UI thread, which applies it from
+ * framereset_MT_UIThread() via np2break_ui_poll().
+ */
+static volatile LONG np2break_ui_poll_running = 1;
+static volatile LONG np2break_ui_poll_dirty = 0;
+
+void np2break_ui_toggle(BOOL bRunning)
+{
+	InterlockedExchange(&np2break_ui_poll_running, bRunning ? 1 : 0);
+	InterlockedExchange(&np2break_ui_poll_dirty, 1);
+}
+
+void np2break_ui_poll(void)
+{
+	if (InterlockedExchange(&np2break_ui_poll_dirty, 0))
+	{
+		const bool bRunning = (InterlockedCompareExchange(&np2break_ui_poll_running, 0, 0) != 0);
+		CDebugUtyView::AllMenuState(bRunning);
+		CDebugUtyView::AllUpdate(true);
+	}
+}
+
+void np2break_ui_breakpoint(np2break_t type, UINT32 addr)
+{
+	// Called from the emulation thread when a breakpoint was hit. The debug
+	// utility windows refresh themselves from the UI thread
+	// (CDebugUtyView::AllUpdate), so all we do here is publishing the hit for
+	// the status window to poll.
+	np2break_lasthit_type = type;
+	np2break_lasthit_addr = addr;
+}
+
+/**
+ * ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼ã‚’ä½œæˆã™ã‚‹ (viewstat)
+ */
+void CDebugUtyView::OpenStatusBar()
+{
+	if (m_hWndStatus != NULL)
+	{
+		return;
+	}
+	m_hWndStatus = CreateWindowEx(0, STATUSCLASSNAME, _T(""),
+		WS_CHILD | WS_VISIBLE | SBARS_SIZEGRIP | CCS_BOTTOM,
+		0, 0, 0, 0, m_hWnd, NULL, CWndProc::GetResourceHandle(), NULL);
+	if (m_hWndStatus == NULL)
+	{
+		return;
+	}
+	int widths[] = { 80, 160, -1 };
+	SendMessage(m_hWndStatus, SB_SETPARTS, (WPARAM)3, (LPARAM)widths);
+	UpdateStatusBar();
+}
+
+/**
+ * ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼ã‚’ç ´æ£„ã™ã‚‹
+ */
+void CDebugUtyView::CloseStatusBar()
+{
+	if (m_hWndStatus != NULL)
+	{
+		DestroyWindow(m_hWndStatus);
+		m_hWndStatus = NULL;
+	}
+}
+
+/**
+ * ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼ã®ã‚«ãƒ¼ã‚½ãƒ«ä½ç½® / CPU ãƒ¢ãƒ¼ãƒ‰è¡¨ç¤ºã‚’æ›´æ–°ã™ã‚‹
+ */
+void CDebugUtyView::UpdateStatusBar()
+{
+	if (m_hWndStatus == NULL)
+	{
+		return;
+	}
+	TCHAR szAddr[32];
+	viewcmn_print_addr(szAddr, m_lpItem->GetSegment(), m_lpItem->GetAddress(),
+		(m_lpItem->GetID() != IDM_VIEWMODE1MB) ? TRUE : FALSE);
+	SendMessage(m_hWndStatus, SB_SETTEXT, 0, (LPARAM)szAddr);
+	SendMessage(m_hWndStatus, SB_SETTEXT, 1,
+		(LPARAM)(CPU_STAT_PM ? _T("Protected Mode") : _T("Real Mode")));
+}
+
+/**
+ * ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æ¬„ã‚’è¨­å®šã™ã‚‹
+ * @param[in] lpText ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+ */
+void CDebugUtyView::SetStatusMessage(LPCTSTR lpText)
+{
+	if (m_hWndStatus == NULL)
+	{
+		return;
+	}
+	SendMessage(m_hWndStatus, SB_SETTEXT, 2, (LPARAM)lpText);
+}
+
+/**
+ * è¡¨ç¤ºã‚¢ã‚¤ãƒ†ãƒ ã® ID ã‚’è¿”ã™
+ * @return ID
+ */
+UINT CDebugUtyView::GetItemID() const
+{
+	return (m_lpItem != NULL) ? m_lpItem->GetID() : 0;
+}
+
+/**
+ * è¡¨ç¤ºã‚¢ã‚¤ãƒ†ãƒ ãŒãƒ­ãƒƒã‚¯ã•ã‚Œã¦ã„ã‚‹ã‹
+ * @return ãƒ­ãƒƒã‚¯ã•ã‚Œã¦ã„ã‚Œã° true
+ */
+bool CDebugUtyView::IsItemLocked() const
+{
+	return (m_lpItem != NULL) ? (m_lpItem->IsLocked() != false) : false;
+}
+
+/**
+ * å…¨ã¦ã®ãƒ“ãƒ¥ãƒ¼ã® Find Again ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æœ‰åŠ¹ / ç„¡åŠ¹ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
+ * @param[in] bEnable æœ‰åŠ¹ã«ã™ã‚‹ã‹
+ */
+static void EnableFindAgain(BOOL bEnable)
+{
+	for (size_t i = 0; i < _countof(g_np2view); i++)
+	{
+		CDebugUtyView* lpView = g_np2view[i];
+		if (lpView != NULL)
+		{
+			HMENU hMenu = lpView->GetMenu();
+			if (hMenu != NULL)
+			{
+				::EnableMenuItem(hMenu, IDM_FINDAGAIN,
+					MF_BYCOMMAND | (bEnable ? MF_ENABLED : MF_GRAYED));
+			}
+		}
+	}
+}
+/// -------------------------------------------------

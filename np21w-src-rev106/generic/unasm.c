@@ -6,6 +6,15 @@
 #include	"unasmop.tbl"
 #include	"unasmop8.tbl"
 #include	"unasmfpu.tbl"
+#include	"cpucore.h"
+
+/* np2debug: i286x/i286c には存在しないマクロのフォールバック */
+#ifndef CPU_REGS_SREG
+#define	CPU_REGS_SREG(n)	(CPU_DS)
+#endif
+#ifndef CPU_EBP_INDEX
+#define	CPU_EBP_INDEX		5
+#endif
 
 
 static const char strhex[] = "0123456789abcdef";
@@ -68,6 +77,30 @@ static char *set_hex(char *str, UINT32 value, UINT bit) {
 
 // ----
 
+// np2debug: 16ビット実アドレス計算のベースレジスタ値
+static UINT32 lea_var(UINT8 op)	{
+
+	switch(op)	{
+		case 0:
+			return CPU_BX + CPU_SI;
+		case 1:
+			return CPU_BX + CPU_DI;
+		case 2:
+			return CPU_BP + CPU_SI;
+		case 3:
+			return CPU_BP + CPU_DI;
+		case 4:
+			return CPU_SI;
+		case 5:
+			return CPU_DI;
+		case 6:
+			return CPU_BP;
+		case 7:
+			return CPU_BX;
+	}
+	return 0;
+}
+
 UINT unasm(UNASM r, const UINT8 *ptr, UINT leng, BOOL d, UINT32 addr) {
 
 const UINT8	*org;
@@ -81,6 +114,10 @@ const UINT8	*term;
 	UINT	regtype;
 	UINT	f;
 	_UNASM	una;
+	SINT8	stmp8;
+	UINT16	tmp16;
+	UINT32	tmp32;
+	UNASM_MEMINFO *mi;
 
 	if (r == NULL) {
 		r = &una;
@@ -168,6 +205,13 @@ const UINT8	*term;
 	ctl >>= 22;
 	p = r->operand;
 
+	// np2debug: メモリオペランド情報の初期化
+	r->meminf[MI_WRITE].type = type;
+	r->meminf[MI_READ].type = ctl;
+	r->meminf[MI_READ].off = r->meminf[MI_WRITE].off = 0;
+	r->meminf[MI_READ].seg = r->meminf[MI_WRITE].seg = CPU_DS;
+	mi = &r->meminf[MI_WRITE];
+
 opeana_st:
 	switch(type) {
 		case 0:
@@ -235,7 +279,11 @@ opeana_st:
 			}
 opeana_ea:
 			f = (flag >> UAFLAG_SOR) & UAFLAG_SOMASK;
+			if (((ope & 7) - 1) == CPU_EBP_INDEX)	{
+				mi->seg = CPU_SS;
+			}
 			if (f) {
+				mi->seg = CPU_REGS_SREG(f - 1);
 				p[0] = rstr.reg[RSTR_SEG][f - 1][0];
 				p[1] = rstr.reg[RSTR_SEG][f - 1][1];
 				p[2] = ':';
@@ -245,12 +293,15 @@ opeana_ea:
 			if (!(flag & (1 << UAFLAG_ADDR))) {
 				if ((ope & 0xc7) != 0x06) {
 					p = set_str(p, rstr.lea[ope & 7]);
+					mi->off += lea_var(ope & 7);
 					switch(ope & 0xc0) {
 						case 0x40:
 							if (ptr >= term) {
 								return(0);
 							}
-							p = set_shex(p, *ptr++, 8);
+							stmp8 = *ptr++;
+							mi->off += stmp8;
+							p = set_shex(p, stmp8, 8);
 							break;
 
 						case 0x80:
@@ -259,7 +310,9 @@ opeana_ea:
 								return(0);
 							}
 							*p++ = '+';
-							p = set_hex(p, LOADINTELWORD(ptr - 2), 16);
+							tmp16 = LOADINTELWORD(ptr - 2);
+							mi->off += tmp16;
+							p = set_hex(p, tmp16, 16);
 							break;
 					}
 				}
@@ -268,7 +321,9 @@ opeana_ea:
 					if (ptr > term) {
 						return(0);
 					}
-					p = set_hex(p, LOADINTELWORD(ptr - 2), 16);
+					tmp16 = LOADINTELWORD(ptr - 2);
+					mi->off += tmp16;
+					p = set_hex(p, tmp16, 16);
 				}
 			}
 			else {
@@ -342,6 +397,7 @@ opeana_ea:
 		case OP_MEM:
 			f = (flag >> UAFLAG_SOR) & UAFLAG_SOMASK;
 			if (f) {
+				mi->seg = CPU_REGS_SREG(f - 1);
 				p[0] = rstr.reg[RSTR_SEG][f - 1][0];
 				p[1] = rstr.reg[RSTR_SEG][f - 1][1];
 				p[2] = ':';
@@ -353,14 +409,18 @@ opeana_ea:
 				if (ptr > term) {
 					return(0);
 				}
-				p = set_hex(p, LOADINTELWORD(ptr - 2), 16);
+				tmp16 = LOADINTELWORD(ptr - 2);
+				mi->off += tmp16;
+				p = set_hex(p, tmp16, 16);
 			}
 			else {
 				ptr += 4;
 				if (ptr > term) {
 					return(0);
 				}
-				p = set_hex(p, LOADINTELDWORD(ptr - 4), 32);
+				tmp32 = LOADINTELDWORD(ptr - 4);
+				mi->off += tmp32;
+				p = set_hex(p, tmp32, 32);
 			}
 			*p++ = ']';
 			break;
@@ -387,7 +447,27 @@ opeana_ea:
 			*p++ = '3';
 			break;
 
+		case OP1_STR_SRC:
+			mi = &r->meminf[MI_READ];
+			mi->seg = CPU_DS;
+			mi->off = CPU_SI;
+			mi->type = OP1_STR;
+			goto opeana_str;
+
+		case OP1_STR_DST:
+			mi->seg = CPU_ES;
+			mi->off = CPU_DI;
+			mi->type = OP1_STR;
+			goto opeana_str;
+
 		case OP1_STR:
+			r->meminf[MI_READ].seg = CPU_DS;
+			r->meminf[MI_READ].off = CPU_SI;
+			r->meminf[MI_READ].type = OP1_STR;
+			r->meminf[MI_WRITE].seg = CPU_ES;
+			r->meminf[MI_WRITE].off = CPU_DI;
+			r->meminf[MI_WRITE].type = OP1_STR;
+opeana_str:
 			mnemonic += (regtype >> 3);
 			f = (flag >> UAFLAG_REP) & UAFLAG_REPMASK;
 			if (f) {
@@ -396,9 +476,10 @@ opeana_ea:
 			}
 			f = (flag >> UAFLAG_SOR) & UAFLAG_SOMASK;
 			if (f) {
+				mi->seg = CPU_REGS_SREG(f - 1);
 				p[0] = ' ';
 				p[1] = rstr.reg[RSTR_SEG][f - 1][0];
-				p[1] = rstr.reg[RSTR_SEG][f - 1][1];
+				p[2] = rstr.reg[RSTR_SEG][f - 1][1];
 				p[3] = ':';
 				p += 4;
 			}
@@ -479,7 +560,7 @@ opeana_ea:
 			break;
 
 		case OP1_FEA:
-			if (ope >= 0xc0) {				// �L�蓾�Ȃ�����
+			if (ope >= 0xc0) {				// �L�蓾�Ȃ�����
 				p = set_reg(p, regtype + (ope & 7));
 				break;
 			}
@@ -569,9 +650,10 @@ opeana_ea:
 			regtype = RSTR_16 << 3;
 			break;
 
-		default:
-			return(0);
+	default:
+		return(0);
 	}
+	mi = &r->meminf[MI_READ];
 	type = ctl & 0x1f;
 	ctl >>= 5;
 	if (type) {

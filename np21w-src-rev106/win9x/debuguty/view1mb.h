@@ -1,6 +1,6 @@
 /**
  * @file	view1mb.h
- * @brief	ƒƒCƒ“ ƒƒ‚ƒŠ ƒŒƒWƒXƒ^•\¦ƒNƒ‰ƒX‚ÌéŒ¾‚¨‚æ‚ÑƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ì’è‹`‚ğ‚µ‚Ü‚·
+ * @brief	ï¿½ï¿½ï¿½Cï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½ÌéŒ¾ï¿½ï¿½ï¿½ï¿½ÑƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½Cï¿½Xï¿½Ì’ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
  */
 
 #pragma once
@@ -10,7 +10,7 @@
 #include "viewmem.h"
 
 /**
- * @brief ƒƒ‚ƒŠ ƒŒƒWƒXƒ^•\¦ƒNƒ‰ƒX
+ * @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
  */
 class CDebugUty1MB : public CDebugUtyItem
 {
@@ -23,11 +23,15 @@ public:
 	virtual bool Lock();
 	virtual void Unlock();
 	virtual bool IsLocked();
+	virtual UINT32 GetAddress() const;
+	virtual UINT GetSegment() const;
+	virtual void SetAddress(UINT32 addr);
+	virtual void ReadMemory(UINT32 nAddress, LPVOID lpBuffer, UINT32 cbBuffer);
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	virtual void OnPaint(HDC hDC, const RECT& rect);
 
 private:
-	DebugUtyViewMemory m_mem;					//!< ƒƒ‚ƒŠ
-	std::vector<unsigned char> m_buffer;		//!< ƒoƒbƒtƒ@
+	DebugUtyViewMemory m_mem;					//!< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	std::vector<unsigned char> m_buffer;		//!< ï¿½oï¿½bï¿½tï¿½@
 	void SetSegment(UINT nSegment);
 };

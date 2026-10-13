@@ -1,6 +1,6 @@
 /**
  * @file	viewreg.cpp
- * @brief	ƒƒ‚ƒŠ•\¦ƒNƒ‰ƒX‚Ì“®ì‚Ì’è‹`‚ğs‚¢‚Ü‚·
+ * @brief	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½Ì“ï¿½ï¿½ï¿½Ì’ï¿½`ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½
  */
 
 #include "compiler.h"
@@ -8,11 +8,12 @@
 #include "np2.h"
 #include "viewseg.h"
 #include "viewer.h"
+#include "viewcmn.h"
 #include "cpucore.h"
 
 /**
- * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- * @param[in] lpView ƒrƒ…[ƒ ƒCƒ“ƒXƒ^ƒ“ƒX
+ * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
+ * @param[in] lpView ï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½X
  */
 CDebugUtySeg::CDebugUtySeg(CDebugUtyView* lpView)
 	: CDebugUtyItem(lpView, IDM_VIEWMODESEG)
@@ -21,15 +22,15 @@ CDebugUtySeg::CDebugUtySeg(CDebugUtyView* lpView)
 }
 
 /**
- * ƒfƒXƒgƒ‰ƒNƒ^
+ * ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
  */
 CDebugUtySeg::~CDebugUtySeg()
 {
 }
 
 /**
- * ‰Šú‰»
- * @param[in] lpItem Šî€‚Æ‚È‚éƒAƒCƒeƒ€
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[in] lpItem ï¿½î€ï¿½Æ‚È‚ï¿½Aï¿½Cï¿½eï¿½ï¿½
  */
 void CDebugUtySeg::Initialize(const CDebugUtyItem* lpItem)
 {
@@ -37,9 +38,9 @@ void CDebugUtySeg::Initialize(const CDebugUtyItem* lpItem)
 }
 
 /**
- * XV
- * @retval true XV‚ ‚è
- * @retval false XV‚È‚µ
+ * ï¿½Xï¿½V
+ * @retval true ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
+ * @retval false ï¿½Xï¿½Vï¿½È‚ï¿½
  */
 bool CDebugUtySeg::Update()
 {
@@ -52,9 +53,9 @@ bool CDebugUtySeg::Update()
 }
 
 /**
- * ƒƒbƒN
- * @retval true ¬Œ÷
- * @retval false ¸”s
+ * ï¿½ï¿½ï¿½bï¿½N
+ * @retval true ï¿½ï¿½ï¿½ï¿½
+ * @retval false ï¿½ï¿½ï¿½s
  */
 bool CDebugUtySeg::Lock()
 {
@@ -66,7 +67,7 @@ bool CDebugUtySeg::Lock()
 }
 
 /**
- * ƒAƒ“ƒƒbƒN
+ * ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½bï¿½N
  */
 void CDebugUtySeg::Unlock()
 {
@@ -74,9 +75,9 @@ void CDebugUtySeg::Unlock()
 }
 
 /**
- * ƒƒbƒN’†?
- * @retval true ƒƒbƒN’†‚Å‚ ‚é
- * @retval false ƒƒbƒN’†‚Å‚È‚¢
+ * ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½?
+ * @retval true ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
+ * @retval false ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Å‚È‚ï¿½
  */
 bool CDebugUtySeg::IsLocked()
 {
@@ -84,11 +85,51 @@ bool CDebugUtySeg::IsLocked()
 }
 
 /**
- * ƒ†[ƒU[‚ªƒƒjƒ…[‚Ì€–Ú‚ğ‘I‘ğ‚µ‚½‚Æ‚«‚ÉAƒtƒŒ[ƒ€ƒ[ƒN‚É‚æ‚Á‚ÄŒÄ‚Ño‚³‚ê‚Ü‚·
- * @param[in] wParam ƒpƒ‰ƒƒ^
- * @param[in] lParam ƒpƒ‰ƒƒ^
- * @retval TRUE ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ª‚±‚ÌƒƒbƒZ[ƒW‚ğˆ—‚µ‚½
- * @retval FALSE ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ª‚±‚ÌƒƒbƒZ[ƒW‚ğˆ—‚µ‚È‚©‚Á‚½
+ * ç¾åœ¨ã‚«ãƒ¼ã‚½ãƒ«ãŒã‚ã‚‹ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’è¿”ã™
+ * @return ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ */
+UINT32 CDebugUtySeg::GetAddress() const
+{
+	return (m_nSegment + m_lpView->GetVScrollPos()) << 4;
+}
+
+/**
+ * ç¾åœ¨ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã‚’è¿”ã™
+ * @return ã‚»ã‚°ãƒ¡ãƒ³ãƒˆ
+ */
+UINT CDebugUtySeg::GetSegment() const
+{
+	return m_nSegment;
+}
+
+/**
+ * ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã¸ç§»å‹•ã™ã‚‹
+ * @param[in] addr ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ */
+void CDebugUtySeg::SetAddress(UINT32 addr)
+{
+	// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ä½ç½®ã¯ã‚»ã‚°ãƒ¡ãƒ³ãƒˆå†…ã® 16 ãƒã‚¤ãƒˆå˜ä½
+	SetSegment(static_cast<UINT>((addr >> 4) & 0xf000));
+	m_lpView->SetVScrollPos(static_cast<UINT>((addr >> 4) & 0x0fff));
+}
+
+/**
+ * ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã‹ã‚‰èª­ã¿å‡ºã™
+ * @param[in] nAddress ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * @param[in] lpBuffer ãƒãƒƒãƒ•ã‚¡
+ * @param[in] cbBuffer ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+ */
+void CDebugUtySeg::ReadMemory(UINT32 nAddress, LPVOID lpBuffer, UINT32 cbBuffer)
+{
+	m_mem.Read(nAddress, lpBuffer, cbBuffer);
+}
+
+/**
+ * ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½Ú‚ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉAï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Nï¿½É‚ï¿½ï¿½ï¿½ÄŒÄ‚Ñoï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
+ * @param[in] wParam ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^
+ * @param[in] lParam ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^
+ * @retval TRUE ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @retval FALSE ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 BOOL CDebugUtySeg::OnCommand(WPARAM wParam, LPARAM lParam)
 {
@@ -122,8 +163,8 @@ BOOL CDebugUtySeg::OnCommand(WPARAM wParam, LPARAM lParam)
 }
 
 /**
- * ƒZƒOƒƒ“ƒg•ÏX
- * @param[in] nSegment ƒZƒOƒƒ“ƒg
+ * ï¿½Zï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ÏX
+ * @param[in] nSegment ï¿½Zï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½g
  */
 void CDebugUtySeg::SetSegment(UINT nSegment)
 {
@@ -135,9 +176,9 @@ void CDebugUtySeg::SetSegment(UINT nSegment)
 }
 
 /**
- * •`‰æ
- * @param[in] hDC ƒfƒoƒCƒX ƒRƒ“ƒeƒLƒXƒg
- * @param[in] rect —Ìˆæ
+ * ï¿½`ï¿½ï¿½
+ * @param[in] hDC ï¿½fï¿½oï¿½Cï¿½X ï¿½Rï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½g
+ * @param[in] rect ï¿½Ìˆï¿½
  */
 void CDebugUtySeg::OnPaint(HDC hDC, const RECT& rect)
 {
@@ -147,6 +188,15 @@ void CDebugUtySeg::OnPaint(HDC hDC, const RECT& rect)
 		TCHAR szTmp[16];
 		::wsprintf(szTmp, _T("%04x:%04x"), m_nSegment, nIndex << 4);
 		::TextOut(hDC, 0, y, szTmp, 9);
+
+#if defined(SUPPORT_NP2BREAK)
+		const UINT32 nAddress = (m_nSegment + nIndex) << 4;
+		if (viewcmn_has_breakpoint(nAddress))
+		{
+			const TCHAR c = viewcmn_breakpoint_char(nAddress);
+			::TextOut(hDC, 9 * 8, y, &c, 1);
+		}
+#endif
 
 		unsigned char sBuf[16];
 		if (!m_buffer.empty())
@@ -161,7 +211,7 @@ void CDebugUtySeg::OnPaint(HDC hDC, const RECT& rect)
 		{
 			TCHAR szTmp[4];
 			::wsprintf(szTmp, TEXT("%02X"), sBuf[x]);
-			::TextOut(hDC, ((x * 3) + 10) * 8, y, szTmp, 2);
+			::TextOut(hDC, ((x * 3) + 11) * 8, y, szTmp, 2);
 		}
 	}
 }

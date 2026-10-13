@@ -1,6 +1,6 @@
 /**
  * @file	viewer.h
- * @brief	DebugUty —pƒrƒ…[ƒ ƒNƒ‰ƒX‚ÌéŒ¾‚¨‚æ‚ÑƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ì’è‹`‚ğ‚µ‚Ü‚·
+ * @brief	DebugUty ï¿½pï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½Nï¿½ï¿½ï¿½Xï¿½ÌéŒ¾ï¿½ï¿½ï¿½ï¿½ÑƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½Cï¿½Xï¿½Ì’ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
  */
 
 #pragma once
@@ -9,11 +9,11 @@
 
 class CDebugUtyItem;
 
-//! ƒrƒ…[Å‘å”
+//! ï¿½rï¿½ï¿½ï¿½[ï¿½Å‘å”
 #define NP2VIEW_MAX		8
 
 /**
- * @brief ƒrƒ…[ ƒNƒ‰ƒX
+ * @brief ï¿½rï¿½ï¿½ï¿½[ ï¿½Nï¿½ï¿½ï¿½X
  */
 class CDebugUtyView : public CWndProc
 {
@@ -23,6 +23,7 @@ public:
 	static void DisposeAllClosedWindow();
 	static void AllClose();
 	static void AllUpdate(bool bForce);
+	static void AllMenuState(bool bRunning);
 
 	CDebugUtyView();
 	virtual ~CDebugUtyView();
@@ -32,6 +33,15 @@ public:
 	void SetVScrollPos(UINT nPos);
 	void SetVScroll(UINT nPos, UINT nLines);
 	void UpdateVScroll();
+
+	UINT GetItemID() const;
+	bool IsItemLocked() const;
+
+	//! ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼ (viewstat)
+	void OpenStatusBar();
+	void CloseStatusBar();
+	void UpdateStatusBar();
+	void SetStatusMessage(LPCTSTR lpText);
 
 protected:
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -45,13 +55,14 @@ protected:
 	virtual void PostNcDestroy();
 
 private:
-	bool m_bActive;				//!< ƒAƒNƒeƒBƒu ƒtƒ‰ƒO
-	UINT m_nVPos;				//!< ˆÊ’u
-	UINT m_nVLines;				//!< ƒ‰ƒCƒ“”
-	UINT m_nVPage;				//!< 1ƒy[ƒW‚Ì•\¦”
-	UINT m_nVMultiple;			//!< ”{—¦
-	CDebugUtyItem* m_lpItem;	//!< •\¦ƒAƒCƒeƒ€
-	static DWORD sm_dwLastTick;	//!< ÅŒã‚ÌTick
+	bool m_bActive;				//!< ï¿½Aï¿½Nï¿½eï¿½Bï¿½u ï¿½tï¿½ï¿½ï¿½O
+	UINT m_nVPos;				//!< ï¿½Ê’u
+	UINT m_nVLines;				//!< ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½
+	UINT m_nVPage;				//!< 1ï¿½yï¿½[ï¿½Wï¿½Ì•\ï¿½ï¿½ï¿½ï¿½
+	UINT m_nVMultiple;			//!< ï¿½{ï¿½ï¿½
+	CDebugUtyItem* m_lpItem;	//!< ï¿½\ï¿½ï¿½ï¿½Aï¿½Cï¿½eï¿½ï¿½
+	HWND m_hWndStatus;		//!< ï¿½Xï¿½eï¿½bï¿½[ï¿½^ï¿½[ (viewstat)
+	static DWORD sm_dwLastTick;	//!< ï¿½ÅŒï¿½ï¿½Tick
 	void SetMode(UINT nID);
 	void SetSegmentItem(HMENU hMenu, int nId, LPCTSTR lpSegment, UINT nSegment);
 	void UpdateView();
@@ -59,8 +70,8 @@ private:
 };
 
 /**
- * Œ»İ‚ÌˆÊ’u‚ğ•Ô‚·
- * @return ˆÊ’u
+ * ï¿½ï¿½ï¿½İ‚ÌˆÊ’uï¿½ï¿½Ô‚ï¿½
+ * @return ï¿½Ê’u
  */
 inline UINT32 CDebugUtyView::GetVScrollPos() const
 {

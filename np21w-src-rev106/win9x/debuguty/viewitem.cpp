@@ -1,6 +1,6 @@
 /**
  * @file	viewitem.cpp
- * @brief	DebugUty —pƒrƒ…[Šî’êƒNƒ‰ƒX‚Ì“®ì‚Ì’è‹`‚ğs‚¢‚Ü‚·
+ * @brief	DebugUty ï¿½pï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½Ì“ï¿½ï¿½ï¿½Ì’ï¿½`ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½
  */
 
 #include "compiler.h"
@@ -11,16 +11,21 @@
 #include "viewmem.h"
 #include "viewreg.h"
 #include "viewseg.h"
+#include "viewstk.h"
 #include "view1mb.h"
 #include "viewasm.h"
 #include "viewsnd.h"
+#include "cpucore.h"
+#include "cpumem.h"
+
+#include <string.h>
 
 /**
- * ƒCƒ“ƒXƒ^ƒ“ƒXì¬
- * @param[in] nID ƒrƒ…[ ID
- * @param[in] lpView ƒrƒ…[ƒ ƒCƒ“ƒXƒ^ƒ“ƒX
- * @param[in] lpItem Šî€‚Æ‚È‚éƒAƒCƒeƒ€
- * @return ƒCƒ“ƒXƒ^ƒ“ƒX
+ * ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ì¬
+ * @param[in] nID ï¿½rï¿½ï¿½ï¿½[ ID
+ * @param[in] lpView ï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½X
+ * @param[in] lpItem ï¿½î€ï¿½Æ‚È‚ï¿½Aï¿½Cï¿½eï¿½ï¿½
+ * @return ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½X
  */
 CDebugUtyItem* CDebugUtyItem::New(UINT nID, CDebugUtyView* lpView, const CDebugUtyItem* lpItem)
 {
@@ -33,6 +38,10 @@ CDebugUtyItem* CDebugUtyItem::New(UINT nID, CDebugUtyView* lpView, const CDebugU
 
 		case IDM_VIEWMODESEG:
 			lpNewItem = new CDebugUtySeg(lpView);
+			break;
+
+		case IDM_VIEWMODESTK:
+			lpNewItem = new CDebugUtyStk(lpView);
 			break;
 
 		case IDM_VIEWMODE1MB:
@@ -56,9 +65,9 @@ CDebugUtyItem* CDebugUtyItem::New(UINT nID, CDebugUtyView* lpView, const CDebugU
 }
 
 /**
- * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- * @param[in] lpView ƒrƒ…[ƒ ƒCƒ“ƒXƒ^ƒ“ƒX
- * @param[in] nID ƒrƒ…[ ID
+ * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
+ * @param[in] lpView ï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½X
+ * @param[in] nID ï¿½rï¿½ï¿½ï¿½[ ID
  */
 CDebugUtyItem::CDebugUtyItem(CDebugUtyView* lpView, UINT nID)
 	: m_lpView(lpView)
@@ -67,15 +76,100 @@ CDebugUtyItem::CDebugUtyItem(CDebugUtyView* lpView, UINT nID)
 }
 
 /**
- * ƒfƒXƒgƒ‰ƒNƒ^
+ * ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
  */
 CDebugUtyItem::~CDebugUtyItem()
 {
 }
 
 /**
- * ‰Šú‰»
- * @param[in] lpItem ƒŠƒtƒ@ƒŒƒ“ƒX
+ * ç¾åœ¨ã‚«ãƒ¼ã‚½ãƒ«ãŒã‚ã‚‹ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’è¿”ã™
+ * @return ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ */
+UINT32 CDebugUtyItem::GetAddress() const
+{
+	return 0;
+}
+
+/**
+ * ç¾åœ¨ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã‚’è¿”ã™
+ * @return ã‚»ã‚°ãƒ¡ãƒ³ãƒˆ
+ */
+UINT CDebugUtyItem::GetSegment() const
+{
+	return 0;
+}
+
+/**
+ * ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã¸ç§»å‹•ã™ã‚‹
+ * @param[in] addr ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ */
+void CDebugUtyItem::SetAddress(UINT32 addr)
+{
+	// æ—¢å®šã§ã¯ä½•ã‚‚ã—ãªã„
+}
+
+/**
+ * ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã‹ã‚‰èª­ã¿å‡ºã™
+ * @param[in] nAddress ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * @param[in] lpBuffer ãƒãƒƒãƒ•ã‚¡
+ * @param[in] cbBuffer ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+ */
+void CDebugUtyItem::ReadMemory(UINT32 nAddress, LPVOID lpBuffer, UINT32 cbBuffer)
+{
+	memp_reads(nAddress, lpBuffer, cbBuffer);
+}
+
+/**
+ * ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ã¸æ›¸ãè¾¼ã‚€
+ * @param[in] nAddress ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * @param[in] lpBytes ãƒã‚¤ãƒˆåˆ—
+ * @param[in] cbBytes ãƒã‚¤ãƒˆæ•°
+ */
+void CDebugUtyItem::WriteMemory(UINT32 nAddress, const UINT8* lpBytes, UINT cbBytes)
+{
+	memp_writes(nAddress, lpBytes, cbBytes);
+}
+
+/**
+ * ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ä»¥é™ã‹ã‚‰ãƒã‚¤ãƒˆåˆ—ã‚’æ¤œç´¢ã™ã‚‹
+ * @param[in] nAddress æ¤œç´¢é–‹å§‹ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * @param[in] lpBytes ãƒã‚¤ãƒˆåˆ—
+ * @param[in] cbBytes ãƒã‚¤ãƒˆæ•°
+ * @param[out] lpFound è¦‹ã¤ã‹ã£ãŸç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * @retval true è¦‹ã¤ã‹ã£ãŸ
+ * @retval false è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ
+ */
+BOOL CDebugUtyItem::FindMemory(UINT32 nAddress, const UINT8* lpBytes, UINT cbBytes, UINT32* lpFound)
+{
+	UINT8 buf[64];
+
+	if ((lpBytes == NULL) || (cbBytes == 0) || (cbBytes > sizeof(buf)))
+	{
+		return FALSE;
+	}
+	if ((nAddress + cbBytes) > 0x110000)
+	{
+		return FALSE;
+	}
+	for (UINT32 a = nAddress; (a + cbBytes) <= 0x110000; a++)
+	{
+		ReadMemory(a, buf, cbBytes);
+		if (memcmp(buf, lpBytes, cbBytes) == 0)
+		{
+			if (lpFound)
+			{
+				*lpFound = a;
+			}
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+/**
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[in] lpItem ï¿½ï¿½ï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½X
  */
 void CDebugUtyItem::Initialize(const CDebugUtyItem* lpItem)
 {
@@ -83,9 +177,9 @@ void CDebugUtyItem::Initialize(const CDebugUtyItem* lpItem)
 }
 
 /**
- * XV
- * @retval true XV‚ ‚è
- * @retval false XV‚È‚µ
+ * ï¿½Xï¿½V
+ * @retval true ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
+ * @retval false ï¿½Xï¿½Vï¿½È‚ï¿½
  */
 bool CDebugUtyItem::Update()
 {
@@ -93,9 +187,9 @@ bool CDebugUtyItem::Update()
 }
 
 /**
- * ƒƒbƒN
- * @retval true ¬Œ÷
- * @retval false ¸”s
+ * ï¿½ï¿½ï¿½bï¿½N
+ * @retval true ï¿½ï¿½ï¿½ï¿½
+ * @retval false ï¿½ï¿½ï¿½s
  */
 bool CDebugUtyItem::Lock()
 {
@@ -103,16 +197,16 @@ bool CDebugUtyItem::Lock()
 }
 
 /**
- * ƒAƒ“ƒƒbƒN
+ * ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½bï¿½N
  */
 void CDebugUtyItem::Unlock()
 {
 }
 
 /**
- * ƒƒbƒN’†?
- * @retval true ƒƒbƒN’†‚Å‚ ‚é
- * @retval false ƒƒbƒN’†‚Å‚È‚¢
+ * ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½?
+ * @retval true ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
+ * @retval false ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Å‚È‚ï¿½
  */
 bool CDebugUtyItem::IsLocked()
 {
@@ -120,11 +214,11 @@ bool CDebugUtyItem::IsLocked()
 }
 
 /**
- * ƒ†[ƒU[‚ªƒƒjƒ…[‚Ì€–Ú‚ğ‘I‘ğ‚µ‚½‚Æ‚«‚ÉAƒtƒŒ[ƒ€ƒ[ƒN‚É‚æ‚Á‚ÄŒÄ‚Ño‚³‚ê‚Ü‚·
- * @param[in] wParam ƒpƒ‰ƒƒ^
- * @param[in] lParam ƒpƒ‰ƒƒ^
- * @retval TRUE ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ª‚±‚ÌƒƒbƒZ[ƒW‚ğˆ—‚µ‚½
- * @retval FALSE ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ª‚±‚ÌƒƒbƒZ[ƒW‚ğˆ—‚µ‚È‚©‚Á‚½
+ * ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½Ú‚ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉAï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Nï¿½É‚ï¿½ï¿½ï¿½ÄŒÄ‚Ñoï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
+ * @param[in] wParam ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^
+ * @param[in] lParam ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^
+ * @retval TRUE ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @retval FALSE ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 BOOL CDebugUtyItem::OnCommand(WPARAM wParam, LPARAM lParam)
 {
@@ -132,9 +226,9 @@ BOOL CDebugUtyItem::OnCommand(WPARAM wParam, LPARAM lParam)
 }
 
 /**
- * •`‰æ
- * @param[in] hDC ƒfƒoƒCƒX ƒRƒ“ƒeƒLƒXƒg
- * @param[in] rect —Ìˆæ
+ * ï¿½`ï¿½ï¿½
+ * @param[in] hDC ï¿½fï¿½oï¿½Cï¿½X ï¿½Rï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½g
+ * @param[in] rect ï¿½Ìˆï¿½
  */
 void CDebugUtyItem::OnPaint(HDC hDC, const RECT& rect)
 {

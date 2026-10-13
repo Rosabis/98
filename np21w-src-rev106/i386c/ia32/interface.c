@@ -32,6 +32,7 @@
 #include "dmax86.h"
 #include "bios/bios.h"
 #include "sound/soundrom.h"
+#include "break.h"
 
 #include "ia32/instructions/fpu/fp.h"
 
@@ -115,7 +116,7 @@ ia32reset(void)
 	if (!np2hax.emumode)
 	{
 		np2haxstat.update_regs = np2haxstat.update_fpu = 0;
-		// HAXMƒŒƒWƒXƒ^¨”LƒŒƒWƒXƒ^‚ÉƒRƒs[
+		// HAXMï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ÉƒRï¿½sï¿½[
 		ia32hax_copyregHAXtoNP2();
 	}
 #endif
@@ -126,11 +127,11 @@ ia32reset(void)
 	if (!np2whpx.emumode)
 	{
 		np2whpxstat.update_regs = np2whpxstat.update_fpu = 0;
-		// WHPXƒŒƒWƒXƒ^¨”LƒŒƒWƒXƒ^‚ÉƒRƒs[
+		// WHPXï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ÉƒRï¿½sï¿½[
 		ia32whpx_copyregWHPXtoNP2();
 	}
 #endif
-	// MMIOƒ}ƒbƒvƒŠƒZƒbƒg
+	// MMIOï¿½}ï¿½bï¿½vï¿½ï¿½ï¿½Zï¿½bï¿½g
 	memp_mmio_map_reset();
 }
 
@@ -146,7 +147,7 @@ ia32shut(void)
 	if (!np2hax.emumode)
 	{
 		np2haxstat.update_regs = np2haxstat.update_fpu = 0;
-		// HAXMƒŒƒWƒXƒ^¨”LƒŒƒWƒXƒ^‚ÉƒRƒs[
+		// HAXMï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ÉƒRï¿½sï¿½[
 		ia32hax_copyregHAXtoNP2();
 	}
 #endif
@@ -157,7 +158,7 @@ ia32shut(void)
 	if (!np2whpx.emumode)
 	{
 		np2whpxstat.update_regs = np2whpxstat.update_fpu = 0;
-		// WHPXƒŒƒWƒXƒ^¨”LƒŒƒWƒXƒ^‚ÉƒRƒs[
+		// WHPXï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ÉƒRï¿½sï¿½[
 		ia32whpx_copyregWHPXtoNP2();
 	}
 #endif
@@ -175,7 +176,7 @@ ia32a20enable(BOOL enable)
 }
 
 //#pragma optimize("", off)
-void
+UINT8
 ia32(void)
 {
 	switch (sigsetjmp(exec_1step_jmpbuf, 1)) {
@@ -188,12 +189,33 @@ ia32(void)
 
 	case 2:
 		VERBOSE(("ia32: return from panic"));
-		return;
+		return FALSE;
 
 	default:
 		VERBOSE(("ia32: return from unknown cause"));
 		break;
 	}
+#if defined(SUPPORT_NP2BREAK)
+	// Debug utility is in use: fall back to the (much slower) one-instruction
+	// loop so that code and memory breakpoints as well as single-stepping can
+	// be checked before every instruction.
+	if (np2break_isactive() || np2singlestep) {
+		do {
+			exec_1step();
+			if (CPU_TRAP) {
+				CPU_DR6 |= CPU_DR6_BS;
+				INTERRUPT(1, INTR_TYPE_EXCEPTION);
+			}
+			else if (dmac.working) {
+				dmax86();
+			}
+			if (np2break_is_next()) {
+				return FALSE;
+			}
+		} while (CPU_REMCLOCK > 0 && !np2stopemulate);
+		return TRUE;
+	}
+#endif
 	if (!CPU_TRAP && !dmac.working) {
 		exec_allstep();
 	}else if (!CPU_TRAP) {
@@ -212,6 +234,7 @@ ia32(void)
 		} while (CPU_REMCLOCK > 0);
 	}
 
+	return TRUE;
 }
 
 void

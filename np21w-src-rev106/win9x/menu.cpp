@@ -1,6 +1,6 @@
 /**
  * @file	menu.cpp
- * @brief	ƒƒjƒ…[‚ÌéŒ¾‚¨‚æ‚ÑƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ì’è‹`‚ð‚µ‚Ü‚·
+ * @brief	ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ÌéŒ¾ï¿½ï¿½ï¿½ï¿½ÑƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½Cï¿½Xï¿½Ì’ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
  */
 
 #include "compiler.h"
@@ -20,17 +20,83 @@
 #endif
 #include "mousemng.h"
 #include "timing.h"
+#include "mountdir/mountdir.h"
 
 extern UINT8	np2userpause;
 
 /**
- * ŒŸõ
- * @param[in] hMenu ƒƒjƒ…[ ƒnƒ“ƒhƒ‹
+ * mountdir: add a "Drive X:" submenu (Open... / Remove)
+ * @param[in] hMenu menu that receives the item
+ * @param[in] nPos insert position
+ * @param[in] id_drive command ID of the drive item itself
+ * @param[in] id_open command ID of the "Open..." item
+ * @param[in] id_remove command ID of the "Remove" item
+ */
+static BOOL xmenu_drive_add(HMENU hMenu, int nPos, UINT id_drive, UINT id_open, UINT id_remove)
+{
+	HMENU drive_menu = CreateMenu();
+	MENUITEMINFO mii;
+	UINT pos = 0;
+
+	// Drive menu
+	InsertMenu(drive_menu, pos++, MF_BYPOSITION | MF_STRING, id_open, _T("&Open..."));
+	InsertMenu(drive_menu, pos++, MF_SEPARATOR, 0, NULL);
+	InsertMenu(drive_menu, pos++, MF_BYPOSITION | MF_STRING, id_remove, _T("&Remove"));
+	SetMenuDefaultItem(drive_menu, 0, MF_BYPOSITION);
+
+	// Drive item
+	ZeroMemory(&mii, sizeof(MENUITEMINFO));
+	mii.cbSize = sizeof(MENUITEMINFO);
+	mii.fMask = MIIM_ID | MIIM_SUBMENU | MIIM_TYPE;
+	mii.wID = id_drive;
+	mii.hSubMenu = drive_menu;
+	// Yes, this is necessary for the menu item to appear
+	mii.fType = MFT_STRING;
+	mii.dwTypeData = _T(" ");
+	return InsertMenuItem(hMenu, nPos, MF_BYPOSITION, &mii);
+}
+
+/**
+ * mountdir: refresh the label / check state of a "Drive X:" item
+ * @param[in] hMenu menu handle
+ * @param[in] item command ID of the drive item
+ * @param[in] prefix label prefix (e.g. "Drive A: ")
+ * @param[in] image_fn mounted host directory ("" if none)
+ */
+static BOOL xmenu_drive_update(HMENU hMenu, UINT item, OEMCHAR *prefix, OEMCHAR *image_fn)
+{
+	BOOL ret;
+	MENUITEMINFO mii;
+	OEMCHAR str[MAX_PATH + 32];
+	const BOOL check = (image_fn[0] != '\0');
+	const OEMCHAR *none_str = _T("");
+
+	ZeroMemory(&mii, sizeof(mii));
+	mii.cbSize = sizeof(mii);
+	mii.fMask = MIIM_ID | MIIM_STATE | MIIM_DATA | MIIM_TYPE | MIIM_SUBMENU;
+
+	ret = GetMenuItemInfo(hMenu, item, FALSE, &mii);
+	if (!ret)
+	{
+		return FALSE;
+	}
+	lstrcpy(str, prefix);
+	lstrcat(str, check ? image_fn : none_str);
+
+	mii.fType |= MFT_RADIOCHECK | MFT_STRING;
+	mii.fState = (check ? MFS_CHECKED : MFS_UNCHECKED);
+	mii.dwTypeData = str;
+	return SetMenuItemInfo(hMenu, item, FALSE, &mii);
+}
+
+/**
+ * ï¿½ï¿½ï¿½ï¿½
+ * @param[in] hMenu ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
  * @param[in] uID ID
- * @param[out] phmenuRet Œ©‚Â‚©‚Á‚½ƒƒjƒ…[
- * @param[out] pnPos Œ©‚Â‚©‚Á‚½ˆÊ’u
- * @retval true Œ©‚Â‚©‚Á‚½
- * @retval false Œ©‚Â‚©‚ç‚È‚©‚Á‚½
+ * @param[out] phmenuRet ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[
+ * @param[out] pnPos ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê’u
+ * @retval true ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @retval false ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 bool menu_searchmenu(HMENU hMenu, UINT uID, HMENU *phmenuRet, int *pnPos)
 {
@@ -65,12 +131,12 @@ bool menu_searchmenu(HMENU hMenu, UINT uID, HMENU *phmenuRet, int *pnPos)
 }
 
 /**
- * ƒƒjƒ…[’Ç‰Á
- * @param[in] hMenu ƒƒjƒ…[ ƒnƒ“ƒhƒ‹
- * @param[in] nPos ’Ç‰Á‚·‚éˆÊ’u
- * @param[in] hmenuAdd ’Ç‰Á‚·‚éƒƒjƒ…[
- * @param[in] bSeparator ƒZƒpƒŒ[ƒ^‚ð’Ç‰Á‚·‚é
- * @return ’Ç‰Á”
+ * ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ç‰ï¿½
+ * @param[in] hMenu ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
+ * @param[in] nPos ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½Ê’u
+ * @param[in] hmenuAdd ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½éƒï¿½jï¿½ï¿½ï¿½[
+ * @param[in] bSeparator ï¿½Zï¿½pï¿½ï¿½ï¿½[ï¿½^ï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @return ï¿½Ç‰ï¿½ï¿½ï¿½
  */
 int menu_addmenu(HMENU hMenu, int nPos, HMENU hmenuAdd, BOOL bSeparator)
 {
@@ -112,12 +178,12 @@ int menu_addmenu(HMENU hMenu, int nPos, HMENU hmenuAdd, BOOL bSeparator)
 }
 
 /**
- * ƒƒjƒ…[’Ç‰Á
- * @param[in] hMenu ƒƒjƒ…[ ƒnƒ“ƒhƒ‹
- * @param[in] nPos ’Ç‰Á‚·‚éˆÊ’u
- * @param[in] uID ƒƒjƒ…[ ID
- * @param[in] bSeparator ƒZƒpƒŒ[ƒ^‚ð’Ç‰Á‚·‚é
- * @return ’Ç‰Á”
+ * ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ç‰ï¿½
+ * @param[in] hMenu ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
+ * @param[in] nPos ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½Ê’u
+ * @param[in] uID ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ID
+ * @param[in] bSeparator ï¿½Zï¿½pï¿½ï¿½ï¿½[ï¿½^ï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @return ï¿½Ç‰ï¿½ï¿½ï¿½
  */
 int menu_addmenures(HMENU hMenu, int nPos, UINT uID, BOOL bSeparator)
 {
@@ -133,11 +199,11 @@ int menu_addmenures(HMENU hMenu, int nPos, UINT uID, BOOL bSeparator)
 }
 
 /**
- * ƒƒjƒ…[’Ç‰Á
- * @param[in] hMenu ƒƒjƒ…[ ƒnƒ“ƒhƒ‹
- * @param[in] uByID ƒƒjƒ…[ˆÊ’u
- * @param[in] uID ƒƒjƒ…[ ID
- * @return ’Ç‰Á”
+ * ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ç‰ï¿½
+ * @param[in] hMenu ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
+ * @param[in] uByID ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ê’u
+ * @param[in] uID ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ID
+ * @return ï¿½Ç‰ï¿½ï¿½ï¿½
  */
 static int menu_addmenubyid(HMENU hMenu, UINT uByID, UINT uID)
 {
@@ -153,13 +219,13 @@ static int menu_addmenubyid(HMENU hMenu, UINT uByID, UINT uID)
 }
 
 /**
- * ƒƒjƒ…[’Ç‰Á
- * @param[in] hMenu ƒƒjƒ…[‚Ìƒnƒ“ƒhƒ‹
- * @param[in] uPosition V‚µ‚¢€–Ú‚Ì’¼‘O‚ÉˆÊ’u‚·‚é€–Ú
- * @param[in] uFlags ƒIƒvƒVƒ‡ƒ“
- * @param[in] uIDNewItem Ž¯•ÊŽqAƒƒjƒ…[AƒTƒuƒƒjƒ…[‚Ì‚¢‚¸‚ê‚©
- * @param[in] lpNewItem ƒƒjƒ…[ •¶Žš—ñ
- * @return ŠÖ”‚ª¬Œ÷‚·‚é‚ÆA0 ˆÈŠO‚Ì’l‚ª•Ô‚è‚Ü‚·
+ * ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ç‰ï¿½
+ * @param[in] hMenu ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ìƒnï¿½ï¿½ï¿½hï¿½ï¿½
+ * @param[in] uPosition ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú‚Ì’ï¿½ï¿½Oï¿½ÉˆÊ’uï¿½ï¿½ï¿½é€ï¿½ï¿½
+ * @param[in] uFlags ï¿½Iï¿½vï¿½Vï¿½ï¿½ï¿½ï¿½
+ * @param[in] uIDNewItem ï¿½ï¿½ï¿½ÊŽqï¿½Aï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Aï¿½Tï¿½uï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ê‚©
+ * @param[in] lpNewItem ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @return ï¿½Öï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆA0 ï¿½ÈŠOï¿½Ì’lï¿½ï¿½ï¿½Ô‚ï¿½Ü‚ï¿½
  */
 static BOOL InsertMenuString(HMENU hMenu, UINT uPosition, UINT uFlags, UINT_PTR uIDNewItem, UINT uStringID)
 {
@@ -174,9 +240,9 @@ static BOOL InsertMenuString(HMENU hMenu, UINT uPosition, UINT uFlags, UINT_PTR 
 }
 
 /**
- * ƒƒjƒ…[’Ç‰Á (’PƒƒRƒs[)
- * @param[in] popup ƒRƒs[æ
- * @param[in] menubar ƒRƒs[Œ³
+ * ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ç‰ï¿½ (ï¿½Pï¿½ï¿½ï¿½Rï¿½sï¿½[)
+ * @param[in] popup ï¿½Rï¿½sï¿½[ï¿½ï¿½
+ * @param[in] menubar ï¿½Rï¿½sï¿½[ï¿½ï¿½
  */
 void menu_addmenubar(HMENU popup, HMENU menubar)
 {
@@ -188,8 +254,8 @@ void menu_addmenubar(HMENU popup, HMENU menubar)
 // ----
 
 /**
- * ƒVƒXƒeƒ€ ƒƒjƒ…[‰Šú‰»
- * @param[in] hMenu ƒƒjƒ…[ ƒnƒ“ƒhƒ‹
+ * ï¿½Vï¿½Xï¿½eï¿½ï¿½ ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[in] hMenu ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
  */
 void sysmenu_initialize(HMENU hMenu)
 {
@@ -213,8 +279,8 @@ void sysmenu_initialize(HMENU hMenu)
 }
 
 /**
- * ƒVƒXƒeƒ€ ƒƒjƒ…[XV
- * @param[in] hMenu ƒƒjƒ…[ ƒnƒ“ƒhƒ‹
+ * ï¿½Vï¿½Xï¿½eï¿½ï¿½ ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Xï¿½V
+ * @param[in] hMenu ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
  */
 void sysmenu_update(HMENU hMenu)
 {
@@ -245,8 +311,8 @@ void sysmenu_update(HMENU hMenu)
 // ----
 
 /**
- * ƒƒjƒ…[‰Šú‰»
- * @param[in] ƒƒjƒ…[ ƒnƒ“ƒhƒ‹
+ * ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param[in] ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
  */
 void xmenu_initialize(HMENU hMenu)
 {
@@ -278,6 +344,29 @@ void xmenu_initialize(HMENU hMenu)
 #if defined(SUPPORT_SCSI)
 		nSubPos += menu_addmenures(hmenuSub, nSubPos, IDR_SCSIMENU, TRUE);
 #endif
+#if defined(SUPPORT_MOUNTDIR)
+		{
+			// Good solution > Hardcoding > Windows resources
+			HMENU hdir = CreatePopupMenu();
+			if (hdir)
+			{
+				MENUITEMINFO mii;
+
+				for (UINT i = 0; i < MAX_DIR; i++)
+				{
+					xmenu_drive_add(hdir, i, IDM_DIR_START_CUR + i, IDM_DIR_START_OPEN + i, IDM_DIR_START_EJECT + i);
+				}
+				InsertMenu(hmenuSub, nSubPos++, MF_SEPARATOR, 0, NULL);
+				ZeroMemory(&mii, sizeof(MENUITEMINFO));
+				mii.cbSize = sizeof(MENUITEMINFO);
+				mii.fMask = MIIM_TYPE | MIIM_SUBMENU;
+				mii.fType = MFT_STRING;
+				mii.dwTypeData = _T("Mount directory to DOS drive (experimental)");
+				mii.hSubMenu = hdir;
+				InsertMenuItem(hmenuSub, nSubPos++, MF_BYPOSITION | MF_POPUP, &mii);
+			}
+		}
+#endif
 		InsertMenuString(hMenu, nPos, MF_BYPOSITION | MF_POPUP, (UINT_PTR)hmenuSub, IDS_HDD);
 	}
 
@@ -308,8 +397,8 @@ void xmenu_initialize(HMENU hMenu)
 }
 
 /**
- * ƒƒjƒ…[ó‘Ô‚ðXV‚·‚é
- * @param[in] hMenu ƒƒjƒ…[ ƒnƒ“ƒhƒ‹
+ * ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½Ô‚ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
+ * @param[in] hMenu ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
  */
 void xmenu_update(HMENU hMenu)
 {
@@ -555,12 +644,27 @@ void xmenu_update(HMENU hMenu)
 #if !defined(SUPPORT_HOSTDRV)
 	EnableMenuItem(hMenu, IDM_HOSTDRVOPT, MF_GRAYED);
 #endif
-	
+
+#if defined(SUPPORT_MOUNTDIR)
+	// mountdir drive items
+	for (UINT i = 0; i < MAX_DIR; i++)
+	{
+		// "Drive X: " - built by hand: wsprintf's %c is not well-defined for the
+		// wide (Unicode) version of the API.
+		OEMCHAR prefix[32];
+		OEMCHAR drive[2];
+		drive[0] = (OEMCHAR)('A' + i);
+		drive[1] = '\0';
+		wsprintf(prefix, _T("Drive %s: "), drive);
+		xmenu_drive_update(hMenu, IDM_DIR_START_CUR + i, prefix, np2cfg.mountdir[i]);
+	}
+#endif
+
 }
 
 /**
- * ƒƒjƒ…[ó‘Ô‚ðXV‚·‚éiINI•ÏXŽžj
- * @param[in] hMenu ƒƒjƒ…[ ƒnƒ“ƒhƒ‹
+ * ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½Ô‚ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½iINIï¿½ÏXï¿½ï¿½ï¿½j
+ * @param[in] hMenu ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
  */
 void xmenu_iniupdate(HMENU hMenu)
 {
