@@ -98,7 +98,7 @@ jobs:
 
           # np21w's sound/comm/misc modules (#include <atlbase.h>) need ATL, which is
           # absent from the default windows-latest VS install. Install the ATL/MFC
-          # component so atlbase.h is available for the /p:UseOfAtl=Atl build flag below.
+          # component so atlbase.h and atls.lib are available.
           $installer = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vs_installer.exe'
           if (Test-Path $installer) {
             & $installer modify --installPath "$vs" --add Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart
@@ -110,6 +110,19 @@ jobs:
               # every PlatformToolset (default/v143/v142), unlike UseOfAtl path
               # injection which points at a non-existent pre-2017 layout.
               "ATLMFC_INCLUDE=$($atl.DirectoryName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+              # The ATL headers embed #pragma comment(lib, "atls.lib"), so the link
+              # step needs atlmfc\lib\x86 on the library search path. MSBuild never
+              # adds it (the vcxproj sets no UseOfAtl), so append it to LIB here.
+              # Toolset lib dirs are injected via /LIBPATH and take precedence over
+              # LIB, so this is purely additive and cannot shadow anything.
+              $atlmfcLib = Join-Path (Split-Path -Parent $atl.DirectoryName) 'lib\x86'
+              if (Test-Path $atlmfcLib) {
+                "ATLMFC_LIB=$atlmfcLib" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+                $lib = $env:LIB
+                if ([string]::IsNullOrEmpty($lib)) { $lib = '' } else { $lib = "$lib;" }
+                "LIB=$lib$atlmfcLib" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+                Write-Output "atlmfc lib (x86): $atlmfcLib"
+              } else { Write-Warning "atlmfc lib dir not found: $atlmfcLib" }
             } else { Write-Warning 'ATL installed but atlbase.h not found' }
           } else { Write-Warning 'vs_installer.exe not found - ATL unavailable' }
 
@@ -125,7 +138,7 @@ jobs:
           & $env:MSBUILD $env:PROJECT `
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=Win32 `
-            /p:SolutionName=$env:SOLUTION_NAME /p:UseOfAtl=Atl `
+            /p:SolutionName=$env:SOLUTION_NAME `
             /m /verbosity:minimal /nologo
 
       - name: Build (${{ matrix.configuration }}|Win32, v143)
@@ -137,7 +150,7 @@ jobs:
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=Win32 `
             /p:PlatformToolset=v143 `
-            /p:SolutionName=$env:SOLUTION_NAME /p:UseOfAtl=Atl `
+            /p:SolutionName=$env:SOLUTION_NAME `
             /m /verbosity:minimal /nologo
 
       - name: Build (${{ matrix.configuration }}|Win32, v142)
@@ -147,7 +160,7 @@ jobs:
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=Win32 `
             /p:PlatformToolset=v142 `
-            /p:SolutionName=$env:SOLUTION_NAME /p:UseOfAtl=Atl `
+            /p:SolutionName=$env:SOLUTION_NAME `
             /m /verbosity:minimal /nologo
 
       # OutDir is `..\bin\$(SolutionName)\$(PlatformName)\$(Configuration)\` relative to
@@ -273,7 +286,7 @@ jobs:
 
           # np21w's sound/comm/misc modules (#include <atlbase.h>) need ATL, which is
           # absent from the default windows-latest VS install. Install the ATL/MFC
-          # component so atlbase.h is available for the /p:UseOfAtl=Atl build flag below.
+          # component so atlbase.h and atls.lib are available.
           $installer = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vs_installer.exe'
           if (Test-Path $installer) {
             & $installer modify --installPath "$vs" --add Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart
@@ -285,6 +298,19 @@ jobs:
               # every PlatformToolset (default/v143/v142), unlike UseOfAtl path
               # injection which points at a non-existent pre-2017 layout.
               "ATLMFC_INCLUDE=$($atl.DirectoryName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+              # The ATL headers embed #pragma comment(lib, "atls.lib"), so the link
+              # step needs atlmfc\lib\x64 on the library search path. MSBuild never
+              # adds it (the vcxproj sets no UseOfAtl), so append it to LIB here.
+              # Toolset lib dirs are injected via /LIBPATH and take precedence over
+              # LIB, so this is purely additive and cannot shadow anything.
+              $atlmfcLib = Join-Path (Split-Path -Parent $atl.DirectoryName) 'lib\x64'
+              if (Test-Path $atlmfcLib) {
+                "ATLMFC_LIB=$atlmfcLib" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+                $lib = $env:LIB
+                if ([string]::IsNullOrEmpty($lib)) { $lib = '' } else { $lib = "$lib;" }
+                "LIB=$lib$atlmfcLib" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+                Write-Output "atlmfc lib (x64): $atlmfcLib"
+              } else { Write-Warning "atlmfc lib dir not found: $atlmfcLib" }
             } else { Write-Warning 'ATL installed but atlbase.h not found' }
           } else { Write-Warning 'vs_installer.exe not found - ATL unavailable' }
 
@@ -297,7 +323,7 @@ jobs:
           & $env:MSBUILD $env:PROJECT `
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=x64 `
-            /p:SolutionName=$env:SOLUTION_NAME /p:UseOfAtl=Atl `
+            /p:SolutionName=$env:SOLUTION_NAME `
             /m /verbosity:minimal /nologo
 
       - name: Build (${{ matrix.configuration }}|x64, v143)
@@ -307,7 +333,7 @@ jobs:
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=x64 `
             /p:PlatformToolset=v143 `
-            /p:SolutionName=$env:SOLUTION_NAME /p:UseOfAtl=Atl `
+            /p:SolutionName=$env:SOLUTION_NAME `
             /m /verbosity:minimal /nologo
 
       - name: Collect artifacts
