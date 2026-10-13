@@ -19,12 +19,13 @@ extern "C" {
 #include "common/lstarray.h"
 #include "generic/unasm.h"
 
-#ifndef NP2BREAK_MAIN
+#ifndef NP2BREAK_FLAGS_DEFINED
 enum {
 	NP2BREAK_RESUME		= 0x00,
 	NP2BREAK_MAIN		= 0x01,
 	NP2BREAK_DEBUG		= 0x02
 };
+#define NP2BREAK_FLAGS_DEFINED
 #endif
 
 typedef enum {
@@ -33,7 +34,9 @@ typedef enum {
 	NP2BP_WRITE		= 0x02,
 	NP2BP_EXECUTE		= 0x04,
 	NP2BP_ONESHOT		= 0x08
-} np2break_t;
+} np2bp_t;
+
+typedef UINT8 np2break_t;
 
 /// Debug utility UI hooks
 /// ----------------------

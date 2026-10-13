@@ -1,4 +1,7 @@
 
+#ifndef GENERIC_UNASM_H
+#define GENERIC_UNASM_H
+
 enum {
 	MI_WRITE = 0,
 	MI_READ = 1
@@ -27,4 +30,6 @@ UINT unasm(UNASM r, const UINT8 *ptr, UINT leng, BOOL d, UINT32 addr);
 #ifdef __cplusplus
 }
 #endif
+
+#endif	/* GENERIC_UNASM_H */
 

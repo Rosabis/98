@@ -162,19 +162,19 @@ typedef struct {
 	UINT8	multithread; // Multi Thread Mode
 #endif
 
-	UINT8	midiasns; // MIDI Active Sensingを送る
-	UINT32	midiaint; // MIDI Active Sensingを送る間隔（ミリ秒）
+	UINT8	midiasns; // MIDI Active Sensing?ｿｽ翌?ｿｽ
+	UINT32	midiaint; // MIDI Active Sensing?ｿｽ翌?ｿｽﾔ隔?ｿｽi?ｿｽ~?ｿｽ?ｿｽ?ｿｽb?ｿｽj
 
-	UINT8	knjpaste; // クリップボードからテキスト貼り付けの際の漢字の扱い（0=漢字無視, 1=BASIC, 2=FEPなしDOS）
-	UINT8	scrscfix; // 画面拡大転送時の補正（0=自動, 1=通常転送, 2=NVDIA向け）
-	UINT8	dirfdlst; // 同じディレクトリにあるFDイメージファイルのリストを表示する
-	UINT8	allports; // 設定でシリアル・パラレルに関係なく任意のポートを選べるようにする
-	TCHAR	prnfontM[MAX_PATH]; // 印刷フォント名（明朝体）
-	TCHAR	prnfontG[MAX_PATH]; // 印刷フォント名（ゴシック体）
-	UINT8	prncfgpp; // 印刷の度に用紙設定を表示する
+	UINT8	knjpaste; // ?ｿｽN?ｿｽ?ｿｽ?ｿｽb?ｿｽv?ｿｽ{?ｿｽ[?ｿｽh?ｿｽ?ｿｽ?ｿｽ?ｿｽe?ｿｽL?ｿｽX?ｿｽg?ｿｽ\?ｿｽ?ｿｽt?ｿｽ?ｿｽ?ｿｽﾌ際の奇ｿｽ?ｿｽ?ｿｽ?ｿｽﾌ茨ｿｽ?ｿｽ?ｿｽ?ｿｽi0=?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ, 1=BASIC, 2=FEP?ｿｽﾈゑｿｽDOS?ｿｽj
+	UINT8	scrscfix; // ?ｿｽ?ｿｽﾊ拡?ｿｽ?ｿｽ]?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽﾌ補正?ｿｽi0=?ｿｽ?ｿｽ?ｿｽ?ｿｽ, 1=?ｿｽﾊ擾ｿｽ]?ｿｽ?ｿｽ, 2=NVDIA?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽj
+	UINT8	dirfdlst; // ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽf?ｿｽB?ｿｽ?ｿｽ?ｿｽN?ｿｽg?ｿｽ?ｿｽ?ｿｽﾉゑｿｽ?ｿｽ?ｿｽFD?ｿｽC?ｿｽ?ｿｽ?ｿｽ[?ｿｽW?ｿｽt?ｿｽ@?ｿｽC?ｿｽ?ｿｽ?ｿｽﾌ??ｿｽ?ｿｽX?ｿｽg?ｿｽ?ｿｽ\?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ
+	UINT8	allports; // ?ｿｽﾝ抵ｿｽﾅシ?ｿｽ?ｿｽ?ｿｽA?ｿｽ?ｿｽ?ｿｽE?ｿｽp?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽﾉ関係?ｿｽﾈゑｿｽ?ｿｽC?ｿｽﾓのポ?ｿｽ[?ｿｽg?ｿｽ?ｿｽI?ｿｽﾗゑｿｽ謔､?ｿｽﾉゑｿｽ?ｿｽ?ｿｽ
+	TCHAR	prnfontM[MAX_PATH]; // ?ｿｽ?ｿｽ?ｿｽ?ｿｽt?ｿｽH?ｿｽ?ｿｽ?ｿｽg?ｿｽ?ｿｽ?ｿｽi?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽﾌ）
+	TCHAR	prnfontG[MAX_PATH]; // ?ｿｽ?ｿｽ?ｿｽ?ｿｽt?ｿｽH?ｿｽ?ｿｽ?ｿｽg?ｿｽ?ｿｽ?ｿｽi?ｿｽS?ｿｽV?ｿｽb?ｿｽN?ｿｽﾌ）
+	UINT8	prncfgpp; // ?ｿｽ?ｿｽ?ｿｽ?ｿｽﾌ度?ｿｽﾉ用?ｿｽ?ｿｽ?ｿｽﾝ抵ｿｽ?ｿｽ\?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ
 
-	UINT16	cpumullst[8]; // CPUクロック倍率リスト
-	UINT16	cpuspdlst[9]; // CPUスピードリスト
+	UINT16	cpumullst[8]; // CPU?ｿｽN?ｿｽ?ｿｽ?ｿｽb?ｿｽN?ｿｽ{?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽX?ｿｽg
+	UINT16	cpuspdlst[9]; // CPU?ｿｽX?ｿｽs?ｿｽ[?ｿｽh?ｿｽ?ｿｽ?ｿｽX?ｿｽg
 } NP2OSCFG;
 
 
@@ -183,10 +183,14 @@ enum {
 	FULLSCREEN_HEIGHT	= 480
 };
 
+#ifndef NP2BREAK_FLAGS_DEFINED
 enum {
+	NP2BREAK_RESUME		= 0x00,
 	NP2BREAK_MAIN		= 0x01,
 	NP2BREAK_DEBUG		= 0x02
 };
+#define NP2BREAK_FLAGS_DEFINED
+#endif
 
 enum {
 	WM_NP2CMD			= (WM_USER + 200)

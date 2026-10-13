@@ -96,6 +96,16 @@ jobs:
           "MSBUILD=$msbuild" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           & $msbuild -version -nologo
 
+          # np21w's sound/comm/misc modules (#include <atlbase.h>) need ATL, which is
+          # absent from the default windows-latest VS install. Install the ATL/MFC
+          # component so atlbase.h is available for the /p:UseOfAtl=Atl build flag below.
+          $installer = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vs_installer.exe'
+          if (Test-Path $installer) {
+            & $installer modify --installPath "$vs" --add Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart
+            $atl = Get-ChildItem $vs -Recurse -Filter atlbase.h -ErrorAction SilentlyContinue | Select-Object -First 1
+            if ($atl) { Write-Output "atlbase.h: $($atl.FullName)" } else { Write-Warning 'ATL installed but atlbase.h not found' }
+          } else { Write-Warning 'vs_installer.exe not found - ATL unavailable' }
+
       # The .vcxproj pins no PlatformToolset, so the first attempt uses whatever
       # the installed Visual Studio defaults to (guaranteed to exist). windows-latest
       # currently ships VS2026, where that is v145 - v143 is only tried as a fallback.
@@ -108,7 +118,7 @@ jobs:
           & $env:MSBUILD $env:PROJECT `
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=Win32 `
-            /p:SolutionName=$env:SOLUTION_NAME `
+            /p:SolutionName=$env:SOLUTION_NAME /p:UseOfAtl=Atl `
             /m /verbosity:minimal /nologo
 
       - name: Build (${{ matrix.configuration }}|Win32, v143)
@@ -120,7 +130,7 @@ jobs:
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=Win32 `
             /p:PlatformToolset=v143 `
-            /p:SolutionName=$env:SOLUTION_NAME `
+            /p:SolutionName=$env:SOLUTION_NAME /p:UseOfAtl=Atl `
             /m /verbosity:minimal /nologo
 
       - name: Build (${{ matrix.configuration }}|Win32, v142)
@@ -130,7 +140,7 @@ jobs:
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=Win32 `
             /p:PlatformToolset=v142 `
-            /p:SolutionName=$env:SOLUTION_NAME `
+            /p:SolutionName=$env:SOLUTION_NAME /p:UseOfAtl=Atl `
             /m /verbosity:minimal /nologo
 
       # OutDir is `..\bin\$(SolutionName)\$(PlatformName)\$(Configuration)\` relative to
@@ -254,6 +264,16 @@ jobs:
           "MSBUILD=$msbuild" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           & $msbuild -version -nologo
 
+          # np21w's sound/comm/misc modules (#include <atlbase.h>) need ATL, which is
+          # absent from the default windows-latest VS install. Install the ATL/MFC
+          # component so atlbase.h is available for the /p:UseOfAtl=Atl build flag below.
+          $installer = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vs_installer.exe'
+          if (Test-Path $installer) {
+            & $installer modify --installPath "$vs" --add Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart
+            $atl = Get-ChildItem $vs -Recurse -Filter atlbase.h -ErrorAction SilentlyContinue | Select-Object -First 1
+            if ($atl) { Write-Output "atlbase.h: $($atl.FullName)" } else { Write-Warning 'ATL installed but atlbase.h not found' }
+          } else { Write-Warning 'vs_installer.exe not found - ATL unavailable' }
+
       # The x64 objects come from win9x/x64/vs2010/x64.targets, which invokes plain
       # `yasm -Xvc -f x64` from PATH -> YASM must be on PATH.
       - name: Build (${{ matrix.configuration }}|x64, default toolset)
@@ -263,7 +283,7 @@ jobs:
           & $env:MSBUILD $env:PROJECT `
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=x64 `
-            /p:SolutionName=$env:SOLUTION_NAME `
+            /p:SolutionName=$env:SOLUTION_NAME /p:UseOfAtl=Atl `
             /m /verbosity:minimal /nologo
 
       - name: Build (${{ matrix.configuration }}|x64, v143)
@@ -273,7 +293,7 @@ jobs:
             /p:Configuration=${{ matrix.configuration }} `
             /p:Platform=x64 `
             /p:PlatformToolset=v143 `
-            /p:SolutionName=$env:SOLUTION_NAME `
+            /p:SolutionName=$env:SOLUTION_NAME /p:UseOfAtl=Atl `
             /m /verbosity:minimal /nologo
 
       - name: Collect artifacts
