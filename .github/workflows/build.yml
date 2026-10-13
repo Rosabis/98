@@ -103,7 +103,14 @@ jobs:
           if (Test-Path $installer) {
             & $installer modify --installPath "$vs" --add Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart
             $atl = Get-ChildItem $vs -Recurse -Filter atlbase.h -ErrorAction SilentlyContinue | Select-Object -First 1
-            if ($atl) { Write-Output "atlbase.h: $($atl.FullName)" } else { Write-Warning 'ATL installed but atlbase.h not found' }
+            if ($atl) {
+              Write-Output "atlbase.h: $($atl.FullName)"
+              # Export the real atlmfc\include dir. The vcxproj consumes it via
+              # $(ATLMFC_INCLUDE) in AdditionalIncludeDirectories - reliable for
+              # every PlatformToolset (default/v143/v142), unlike UseOfAtl path
+              # injection which points at a non-existent pre-2017 layout.
+              "ATLMFC_INCLUDE=$($atl.DirectoryName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            } else { Write-Warning 'ATL installed but atlbase.h not found' }
           } else { Write-Warning 'vs_installer.exe not found - ATL unavailable' }
 
       # The .vcxproj pins no PlatformToolset, so the first attempt uses whatever
@@ -271,7 +278,14 @@ jobs:
           if (Test-Path $installer) {
             & $installer modify --installPath "$vs" --add Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart
             $atl = Get-ChildItem $vs -Recurse -Filter atlbase.h -ErrorAction SilentlyContinue | Select-Object -First 1
-            if ($atl) { Write-Output "atlbase.h: $($atl.FullName)" } else { Write-Warning 'ATL installed but atlbase.h not found' }
+            if ($atl) {
+              Write-Output "atlbase.h: $($atl.FullName)"
+              # Export the real atlmfc\include dir. The vcxproj consumes it via
+              # $(ATLMFC_INCLUDE) in AdditionalIncludeDirectories - reliable for
+              # every PlatformToolset (default/v143/v142), unlike UseOfAtl path
+              # injection which points at a non-existent pre-2017 layout.
+              "ATLMFC_INCLUDE=$($atl.DirectoryName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            } else { Write-Warning 'ATL installed but atlbase.h not found' }
           } else { Write-Warning 'vs_installer.exe not found - ATL unavailable' }
 
       # The x64 objects come from win9x/x64/vs2010/x64.targets, which invokes plain
