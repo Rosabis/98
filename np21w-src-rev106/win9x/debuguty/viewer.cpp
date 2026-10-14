@@ -426,7 +426,44 @@ BOOL CDebugUtyView::OnCommand(WPARAM wParam, LPARAM lParam)
 			break;
 #endif
 
+		case IDM_VRAM0:
+		case IDM_VRAM1:
+		case IDM_A20LINE:
+			{
+				DebugUtyViewMemory* mem = m_lpItem->GetMemoryConfig();
+				if (mem != NULL)
+				{
+					if (nID == IDM_VRAM0)
+					{
+						mem->vram = 0;
+						mem->vram_ovr = 1;
+					}
+					else if (nID == IDM_VRAM1)
+					{
+						mem->vram = 1;
+						mem->vram_ovr = 1;
+					}
+					else
+					{
+						mem->A20 = static_cast<UINT8>(mem->A20 ^ 1);
+						mem->a20_ovr = 1;
+					}
+					m_lpItem->Update();
+					Invalidate();
+					UpdateStatusBar();
+				}
+			}
+			break;
+
 		case IDM_RELOAD:
+			{
+				DebugUtyViewMemory* mem = m_lpItem->GetMemoryConfig();
+				if (mem != NULL)
+				{
+					mem->vram_ovr = 0;
+					mem->a20_ovr = 0;
+				}
+			}
 			m_lpItem->Update();
 			Invalidate();
 			UpdateStatusBar();
@@ -666,6 +703,24 @@ void CDebugUtyView::OnEnterMenuLoop(BOOL bIsTrackPopupMenu)
 		SetSegmentItem(hSubMenu, IDM_SEGDS, TEXT("DS"), CPU_DS);
 		SetSegmentItem(hSubMenu, IDM_SEGES, TEXT("ES"), CPU_ES);
 		SetSegmentItem(hSubMenu, IDM_SEGSS, TEXT("SS"), CPU_SS);
+		DrawMenuBar();
+	}
+
+	HMENU hMemMenu = ::GetSubMenu(hMenu, 5);
+	DebugUtyViewMemory* mem = m_lpItem->GetMemoryConfig();
+	::EnableMenuItem(hMenu, 5, MF_BYPOSITION | ((mem != NULL) ? MF_ENABLED : MF_GRAYED));
+	if (hMemMenu)
+	{
+		const UINT flag = (mem != NULL) ? MF_ENABLED : MF_GRAYED;
+		::EnableMenuItem(hMemMenu, IDM_VRAM0, MF_BYCOMMAND | flag);
+		::EnableMenuItem(hMemMenu, IDM_VRAM1, MF_BYCOMMAND | flag);
+		::EnableMenuItem(hMemMenu, IDM_A20LINE, MF_BYCOMMAND | flag);
+		if (mem)
+		{
+			::CheckMenuItem(hMemMenu, IDM_VRAM0, MF_BYCOMMAND | ((mem->vram != 0) ? MF_UNCHECKED : MF_CHECKED));
+			::CheckMenuItem(hMemMenu, IDM_VRAM1, MF_BYCOMMAND | ((mem->vram != 0) ? MF_CHECKED : MF_UNCHECKED));
+			::CheckMenuItem(hMemMenu, IDM_A20LINE, MF_BYCOMMAND | ((mem->A20 != 0) ? MF_CHECKED : MF_UNCHECKED));
+		}
 		DrawMenuBar();
 	}
 }

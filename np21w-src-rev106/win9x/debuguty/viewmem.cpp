@@ -18,6 +18,8 @@ static void viewmem_read(const DebugUtyViewMemory* cfg, UINT32 adrs, UINT8 *buf,
  */
 DebugUtyViewMemory::DebugUtyViewMemory()
 {
+	this->vram_ovr = 0;
+	this->a20_ovr = 0;
 	Update();
 }
 
@@ -26,9 +28,13 @@ DebugUtyViewMemory::DebugUtyViewMemory()
  */
 void DebugUtyViewMemory::Update()
 {
-	this->vram = gdcs.disp;
+	if (!this->vram_ovr) {
+		this->vram = gdcs.disp;
+	}
 	this->itf = CPU_ITFBANK;
-	this->A20 = static_cast<UINT8>((CPU_ADRSMASK >> 20) & 1);
+	if (!this->a20_ovr) {
+		this->A20 = static_cast<UINT8>((CPU_ADRSMASK >> 20) & 1);
+	}
 }
 
 /**

@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include "viewmem.h"
+
 class CDebugUtyView;
 
 /**
@@ -43,6 +45,9 @@ public:
 	virtual bool IsLocked();
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	virtual void OnPaint(HDC hDC, const RECT& rect);
+
+	//! memory bank config accessor (NULL when the view has no memory settings)
+	virtual DebugUtyViewMemory* GetMemoryConfig() { return NULL; }
 
 protected:
 	CDebugUtyView* m_lpView;	//!< ?申r?申?申?申[ ?申N?申?申?申X

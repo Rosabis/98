@@ -13,6 +13,8 @@ struct DebugUtyViewMemory
 	UINT8	vram;		//!< VRAM バンク
 	UINT8	itf;		//!< ITF バンク
 	UINT8	A20;		//!< A20 ライン
+	UINT8	vram_ovr;	//!< manual VRAM bank override flag
+	UINT8	a20_ovr;	//!< manual A20 line override flag
 
 	DebugUtyViewMemory();
 	void Update();

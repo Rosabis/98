@@ -28,6 +28,7 @@ public:
 	virtual void SetAddress(UINT32 addr);
 	virtual void ReadMemory(UINT32 nAddress, LPVOID lpBuffer, UINT32 cbBuffer);
 	virtual void OnPaint(HDC hDC, const RECT& rect);
+	virtual DebugUtyViewMemory* GetMemoryConfig() { return &m_mem; }
 
 private:
 	UINT m_nSegment;							//!< ??申?申Z??申?申O??申?申??申?申??申?申??申?申??申?申g

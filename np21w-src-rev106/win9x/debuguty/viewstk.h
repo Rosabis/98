@@ -27,6 +27,7 @@ public:
 	virtual UINT GetSegment() const;
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	virtual void OnPaint(HDC hDC, const RECT& rect);
+	virtual DebugUtyViewMemory* GetMemoryConfig() { return &m_mem; }
 
 private:
 	UINT m_nSegment;							//!< セグメン�?
