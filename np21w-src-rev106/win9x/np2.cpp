@@ -957,21 +957,6 @@ static void np2updateCDmenu() {
 }
 #endif
 
-static void DbgLogFile(const char* msg)
-{
-	TCHAR szPath[MAX_PATH];
-	if (GetTempPath(_countof(szPath), szPath) == 0) {
-		lstrcpy(szPath, TEXT("."));
-	}
-	lstrcat(szPath, TEXT("np2_dbg.log"));
-	HANDLE hf = CreateFile(szPath, FILE_APPEND_DATA,
-		FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, 0, NULL);
-	if (hf != INVALID_HANDLE_VALUE) {
-		DWORD wr = 0;
-		WriteFile(hf, msg, (DWORD)lstrlenA(msg), &wr, NULL);
-		CloseHandle(hf);
-	}
-}
 
 static void OnCommand(HWND hWnd, WPARAM wParam)
 {
@@ -984,11 +969,6 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 	update = 0;
 	uID = LOWORD(wParam);
 
-	{ // DBG: trace every menu command dispatch to a file (remove later)
-		char buf[64];
-		wsprintfA(buf, "OnCommand uID=%u\n", (unsigned)uID);
-		DbgLogFile(buf);
-	}
 #if defined(SUPPORT_IDEIO)
 #if defined(SUPPORT_PHYSICAL_CDDRV)
 	if(IDM_IDE0PHYSICALDRV_ID0 <= uID && uID < IDM_IDE0PHYSICALDRV_ID0 + 26*4){
@@ -2377,6 +2357,18 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			}
 			break;
 
+		case IDM_MEMORYDUMP:
+			debugsub_memorydump();
+			break;
+
+		case IDM_MEMORYDUMPALL:
+			debugsub_memorydumpall();
+			break;
+
+		case IDM_DEBUGUTY:
+			CDebugUtyView::New();
+			break;
+
 		default:
 #if defined(SUPPORT_STATSAVE)
 			if ((uID >= IDM_FLAGSAVE) && (uID < (IDM_FLAGSAVE + SUPPORT_STATSAVE)))
@@ -2640,15 +2632,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 					break;
 
 				case IDM_DEBUGUTY:
-				{
-					DbgLogFile("IDM_DEBUGUTY hit\n");
-					::MessageBox(hWnd, TEXT("diag 1/2: IDM_DEBUGUTY reached.\r\n")
-									  TEXT("If you see this, the menu command IS dispatched;\r\n")
-									  TEXT("the failure is inside CDebugUtyView::New()."),
-								 TEXT("NP2 debug diag"), MB_OK);
-					CDebugUtyView::New();
-					break;
-				}
+				CDebugUtyView::New();
+				break;
 
 				case IDM_ALLOWRESIZE:
 					np2oscfg.thickframe ^= 1;
@@ -4611,9 +4596,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 	winloc_DisableCornerRound(g_hWndMain);
 	g_hWndMain = hWnd;
 
-	{ // DBG: startup marker - confirms this exe contains the debug-diagnostic build
-		DbgLogFile("NP2 DBG BUILD 20261014\n");
-	}
 
 	//{
 	//	HMODULE modUsedr32 = LoadLibraryA("User32.dll");

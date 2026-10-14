@@ -105,22 +105,6 @@ void CDebugUtyView::New()
 
 		EnsureViewClassRegistered(CWndProc::GetInstanceHandle());
 
-		{ // DBG: confirm New() is actually entered (remove later)
-			TCHAR szPath[MAX_PATH];
-			if (GetTempPath(_countof(szPath), szPath) == 0) {
-				lstrcpy(szPath, TEXT("."));
-			}
-			lstrcat(szPath, TEXT("np2_dbg.log"));
-			HANDLE hf = ::CreateFile(szPath, FILE_APPEND_DATA,
-				FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, 0, NULL);
-			if (hf != INVALID_HANDLE_VALUE) {
-				static const char sMsg[] = "New() entered\n";
-				DWORD wr = 0;
-				::WriteFile(hf, sMsg, (DWORD)(sizeof(sMsg) - 1), &wr, NULL);
-				::CloseHandle(hf);
-			}
-		}
-
 		CDebugUtyView* view = new CDebugUtyView;
 		g_np2view[i] = view;
 
@@ -128,18 +112,6 @@ void CDebugUtyView::New()
 		const HWND hWndView = view->GetSafeHwnd();
 		if ((!bCreated) || (hWndView == NULL))
 		{
-			// Diagnostic: report why the debugger window cannot be opened instead
-			// of silently doing nothing when the menu item is clicked.
-			TCHAR szMsg[256];
-			wsprintf(szMsg, TEXT("Debug utility window could not be created.\r\n")
-							TEXT("CreateEx=%d hWnd=0x%08X GetLastError=%lu\r\n")
-							TEXT("(GetLastError=0 with a NULL window means CWndProc::CreateEx\r\n")
-							TEXT(" rejected the call - wrong thread or missing CBT hook.)"),
-					 static_cast<int>(bCreated),
-					 static_cast<DWORD>(reinterpret_cast<DWORD_PTR>(hWndView)),
-					 ::GetLastError());
-			::MessageBox(NULL, szMsg, TEXT("Neko Project 21/W"), MB_OK | MB_ICONERROR);
-
 			g_np2view[i] = NULL;
 			delete view;
 		}
