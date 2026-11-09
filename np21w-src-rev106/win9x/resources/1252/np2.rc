@@ -1310,6 +1310,9 @@ BEGIN
         MENUITEM "&Key display",                IDM_KEYDISP
         MENUITEM "&Soft keyboard",              IDM_SOFTKBD
         MENUITEM "Memory &debug",               IDM_MEMDBG32
+        MENUITEM SEPARATOR
+        MENUITEM "&Memory dump",                IDM_MEMORYDUMP
+        MENUITEM "&Full Memory dump",           IDM_MEMORYDUMPALL
         MENUITEM "&Debug utility",              IDM_DEBUGUTY
     END
 

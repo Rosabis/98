@@ -1312,6 +1312,9 @@ BEGIN
         MENUITEM "按鍵顯示(&K)",                IDM_KEYDISP
         MENUITEM "軟體鍵盤(&S)",                IDM_SOFTKBD
         MENUITEM "記憶體偵錯(&M)",              IDM_MEMDBG32
+        MENUITEM SEPARATOR
+        MENUITEM "&Memory dump",                IDM_MEMORYDUMP
+        MENUITEM "&Full Memory dump",           IDM_MEMORYDUMPALL
         MENUITEM "偵錯工具(&D)",                IDM_DEBUGUTY
     END
 
