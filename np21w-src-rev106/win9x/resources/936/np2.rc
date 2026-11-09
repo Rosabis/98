@@ -1306,6 +1306,15 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Hostdrv 主机目录�?�享设置(&H)...",              IDM_HOSTDRVOPT
     END
+    POPUP "工具(&T)"
+    BEGIN
+        MENUITEM "工具窗口(&T)",                IDM_TOOLWIN
+        MENUITEM "按键显示(&K)",                IDM_KEYDISP
+        MENUITEM "软键盘(&S)",                  IDM_SOFTKBD
+        MENUITEM "内存调试(&M)",                IDM_MEMDBG32
+        MENUITEM "调试工具(&D)",                IDM_DEBUGUTY
+    END
+
     POPUP "其�?(&O)"
     BEGIN
         MENUITEM "保�? BMP 截图(&B)...",                IDM_BMPSAVE
